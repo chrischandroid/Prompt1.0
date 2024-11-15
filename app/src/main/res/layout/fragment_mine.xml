@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="mineVm"
+            type="com.taichi.prompts.android.fragment.mine.MineViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/mineUserLinear"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:background="@color/white_00"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/mineUserHead"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
+                android:background="@mipmap/app_logo"
+                app:shapeAppearance="@style/rounded_style"
+                app:strokeColor="@color/black"
+                app:strokeWidth="@dimen/dp_0_5" />
+
+            <TextView
+                android:id="@+id/mineUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@{mineVm.username}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14"
+                tools:text="用户名" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/mineVIP"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_200"
+            android:layout_marginRight="@dimen/dp_20"
+            android:background="@drawable/vip_card"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <TextView
+                android:id="@+id/mineUserVIP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="VIP"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/mineSet"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:layout_marginLeft="@dimen/dp_21"
+            android:layout_marginTop="@dimen/dp_300"
+            android:layout_marginRight="@dimen/dp_21"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:id="@+id/mineProfileEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:text="编辑个人资料"></TextView>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/icon_pencil">
+                </ImageView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/minePreferEdit"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:text="匹配偏好"></TextView>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/icon_tune">
+                </ImageView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/minePromptEdit"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:text="编辑prompt"></TextView>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/icon_edit">
+                </ImageView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:text="设置"></TextView>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/icon_setting">
+                </ImageView>
+            </LinearLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:visibility="@{mineVm.loginState? View.VISIBLE:View.GONE}"
+            android:id="@+id/mineLoginOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="#87CEFA"
+            android:text="退出登录"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

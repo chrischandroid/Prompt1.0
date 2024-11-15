@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <data>
+
+        <variable
+            name="itemListVm"
+            type="com.taichi.prompts.android.fragment.common.CommonListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_52"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchHotKeyListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commonWebSiteListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

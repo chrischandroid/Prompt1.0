@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+    <EditText
+        android:id="@+id/answer_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入答案"
+        android:inputType="text"
+        android:minLines="1"
+        android:maxLines="4"
+        android:gravity="top|start"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+    />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:weightSum="2">
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="取消" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2" />
+
+        <Button
+        android:id="@+id/confirm_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="确认" />
+</LinearLayout>
+</LinearLayout>

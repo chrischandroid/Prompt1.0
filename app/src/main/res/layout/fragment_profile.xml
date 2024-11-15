@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="profileVm"
+            type="com.taichi.prompts.android.fragment.mine.ProfileViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_co">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/mineVIP"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_200"
+            android:layout_marginRight="@dimen/dp_20"
+            android:background="@drawable/vip_card"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <TextView
+                android:id="@+id/mineUserVIP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="VIP"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

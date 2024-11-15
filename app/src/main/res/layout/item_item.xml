@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="itemData"
+            type="com.taichi.prompts.android.repository.data.HomeItem" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/itemCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        app:cardCornerRadius="@dimen/dp_10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/headImgUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingHorizontal="@dimen/dp_5"
+            android:paddingVertical="@dimen/dp_5"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="头像" />
+        <TextView
+            android:id="@+id/userNickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingHorizontal="@dimen/dp_5"
+            android:paddingVertical="@dimen/dp_5"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="昵称" />
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingHorizontal="@dimen/dp_5"
+            android:paddingVertical="@dimen/dp_5"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="年龄" />
+        <TextView
+            android:id="@+id/birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingHorizontal="@dimen/dp_5"
+            android:paddingVertical="@dimen/dp_5"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="生日" />
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingHorizontal="@dimen/dp_5"
+            android:paddingVertical="@dimen/dp_5"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="城市" />
+    </androidx.cardview.widget.CardView>
+
+</layout>
