@@ -53,7 +53,7 @@ data class UpdateProfileRequest(
     val userId : String,
     val templateType : String,
     val profileType : Int,
-    val questionnaireMap : Map<String, String>
+    val questionnaireResult : Map<String, String>
 )
 
 data class UserBaseDTO(

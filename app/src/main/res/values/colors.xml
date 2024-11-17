@@ -9,5 +9,10 @@
     <color name="black">#FF000000</color>
     <color name="black_FF171616">#171616</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray">#F5F5F5</color>
+    <color name="darkgray">#aaa</color>
+    <color name="brown_200">#FFDEAD</color>
     <color name="black_60">#99000000</color>
+    <color name="blue_200">#87CEFA</color>
+    <color name="green_200">#00CD00</color>
 </resources>

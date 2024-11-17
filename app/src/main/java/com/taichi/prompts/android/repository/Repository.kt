@@ -1,15 +1,11 @@
 package com.taichi.prompts.android.repository
 
-import android.util.Log
 import com.blankj.utilcode.util.ToastUtils
-import com.google.gson.Gson
 import com.taichi.prompts.android.repository.data.HomeListData
-import com.taichi.prompts.android.repository.data.RegisterData
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
 import com.taichi.prompts.android.repository.data.UpdateProfileRequest
 import com.taichi.prompts.android.repository.data.UserBaseDTO
-import com.taichi.prompts.android.repository.data.UserData
 import com.taichi.prompts.android.repository.data.UserProfileMatchRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
@@ -18,12 +14,6 @@ import com.taichi.prompts.http.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.serialization.SerializationStrategy
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.buildJsonObject
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.buildJsonObject
 import okhttp3.ResponseBody
 import retrofit2.Call
 
@@ -49,8 +39,8 @@ object Repository {
         val registerRequest = RegisterRequest(
             UserRegisterDTO(3, username, password)
         )
-        val data: String = getDefaultApi().login(registerRequest)
-        return responseLogin(data)
+        val data: BaseResponse<String> = getDefaultApi().login(registerRequest)
+        return responseCall(data).toString()
     }
 
     /**
@@ -62,8 +52,8 @@ object Repository {
         val registerRequest = RegisterRequest(
             UserRegisterDTO(3, username, password)
         )
-        val data: String = getDefaultApi().register(registerRequest)
-        return responseRaw(data)
+        val data: BaseResponse<String> = getDefaultApi().register(registerRequest)
+        return responseCall(data).toString()
     }
 
     /**
@@ -71,8 +61,8 @@ object Repository {
      */
     suspend fun updateProfile(info : UserBaseDTO): String {
         val registerRequest = UpdateInfoRequest(info)
-        val data: String = getDefaultApi().updateInfo(registerRequest)
-        return responseLogin(data)
+        val data: BaseResponse<String> = getDefaultApi().updateInfo(registerRequest)
+        return responseCall(data).toString()
     }
 
     /**

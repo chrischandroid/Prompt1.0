@@ -21,6 +21,9 @@
             android:name=".fragment.mine.PromptActivity"
             android:exported="false" />
         <activity
+            android:name=".fragment.mine.TestActivity"
+            android:exported="false" />
+        <activity
             android:name=".fragment.mine.ProfileActivity"
             android:exported="false" />
         <activity

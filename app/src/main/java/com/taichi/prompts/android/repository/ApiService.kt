@@ -41,7 +41,7 @@ interface ApiService {
         @Body registerRequest: RegisterRequest,
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json"
-    ): String
+    ): BaseResponse<String>
 
 
     /**
@@ -52,7 +52,7 @@ interface ApiService {
         @Body registerRequest: RegisterRequest,
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json"
-    ): String
+    ): BaseResponse<String>
 
     /**
      * 更新信息
@@ -62,7 +62,7 @@ interface ApiService {
         @Body request: UpdateInfoRequest,
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json"
-    ): String
+    ): BaseResponse<String>
 
 
     /**

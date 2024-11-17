@@ -61,6 +61,13 @@ class FragMine : BaseFragment<FragmentMineBinding, MineViewModel>() {
             startPrompt()
         }
 
+        binding?.mineMBTIEdit?.setOnClickListener{
+            if(viewModel?.loginState?.get() != true){
+                return@setOnClickListener
+            }
+            startMBTITest()
+        }
+
         //登录
         binding?.mineUserHead?.setOnClickListener {
             if(viewModel?.loginState?.get() == true){
@@ -97,20 +104,19 @@ class FragMine : BaseFragment<FragmentMineBinding, MineViewModel>() {
     private fun startConversation() {
         val id = SPUtils.getInstance().getString(Constants.SP_USER_ID)
         Log.e("TUI----------", id)
-        if (id == "2030172879292900") {
-            val param = Bundle()
-            param.putInt(TUIConstants.TUIChat.CHAT_TYPE, V2TIMConversation.V2TIM_C2C)
-            param.putString(TUIConstants.TUIChat.CHAT_ID, "@RBT#001")
-            TUICore.startActivity("TUIC2CChatActivity", param)
-        } else {
-            val param = Bundle()
-            param.putInt(TUIConstants.TUIChat.CHAT_TYPE, V2TIMConversation.V2TIM_C2C)
-            param.putString(TUIConstants.TUIChat.CHAT_ID, "@RBT#001")
-            TUICore.startActivity("TUIC2CChatActivity", param)
-        }
+
+        val param = Bundle()
+        param.putInt(TUIConstants.TUIChat.CHAT_TYPE, V2TIMConversation.V2TIM_C2C)
+        param.putString(TUIConstants.TUIChat.CHAT_ID, "@RBT#001")
+        TUICore.startActivity("TUIC2CChatActivity", param)
+
     }
 
     private fun startPrompt() {
         context?.startActivity(Intent(context, PromptActivity::class.java))
+    }
+
+    private fun startMBTITest() {
+        context?.startActivity(Intent(context, TestActivity::class.java))
     }
 }
