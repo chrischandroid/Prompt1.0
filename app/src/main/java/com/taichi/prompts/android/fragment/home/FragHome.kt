@@ -8,8 +8,6 @@ import com.taichi.prompts.android.adapter.HomeListAdapter
 import com.taichi.prompts.android.databinding.FragmentHomeBinding
 import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
 import com.taichi.prompts.base.BaseFragment
-import com.taichi.prompts.base.adapter.AdapterCollectListener
-
 /**
  * 首页
  */
@@ -25,16 +23,14 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     override fun initViewData() {
-        Log.i("HB","------------------------init")
         initListView()
         viewModel?.homeListData?.observe(viewLifecycleOwner) { list ->
             if (list != null && list?.isNotEmpty() == true) {
+                Log.i("---", list.size.toString())
                 binding?.homeTabListView?.post {
                     adapter.setDataList(list)
                 }
-
             }
-
         }
     }
 

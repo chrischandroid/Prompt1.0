@@ -1,10 +1,10 @@
 package com.taichi.prompts.android.repository
-import com.taichi.prompts.android.repository.data.HomeListData
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
-import com.taichi.prompts.android.repository.data.UpdateProfileRequest
 import com.taichi.prompts.android.repository.data.UserData
 import com.taichi.prompts.android.repository.data.UserProfileMatchRequest
+import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
+import com.taichi.prompts.android.repository.data.UserProfileRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
 import com.taichi.prompts.http.ApiAddress
@@ -29,7 +29,7 @@ interface ApiService {
     @POST(ApiAddress.Match_List)
     suspend fun homeList(
         @Body userProfileMatchRequest: UserProfileMatchRequest
-    ): BaseResponse<HomeListData>?
+    ): BaseResponse<List<UserProfileMatchVOList>>?
 
 
 
@@ -80,7 +80,7 @@ interface ApiService {
      */
     @POST(ApiAddress.UpdatePrompt)
     suspend fun updatePrompt(
-        @Body request: UpdateProfileRequest,
+        @Body request: UserProfileRequest,
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json"
     ): BaseResponse<UserProfileVO?>?

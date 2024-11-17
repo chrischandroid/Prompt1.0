@@ -3,13 +3,13 @@ package com.taichi.prompts.android.adapter
 import android.view.ViewGroup
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.databinding.ItemItemBinding
-import com.taichi.prompts.android.repository.data.HomeItem
+import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
 import com.taichi.prompts.base.adapter.BaseRecyclerAdapter
 import com.taichi.prompts.base.adapter.BaseViewHolder
 
 
 class HomeListAdapter :
-    BaseRecyclerAdapter<HomeItem, HomeListAdapter.ItemViewHolder>() {
+    BaseRecyclerAdapter<UserProfileMatchVOList, HomeListAdapter.ItemViewHolder>() {
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(getBinding(parent, R.layout.item_item))
@@ -19,11 +19,11 @@ class HomeListAdapter :
         val item = getDataList()?.get(position)
 
         holder.binding.itemData = item
-        holder.binding.headImgUrl.text = item?.headImgUrl
-        holder.binding.userNickName.text = item?.userNickName
-        holder.binding.age.text = item?.age as CharSequence?
-        holder.binding.birthday.text = item?.birthDay
-        holder.binding.city.text = item?.city
+        holder.binding.headImgUrl.text = item?.base?.headImgUrl
+        holder.binding.userNickName.text = item?.base?.userNickName
+        holder.binding.age.text = item?.base?.age as CharSequence?
+        holder.binding.birthday.text = item?.base?.birthDay
+        holder.binding.city.text = item?.base?.city
     }
 
     class ItemViewHolder(itemBinding: ItemItemBinding) :

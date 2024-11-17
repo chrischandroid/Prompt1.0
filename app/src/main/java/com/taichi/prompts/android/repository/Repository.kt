@@ -1,12 +1,16 @@
 package com.taichi.prompts.android.repository
 
+import android.util.Log
 import com.blankj.utilcode.util.ToastUtils
-import com.taichi.prompts.android.repository.data.HomeListData
+import com.taichi.prompts.android.repository.data.QuestionAvailableResultVO
+import com.taichi.prompts.android.repository.data.QuestionInfoVO
+import com.taichi.prompts.android.repository.data.QuestionnaireResultVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
-import com.taichi.prompts.android.repository.data.UpdateProfileRequest
 import com.taichi.prompts.android.repository.data.UserBaseDTO
 import com.taichi.prompts.android.repository.data.UserProfileMatchRequest
+import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
+import com.taichi.prompts.android.repository.data.UserProfileRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
 import com.taichi.prompts.http.BaseResponse
@@ -14,19 +18,18 @@ import com.taichi.prompts.http.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
-import retrofit2.Call
+import retrofit2.HttpException
 
 object Repository {
     private const val Success_Code = 0
     private const val Need_login_Code = -1001
     private const val registerType_name_password = 3
 
-    suspend fun getHomeList(id: String, type : Int): HomeListData? {
+    suspend fun getHomeList(id: String, type : Int): List<UserProfileMatchVOList>? {
         val userProfileMatchRequest = UserProfileMatchRequest(
-            id, type, 0, 1
+            id, type, 0, 5
         )
-        val data: BaseResponse<HomeListData>? = getDefaultApi().homeList(userProfileMatchRequest)
+        val data: BaseResponse<List<UserProfileMatchVOList>>? = getDefaultApi().homeList(userProfileMatchRequest)
         return responseCall(data)
     }
 
@@ -76,9 +79,15 @@ object Repository {
      * 保存prompt
      */
     suspend fun saveQuestion(id: String, map: MutableMap<String, String>): UserProfileVO? {
-        val userProfileRequest = UpdateProfileRequest(id, "mbti_quest", 200, map)
-        val data: BaseResponse<UserProfileVO?>?= getDefaultApi().updatePrompt(userProfileRequest)
-        return responseCall(data)
+        val questionnaireResult : List<QuestionnaireResultVO> = createQuestionnaireResult(map)
+        val questionnaireSnapshot : List<String>? = null
+        val userProfileRequest = UserProfileRequest(id, "mbti_quest", 200, questionnaireResult, questionnaireSnapshot)
+        try {
+            val data: BaseResponse<UserProfileVO?>?= getDefaultApi().updatePrompt(userProfileRequest)
+            return responseCall(data)
+        } catch (e : HttpException) {
+            return null
+        }
     }
 
     /**
@@ -103,21 +112,6 @@ object Repository {
             return false
         }
         return true
-        /*
-        if (response.getErrCode() == Success_Code) {
-            return true
-        } else if (response.getErrCode() == Need_login_Code) {
-            GlobalScope.launch(Dispatchers.Main) {
-                ToastUtils.showShort(response.getErrMsg() ?: "")
-            }
-            needLogin?.invoke()
-            return false
-        } else {
-            GlobalScope.launch(Dispatchers.Main) {
-                ToastUtils.showShort(response.getErrMsg() ?: "")
-            }
-            return false
-        }*/
     }
 
     /**
@@ -136,6 +130,7 @@ object Repository {
         if (response.getErrCode() == "200") {
             return response.getData()
         } else  {
+            Log.e("Network", "post fail" + response.getErrMsg())
             GlobalScope.launch(Dispatchers.Main) {
                 ToastUtils.showShort(response.getErrMsg() ?: "")
             }
@@ -152,16 +147,39 @@ object Repository {
         return data
     }
 
-    private fun responseLogin(data : String) : String {
-        return data
-    }
-
     private fun getDefaultApi(): ApiService {
         return RetrofitClient.getInstance().getDefault(ApiService::class.java)
     }
 
-    private fun <T> response(call : Call<ResponseBody>?) : T? {
-            return null
+    private fun createQuestionnaireResult(map: Map<String, String>): List<QuestionnaireResultVO>{
+        val questionnaireResultList = mutableListOf<QuestionnaireResultVO>()
+
+        for ((questionContent, label) in map) {
+            val questionAvailableResultVO = QuestionAvailableResultVO(
+                key = "someKey",
+                label = label,
+                mbtiIntrovertScore = 0,
+                mbtiIntuitionScore = 0,
+                mbtiFellingScore = 0,
+                mbtiPerceivingScore = 0
+            )
+
+            val questionInfoVO = QuestionInfoVO(
+                id = 1L,
+                templateType = "mbti_quest",
+                profileType = 200,
+                inputType = 3,
+                questionContent = questionContent,
+                availableResultVOList = listOf(questionAvailableResultVO)
+            )
+
+            val questionnaireResultVO = QuestionnaireResultVO(
+                questionInfo = questionInfoVO,
+                questionResult = questionAvailableResultVO
+            )
+            questionnaireResultList.add(questionnaireResultVO)
+        }
+        return questionnaireResultList
     }
 
 }

@@ -49,11 +49,35 @@ data class UpdateInfoRequest(
     val userBaseDTO: UserBaseDTO
 )
 
-data class UpdateProfileRequest(
+data class UserProfileRequest(
     val userId : String,
     val templateType : String,
     val profileType : Int,
-    val questionnaireResult : Map<String, String>
+    val questionnaireResult : List<QuestionnaireResultVO>?,
+    val questionnaireSnapshot : List<String>?
+)
+
+data class QuestionnaireResultVO (
+    val questionInfo : QuestionInfoVO,
+    val questionResult : QuestionAvailableResultVO
+)
+
+data class QuestionInfoVO (
+    val id : Long,
+    val templateType : String,
+    val profileType : Int,
+    val inputType : Int,
+    val questionContent : String,
+    val availableResultVOList : List<QuestionAvailableResultVO>
+)
+
+data class QuestionAvailableResultVO(
+    val key : String,
+    val label : String,
+    val mbtiIntrovertScore : Int,
+    val mbtiIntuitionScore : Int,
+    val mbtiFellingScore : Int,
+    val mbtiPerceivingScore : Int
 )
 
 data class UserBaseDTO(
@@ -73,7 +97,7 @@ data class UserBaseDTO(
 data class UserBaseVO(
     val userId : String,
     val userNickName: String,
-    val userImgUrl : String,
+    val headImgUrl : String,
     val introduction : String,
     val age : Int,
     val birthDay : String,
