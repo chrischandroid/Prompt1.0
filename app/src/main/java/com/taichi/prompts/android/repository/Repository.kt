@@ -13,6 +13,7 @@ import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
 import com.taichi.prompts.android.repository.data.UserProfileRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
+import com.taichi.prompts.http.BaseMatchResponse
 import com.taichi.prompts.http.BaseResponse
 import com.taichi.prompts.http.RetrofitClient
 import kotlinx.coroutines.Dispatchers
@@ -29,8 +30,8 @@ object Repository {
         val userProfileMatchRequest = UserProfileMatchRequest(
             id, type, 0, 5
         )
-        val data: BaseResponse<List<UserProfileMatchVOList>>? = getDefaultApi().homeList(userProfileMatchRequest)
-        return responseCall(data)
+        val data: BaseMatchResponse<List<UserProfileMatchVOList>>? = getDefaultApi().homeList(userProfileMatchRequest)
+        return responseMatchCall(data)
     }
 
 
@@ -119,6 +120,27 @@ object Repository {
      */
     private fun <T> responseCall(
         response: BaseResponse<T>?,
+        needLogin: (() -> Unit?)? = null
+    ): T? {
+        if (response == null) {
+            GlobalScope.launch(Dispatchers.Main) {
+                ToastUtils.showShort("请求异常")
+            }
+            return null
+        }
+        if (response.getErrCode() == "200") {
+            return response.getData()
+        } else  {
+            Log.e("Network", "post fail" + response.getErrMsg())
+            GlobalScope.launch(Dispatchers.Main) {
+                ToastUtils.showShort(response.getErrMsg() ?: "")
+            }
+            return null
+        }
+    }
+
+    private fun <T> responseMatchCall(
+        response: BaseMatchResponse<T>?,
         needLogin: (() -> Unit?)? = null
     ): T? {
         if (response == null) {

@@ -26,7 +26,6 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         initListView()
         viewModel?.homeListData?.observe(viewLifecycleOwner) { list ->
             if (list != null && list?.isNotEmpty() == true) {
-                Log.i("---", list.size.toString())
                 binding?.homeTabListView?.post {
                     adapter.setDataList(list)
                 }

@@ -8,6 +8,7 @@ import com.taichi.prompts.android.repository.data.UserProfileRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
 import com.taichi.prompts.http.ApiAddress
+import com.taichi.prompts.http.BaseMatchResponse
 import com.taichi.prompts.http.BaseResponse
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -29,7 +30,7 @@ interface ApiService {
     @POST(ApiAddress.Match_List)
     suspend fun homeList(
         @Body userProfileMatchRequest: UserProfileMatchRequest
-    ): BaseResponse<List<UserProfileMatchVOList>>?
+    ): BaseMatchResponse<List<UserProfileMatchVOList>>?
 
 
 
