@@ -3,5 +3,6 @@ import com.taichi.prompts.android.repository.data.UserData
 
 data class UserProfileMatchVOList(
     val score: Double?,
-    val base: UserBaseVO
+    val userBaseVO: UserBaseVO?,
+    val userProfileVO : UserProfileVO
 )

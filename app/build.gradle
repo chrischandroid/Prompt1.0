@@ -67,6 +67,7 @@ dependencies {
     implementation libs.androidx.lifecycle.livedata
     implementation libs.androidx.activity
     implementation libs.androidx.recyclerview
+    implementation libs.circleimageview
 
 
     //junit单元测试
