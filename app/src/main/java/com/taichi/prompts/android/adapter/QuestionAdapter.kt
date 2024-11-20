@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.taichi.prompts.android.R
 
 data class Question(val text: String)
-class QuestionAdapter(private val context: Context, private val questionList: List<Question>) :
+class QuestionAdapter(private val context: Context, private var questionList: List<Question>) :
     RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
     private val extraInfoMap: MutableMap<String, String> = mutableMapOf()
     private var isChange : Boolean = false
@@ -68,5 +68,9 @@ class QuestionAdapter(private val context: Context, private val questionList: Li
             return mutableMapOf< String, String>()
         }
         return mutableMapOf<String, String>().apply { putAll(extraInfoMap) }
+    }
+    fun updateQuestions(newList: List<Question>) {
+        this.questionList = newList
+        notifyDataSetChanged()
     }
 }

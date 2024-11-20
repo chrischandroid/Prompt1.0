@@ -1,4 +1,5 @@
 package com.taichi.prompts.android.repository
+import com.taichi.prompts.android.repository.data.QuestionInfoVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
 import com.taichi.prompts.android.repository.data.UserData
@@ -9,6 +10,7 @@ import com.taichi.prompts.android.repository.data.UserProfileVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
 import com.taichi.prompts.http.ApiAddress
 import com.taichi.prompts.http.BaseMatchResponse
+import com.taichi.prompts.http.BaseQuestionResponse
 import com.taichi.prompts.http.BaseResponse
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -32,6 +34,15 @@ interface ApiService {
         @Body userProfileMatchRequest: UserProfileMatchRequest
     ): BaseMatchResponse<List<UserProfileMatchVOList>>?
 
+    /**
+     * 获取问题列表
+     */
+    @GET(ApiAddress.Question_List)
+    suspend fun getQuestionList(
+        @Query("userId") userId: String,
+        @Query("templateType") param2: String,
+        @Query("profileType") param3: Int
+    ): BaseQuestionResponse<List<QuestionInfoVO>>?
 
 
     /**

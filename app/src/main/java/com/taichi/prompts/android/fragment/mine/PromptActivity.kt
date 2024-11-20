@@ -1,6 +1,7 @@
 package com.taichi.prompts.android.fragment.mine
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -40,29 +41,7 @@ class PromptActivity : BaseActivity<ActivityPromptBinding, PromptViewModel>(){
         Question("最想探访的中国城市或景点？"),
         Question("描述一个完美的休息日该有的样子。"),
         Question("你最喜欢的中国街头小吃是什么？"),
-        Question("一首形容你生活态度的歌曲是？"),
-        Question("你在家里最喜欢的角落是哪里？"),
-        Question("你对怎样的恋爱速度感到舒适？"),
-        Question("描述一个你的创造性才能。"),
-        Question("你的座右铭是什么？"),
-        Question("你最重视哪种家庭传统？"),
-        Question("有没有什么习惯是你特别想改掉的？"),
-        Question("在朋友圈中，你通常是什么角色？"),
-        Question("你最喜欢的中国古代故事或神话是什么？"),
-        Question("有哪些书籍对你影响很大？"),
-        Question("你如何看待数字时代的人际关系？"),
-        Question("你是早起的鸟儿还是夜猫子？"),
-        Question("你在哪些事情上是个完美主义者？"),
-        Question("介绍一项你认为别人不会的技能。"),
-        Question("你对宠物有什么特别的感情吗？"),
-        Question("你如何平衡工作和生活？"),
-        Question("你在社交媒体上最活跃还是现实中更活跃？"),
-        Question("如果有机会，你想改变世界上的什么？"),
-        Question("你的理想假日活动是什么？"),
-        Question("你最看重恋人的哪种品质？"),
-        Question("你认为最重要的家庭价值观是什么？"),
-        Question("在休息日最喜欢做的一件事？"),
-        Question("你未来想在哪座城市定居？")
+        Question("一首形容你生活态度的歌曲是？")
     )
     private val adapter = QuestionAdapter(this, questionList)
     val id = SPUtils.getInstance().getString(Constants.SP_USER_ID)
@@ -86,6 +65,15 @@ class PromptActivity : BaseActivity<ActivityPromptBinding, PromptViewModel>(){
             val map : MutableMap<String, String> = adapter.getPromtMap()
             if (!map.isEmpty()) {
                 viewModel?.saveQuestion(id, map)
+            }
+        }
+        viewModel?.qustionData?.observe(this) { list ->
+            if (list != null && list?.isNotEmpty() == true) {
+                Log.e("----", list.size.toString())
+                val questionContents: List<Question> = list?.mapNotNull { Question(it.questionContent) } ?: emptyList()
+                binding?.recyclerView?.post {
+                    adapter.updateQuestions(questionContents)
+                }
             }
         }
     }

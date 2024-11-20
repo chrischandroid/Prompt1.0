@@ -69,3 +69,33 @@ class BaseMatchResponse<T> : Serializable {
     }
 }
 
+class BaseQuestionResponse<T> : Serializable {
+    private var code : String = "0"
+    private var msg : String = "null"
+    private var questionInfoVOList: T? = null
+
+    fun getErrMsg(): String? {
+        return msg
+    }
+
+    fun setErrMsg(message: String?) {
+        this.msg = message.toString()
+    }
+
+    fun getData(): T? {
+        return questionInfoVOList
+    }
+
+    fun setData(data: T) {
+        this.questionInfoVOList = data
+    }
+
+    fun getErrCode(): String? {
+        return code
+    }
+
+    fun setErrCode(errCode: String?) {
+        this.code = errCode.toString()
+    }
+}
+

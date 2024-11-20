@@ -14,6 +14,7 @@ import com.taichi.prompts.android.repository.data.UserProfileRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
 import com.taichi.prompts.http.BaseMatchResponse
+import com.taichi.prompts.http.BaseQuestionResponse
 import com.taichi.prompts.http.BaseResponse
 import com.taichi.prompts.http.RetrofitClient
 import kotlinx.coroutines.Dispatchers
@@ -160,6 +161,27 @@ object Repository {
         }
     }
 
+    private fun <T> responseQuestionCall(
+        response: BaseQuestionResponse<T>?,
+        needLogin: (() -> Unit?)? = null
+    ): T? {
+        if (response == null) {
+            GlobalScope.launch(Dispatchers.Main) {
+                ToastUtils.showShort("请求异常")
+            }
+            return null
+        }
+        if (response.getErrCode() == "200") {
+            return response.getData()
+        } else  {
+            Log.e("Network", "post fail" + response.getErrMsg())
+            GlobalScope.launch(Dispatchers.Main) {
+                ToastUtils.showShort(response.getErrMsg() ?: "")
+            }
+            return null
+        }
+    }
+
     private fun responseRaw(data : String) : String {
         if (data.length == 16) {
             ToastUtils.showShort("注册成功， 请登录")
@@ -204,4 +226,12 @@ object Repository {
         return questionnaireResultList
     }
 
+    /**
+     * 获取SigId
+     */
+    suspend fun getQuestionList(id : String, i: Int) : List<QuestionInfoVO>? {
+        val data: BaseQuestionResponse<List<QuestionInfoVO>>? =
+            getDefaultApi().getQuestionList(id, "mbti_quest", i)
+        return responseQuestionCall(data)
+    }
 }
