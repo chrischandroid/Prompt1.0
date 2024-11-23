@@ -1,8 +1,11 @@
 package com.taichi.prompts.android.fragment.mine
 
+import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +25,24 @@ import com.taichi.prompts.android.fragment.mine.TestViewModel
 import com.taichi.prompts.base.BaseActivity
 
 class TestActivity : BaseActivity<ActivityTestBinding, TestViewModel>(){
+    val checkMap: MutableMap<String, Int> = mutableMapOf(
+        "INTJ" to R.id.check_1,
+        "INTP" to R.id.check_2,
+        "ENTJ" to R.id.check_3,
+        "ENTP" to R.id.check_4,
+        "ISFP" to R.id.check_5,
+        "ISTP" to R.id.check_6,
+        "ESFP" to R.id.check_7,
+        "ESTP" to R.id.check_8,
+        "ISFJ" to R.id.check_9,
+        "ISTJ" to R.id.check_10,
+        "ESTJ" to R.id.check_11,
+        "ESFJ" to R.id.check_12,
+        "INFJ" to R.id.check_13,
+        "INFP" to R.id.check_14,
+        "ENFJ" to R.id.check_15,
+        "ENFP" to R.id.check_16
+    )
 
     val id = SPUtils.getInstance().getString(Constants.SP_USER_ID)
     private var lastClickedTextView: TextView? = null
@@ -39,6 +60,14 @@ class TestActivity : BaseActivity<ActivityTestBinding, TestViewModel>(){
 
     override fun initViewData() {
         initClick()
+        val mbti : String? = SPUtils.getInstance().getString(Constants.SP_USER_MBTJ)
+        if (mbti != null && !mbti.isEmpty()) {
+            val id : Int? = checkMap[mbti]
+            if (id != null) {
+                val img: ImageView = findViewById(id)
+                img.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun initClick() {
@@ -298,6 +327,8 @@ class TestActivity : BaseActivity<ActivityTestBinding, TestViewModel>(){
             binding?.mbtitext?.setText("能量爆棚小火箭")
         }
         binding?.loadMoreButton?.setOnClickListener {
+            val intent = Intent(this, MbtiTestActivity::class.java)
+            startActivity(intent)
         }
     }
 

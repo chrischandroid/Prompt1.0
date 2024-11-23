@@ -1,7 +1,10 @@
 package com.taichi.prompts.android.fragment.home
 
+import android.graphics.Rect
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.BR
 import com.taichi.prompts.android.adapter.HomeListAdapter
@@ -44,6 +47,15 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         manager.orientation = LinearLayoutManager.HORIZONTAL
         binding?.homeTabListView?.layoutManager = manager
         binding?.homeTabListView?.adapter = adapter
+        val itemDecoration = CardViewItemDecoration(resources.getDimensionPixelSize(R.dimen.dp_10))
+        binding?.homeTabListView?.addItemDecoration(itemDecoration)
     }
 
+}
+class CardViewItemDecoration(private val spacing: Int) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        outRect.left = spacing
+        outRect.right = spacing
+
+    }
 }

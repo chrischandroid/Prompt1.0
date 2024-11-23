@@ -1,8 +1,10 @@
 package com.taichi.prompts.android.fragment.mine
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -19,6 +21,7 @@ import com.taichi.prompts.android.fragment.mine.PromptViewModel
 import com.taichi.prompts.base.BaseActivity
 
 class PromptActivity : BaseActivity<ActivityPromptBinding, PromptViewModel>(){
+    val questionKey : MutableMap<String, Long> = mutableMapOf()
 
     val questionList = listOf(
         Question("我有一个特殊的技能是:"),
@@ -54,23 +57,34 @@ class PromptActivity : BaseActivity<ActivityPromptBinding, PromptViewModel>(){
         return BR.promptVm
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun initViewData() {
         binding?.recyclerView?.layoutManager = LinearLayoutManager(this)
         binding?.recyclerView?.adapter = adapter
         initClick()
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun initClick() {
         binding?.loadMoreButton?.setOnClickListener {
             val map : MutableMap<String, String> = adapter.getPromtMap()
             if (!map.isEmpty()) {
-                viewModel?.saveQuestion(id, map)
+                val finalMap : MutableMap<String, Pair<String, Long>> = mutableMapOf()
+                for (entry in map.entries) {
+                    val questionKeyValue = questionKey.getOrDefault(entry.key, 0)
+                    finalMap.put(entry.key, Pair(entry.value, questionKeyValue))
+                }
+                viewModel?.saveQuestion(id, finalMap)
             }
         }
         viewModel?.qustionData?.observe(this) { list ->
             if (list != null && list?.isNotEmpty() == true) {
-                Log.e("----", list.size.toString())
-                val questionContents: List<Question> = list?.mapNotNull { Question(it.questionContent) } ?: emptyList()
+                val questionContents = mutableListOf<Question>()
+                for (questionInfo in list) {
+                    val questionContent = questionInfo.questionContent
+                    questionKey[questionContent] = questionInfo.id
+                    questionContents.add(Question(questionContent))
+                }
                 binding?.recyclerView?.post {
                     adapter.updateQuestions(questionContents)
                 }

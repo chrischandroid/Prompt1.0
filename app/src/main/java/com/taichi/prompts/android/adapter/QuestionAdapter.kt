@@ -63,14 +63,15 @@ class QuestionAdapter(private val context: Context, private var questionList: Li
         }
     }
 
+    fun updateQuestions(newList: List<Question>) {
+        this.questionList = newList
+        notifyDataSetChanged()
+    }
+
     fun getPromtMap() : MutableMap<String, String> {
         if (!isChange || extraInfoMap.isEmpty()) {
             return mutableMapOf< String, String>()
         }
         return mutableMapOf<String, String>().apply { putAll(extraInfoMap) }
-    }
-    fun updateQuestions(newList: List<Question>) {
-        this.questionList = newList
-        notifyDataSetChanged()
     }
 }

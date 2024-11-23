@@ -32,15 +32,14 @@ class PromptViewModel(application: Application) : BaseViewModel(application) {
                 }
             }
         }
-
     }
-    fun saveQuestion(id : String, map : MutableMap<String, String>) {
+    fun saveQuestion(id : String, map : MutableMap<String, Pair<String, Long>>) {
         viewModelScope.launch {
             try {
                 val data: UserProfileVO? = Repository.saveQuestion(id, map)
                 if (data != null) {
                     GlobalScope.launch(Dispatchers.Main) {
-                        ToastUtils.showShort("Prompt更新成功")
+                        ToastUtils.showShort("Prompt更新成功!")
                     }
                 }
             } catch (e: HttpException) {

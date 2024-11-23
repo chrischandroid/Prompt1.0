@@ -29,7 +29,7 @@ object Repository {
 
     suspend fun getHomeList(id: String, type : Int): List<UserProfileMatchVOList>? {
         val userProfileMatchRequest = UserProfileMatchRequest(
-            id, type, 0, 5
+            id, type, 0, 20
         )
         val data: BaseMatchResponse<List<UserProfileMatchVOList>>? = getDefaultApi().homeList(userProfileMatchRequest)
         return responseMatchCall(data)
@@ -80,7 +80,7 @@ object Repository {
     /**
      * 保存prompt
      */
-    suspend fun saveQuestion(id: String, map: MutableMap<String, String>): UserProfileVO? {
+    suspend fun saveQuestion(id: String, map: MutableMap<String, Pair<String, Long>>): UserProfileVO? {
         val questionnaireResult : List<QuestionnaireResultVO> = createQuestionnaireResult(map)
         val questionnaireSnapshot : List<String>? = null
         val userProfileRequest = UserProfileRequest(id, "mbti_quest", 200, questionnaireResult, questionnaireSnapshot)
@@ -195,10 +195,11 @@ object Repository {
         return RetrofitClient.getInstance().getDefault(ApiService::class.java)
     }
 
-    private fun createQuestionnaireResult(map: Map<String, String>): List<QuestionnaireResultVO>{
+    private fun createQuestionnaireResult(map : MutableMap<String, Pair<String, Long>>): List<QuestionnaireResultVO>{
         val questionnaireResultList = mutableListOf<QuestionnaireResultVO>()
 
-        for ((questionContent, label) in map) {
+        for ((questionContent, pair) in map)  {
+            val (label, id) = pair
             val questionAvailableResultVO = QuestionAvailableResultVO(
                 key = "someKey",
                 label = label,
@@ -209,10 +210,42 @@ object Repository {
             )
 
             val questionInfoVO = QuestionInfoVO(
-                id = 1L,
+                id = id,
                 templateType = "mbti_quest",
                 profileType = 200,
                 inputType = 3,
+                questionContent = questionContent,
+                availableResultVOList = listOf(questionAvailableResultVO)
+            )
+
+            val questionnaireResultVO = QuestionnaireResultVO(
+                questionInfo = questionInfoVO,
+                questionResult = questionAvailableResultVO
+            )
+            questionnaireResultList.add(questionnaireResultVO)
+        }
+        return questionnaireResultList
+    }
+
+    private fun createMbtiQuestionnaireResult(map : MutableMap<String, Pair<String, Long>>): List<QuestionnaireResultVO>{
+        val questionnaireResultList = mutableListOf<QuestionnaireResultVO>()
+
+        for ((questionContent, pair) in map) {
+            val (label, id) = pair
+            val questionAvailableResultVO = QuestionAvailableResultVO(
+                key = "someKey",
+                label = label,
+                mbtiIntrovertScore = 0,
+                mbtiIntuitionScore = 0,
+                mbtiFellingScore = 0,
+                mbtiPerceivingScore = 0
+            )
+
+            val questionInfoVO = QuestionInfoVO(
+                id = id,
+                templateType = "mbti_quest",
+                profileType = 300,
+                inputType = 2,
                 questionContent = questionContent,
                 availableResultVOList = listOf(questionAvailableResultVO)
             )
@@ -234,4 +267,20 @@ object Repository {
             getDefaultApi().getQuestionList(id, "mbti_quest", i)
         return responseQuestionCall(data)
     }
+
+    /**
+     * 保存prompt
+     */
+    suspend fun saveMbtiQuestion(id: String, map: MutableMap<String, Pair<String, Long>>): UserProfileVO? {
+        val questionnaireResult : List<QuestionnaireResultVO> = createMbtiQuestionnaireResult(map)
+        val questionnaireSnapshot : List<String>? = null
+        val userProfileRequest = UserProfileRequest(id, "mbti_quest", 300, questionnaireResult, questionnaireSnapshot)
+        try {
+            val data: BaseResponse<UserProfileVO?>?= getDefaultApi().updatePrompt(userProfileRequest)
+            return responseCall(data)
+        } catch (e : HttpException) {
+            return null
+        }
+    }
+
 }

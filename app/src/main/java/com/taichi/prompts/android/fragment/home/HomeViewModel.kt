@@ -24,7 +24,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         viewModelScope.launch {
             val id = SPUtils.getInstance().getString(Constants.SP_USER_ID)
             if (!id.isEmpty()) {
-                val data = Repository.getHomeList(id, 200)
+                val data = Repository.getHomeList(id, 300)
                 Log.e("--", data?.size.toString())
                 if (data != null) {
                     homeListData.postValue(data)
