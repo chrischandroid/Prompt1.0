@@ -34,7 +34,7 @@ class MbtiTestViewModel(application: Application) : BaseViewModel(application) {
         }
 
     }
-    fun saveMbtiQuestion(id : String, map : MutableMap<String, Pair<String, Long>>) {
+    fun saveMbtiQuestion(id : String, map : MutableMap<String, Pair<String, QuestionInfoVO>>) {
         viewModelScope.launch {
             try {
                 val data: UserProfileVO? = Repository.saveMbtiQuestion(id, map)

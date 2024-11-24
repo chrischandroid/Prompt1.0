@@ -74,10 +74,13 @@ data class QuestionInfoVO (
 data class QuestionAvailableResultVO(
     val key : String,
     val label : String,
-    val mbtiIntrovertScore : Int,
-    val mbtiIntuitionScore : Int,
-    val mbtiFellingScore : Int,
-    val mbtiPerceivingScore : Int
+    val MBTI_introvert_score : Int,
+    val MBTI_intuition_score : Int,
+    val MBTI_feeling_score : Int,
+    val MBTI_perceiving_score : Int
+)
+data class  MbtiResultVO(
+    val mbtiType : String
 )
 
 data class UserBaseDTO(

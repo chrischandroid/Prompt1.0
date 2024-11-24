@@ -25,6 +25,7 @@ import com.taichi.prompts.android.fragment.mine.TestViewModel
 import com.taichi.prompts.base.BaseActivity
 
 class TestActivity : BaseActivity<ActivityTestBinding, TestViewModel>(){
+    var lastCheck : Int = -1
     val checkMap: MutableMap<String, Int> = mutableMapOf(
         "INTJ" to R.id.check_1,
         "INTP" to R.id.check_2,
@@ -60,17 +61,46 @@ class TestActivity : BaseActivity<ActivityTestBinding, TestViewModel>(){
 
     override fun initViewData() {
         initClick()
+        initResult()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initResult()
+    }
+
+    private fun initResult() {
         val mbti : String? = SPUtils.getInstance().getString(Constants.SP_USER_MBTJ)
         if (mbti != null && !mbti.isEmpty()) {
             val id : Int? = checkMap[mbti]
             if (id != null) {
+                if (lastCheck > 0) {
+                    val img: ImageView = findViewById(lastCheck)
+                    img.visibility = View.INVISIBLE
+                }
                 val img: ImageView = findViewById(id)
                 img.visibility = View.VISIBLE
+                lastCheck = id
             }
+        } else {
+            viewModel?.getUserMBTI(id)
         }
     }
 
     private fun initClick() {
+        viewModel?.mbti?.observe(this) { mbti ->
+            val id: Int? = checkMap[mbti]
+            if (id != null) {
+                if (lastCheck > 0) {
+                    val img: ImageView = findViewById(lastCheck)
+                    img.visibility = View.INVISIBLE
+
+                }
+                val img: ImageView = findViewById(id)
+                img.visibility = View.VISIBLE
+                lastCheck = id
+            }
+        }
         val whiteColor : Int = ContextCompat.getColor(this, R.color.white)
         val grayColor : Int = ContextCompat.getColor(this, R.color.gray)
         val darkGray : Int = ContextCompat.getColor(this, R.color.darkgray)

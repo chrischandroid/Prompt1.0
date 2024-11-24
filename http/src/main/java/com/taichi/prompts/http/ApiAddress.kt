@@ -26,5 +26,8 @@ object ApiAddress {
     //登出
     const val Logout = "user/logout/json"
 
+    //获取MBTI
+    const val GetMBTI = "/userProfile/getUserMBTI"
+
 
 }

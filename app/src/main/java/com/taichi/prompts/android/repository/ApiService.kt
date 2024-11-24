@@ -1,4 +1,5 @@
 package com.taichi.prompts.android.repository
+import com.taichi.prompts.android.repository.data.MbtiResultVO
 import com.taichi.prompts.android.repository.data.QuestionInfoVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
@@ -55,6 +56,15 @@ interface ApiService {
         @Header("Content-Type") contentType: String = "application/json"
     ): BaseResponse<String>
 
+    /**
+     * 获取mbti
+     */
+    @GET(ApiAddress.GetMBTI)
+    suspend fun getMBTI(
+        @Query("userId") id : String,
+        @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
+        @Header("Content-Type") contentType: String = "application/json"
+    ): BaseResponse<MbtiResultVO?>?
 
     /**
      * 注册

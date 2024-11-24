@@ -15,13 +15,14 @@ import com.taichi.prompts.android.adapter.Question
 import com.taichi.prompts.android.adapter.MbtiQuestionAdapter
 import com.taichi.prompts.android.adapter.QuestionItem
 import com.taichi.prompts.android.fragment.mine.MbtiTestViewModel
+import com.taichi.prompts.android.repository.data.QuestionInfoVO
 import com.taichi.prompts.base.BaseActivity
 
 class MbtiTestActivity : BaseActivity<ActivityMbtitestBinding, MbtiTestViewModel>(){
 
     private lateinit var questionAdapter: MbtiQuestionAdapter
     private var questionList: MutableList<QuestionItem> = mutableListOf()
-    val questionKey : MutableMap<String, Long> = mutableMapOf()
+    val questionDetails : MutableMap<String, QuestionInfoVO> = mutableMapOf()
 
     val id = SPUtils.getInstance().getString(Constants.SP_USER_ID)
 
@@ -46,7 +47,7 @@ class MbtiTestActivity : BaseActivity<ActivityMbtitestBinding, MbtiTestViewModel
     @RequiresApi(Build.VERSION_CODES.N)
     private fun initClick() {
         binding?.submitButton?.setOnClickListener {
-            var map : MutableMap<String, Pair<String, Long>> = mutableMapOf()
+            var map : MutableMap<String, Pair<String, QuestionInfoVO>> = mutableMapOf()
             questionAdapter.getQuestionList().forEachIndexed { index, questionItem ->
                 val selected = when (questionItem.selectedOption) {
                     0 -> questionItem.option1
@@ -54,8 +55,9 @@ class MbtiTestActivity : BaseActivity<ActivityMbtitestBinding, MbtiTestViewModel
                     else -> "No Selection"
                 }
                 Log.d("MainActivity", "Question1 ${index + 1}: $selected")
-                val questionKeyValue = questionKey.getOrDefault(questionItem.question, 0)
-                map.put(questionItem.question.toString(), Pair(selected, questionKeyValue))
+                questionDetails[questionItem.question]?.let { info ->
+                    map.put(questionItem.question, Pair(selected, info))
+                }
             }
             if (!map.isEmpty()) {
                 viewModel?.saveMbtiQuestion(id, map)
@@ -68,7 +70,7 @@ class MbtiTestActivity : BaseActivity<ActivityMbtitestBinding, MbtiTestViewModel
                 for (questionInfo in list) {
                     val questionContent = questionInfo.questionContent
                     val questionAvailableResults = questionInfo.availableResultVOList
-                    questionKey[questionContent] = questionInfo.id
+                    questionDetails[questionContent] = questionInfo
                     if (questionAvailableResults.size >= 2) {
                         val firstKey = questionAvailableResults[0].label
                         val secondKey = questionAvailableResults[1].label

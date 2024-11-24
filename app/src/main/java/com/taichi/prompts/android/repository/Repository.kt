@@ -2,6 +2,7 @@ package com.taichi.prompts.android.repository
 
 import android.util.Log
 import com.blankj.utilcode.util.ToastUtils
+import com.taichi.prompts.android.repository.data.MbtiResultVO
 import com.taichi.prompts.android.repository.data.QuestionAvailableResultVO
 import com.taichi.prompts.android.repository.data.QuestionInfoVO
 import com.taichi.prompts.android.repository.data.QuestionnaireResultVO
@@ -46,6 +47,11 @@ object Repository {
         )
         val data: BaseResponse<String> = getDefaultApi().login(registerRequest)
         return responseCall(data).toString()
+    }
+
+    suspend fun getUserMBTI(id: String) : MbtiResultVO? {
+        val data: BaseResponse<MbtiResultVO?>? = getDefaultApi().getMBTI(id)
+        return responseCall(data)
     }
 
     /**
@@ -201,12 +207,12 @@ object Repository {
         for ((questionContent, pair) in map)  {
             val (label, id) = pair
             val questionAvailableResultVO = QuestionAvailableResultVO(
-                key = "someKey",
+                key = "",
                 label = label,
-                mbtiIntrovertScore = 0,
-                mbtiIntuitionScore = 0,
-                mbtiFellingScore = 0,
-                mbtiPerceivingScore = 0
+                MBTI_introvert_score = 0,
+                MBTI_intuition_score = 0,
+                MBTI_feeling_score = 0,
+                MBTI_perceiving_score = 0
             )
 
             val questionInfoVO = QuestionInfoVO(
@@ -227,34 +233,39 @@ object Repository {
         return questionnaireResultList
     }
 
-    private fun createMbtiQuestionnaireResult(map : MutableMap<String, Pair<String, Long>>): List<QuestionnaireResultVO>{
+    private fun createMbtiQuestionnaireResult(map : MutableMap<String, Pair<String, QuestionInfoVO>>): List<QuestionnaireResultVO>{
         val questionnaireResultList = mutableListOf<QuestionnaireResultVO>()
 
         for ((questionContent, pair) in map) {
-            val (label, id) = pair
-            val questionAvailableResultVO = QuestionAvailableResultVO(
-                key = "someKey",
-                label = label,
-                mbtiIntrovertScore = 0,
-                mbtiIntuitionScore = 0,
-                mbtiFellingScore = 0,
-                mbtiPerceivingScore = 0
-            )
+            val (l, answer) = pair
+            val result: QuestionAvailableResultVO? = answer.availableResultVOList.firstOrNull { it.label == l }
 
-            val questionInfoVO = QuestionInfoVO(
-                id = id,
-                templateType = "mbti_quest",
-                profileType = 300,
-                inputType = 2,
-                questionContent = questionContent,
-                availableResultVOList = listOf(questionAvailableResultVO)
-            )
+            result?.let{
+                val questionAvailableResultVO = QuestionAvailableResultVO(
+                    key = result.key,
+                    label = l,
+                    MBTI_introvert_score = result.MBTI_introvert_score,
+                    MBTI_intuition_score = result.MBTI_intuition_score,
+                    MBTI_feeling_score = result.MBTI_feeling_score,
+                    MBTI_perceiving_score = result.MBTI_perceiving_score
+                )
 
-            val questionnaireResultVO = QuestionnaireResultVO(
-                questionInfo = questionInfoVO,
-                questionResult = questionAvailableResultVO
-            )
-            questionnaireResultList.add(questionnaireResultVO)
+                val questionInfoVO = QuestionInfoVO(
+                    id = answer.id,
+                    templateType = "mbti_quest",
+                    profileType = 300,
+                    inputType = 2,
+                    questionContent = questionContent,
+                    availableResultVOList = listOf(questionAvailableResultVO)
+                )
+
+                val questionnaireResultVO = QuestionnaireResultVO(
+                    questionInfo = questionInfoVO,
+                    questionResult = questionAvailableResultVO
+                )
+                questionnaireResultList.add(questionnaireResultVO)
+            }
+
         }
         return questionnaireResultList
     }
@@ -271,7 +282,7 @@ object Repository {
     /**
      * 保存prompt
      */
-    suspend fun saveMbtiQuestion(id: String, map: MutableMap<String, Pair<String, Long>>): UserProfileVO? {
+    suspend fun saveMbtiQuestion(id: String, map: MutableMap<String, Pair<String, QuestionInfoVO>>): UserProfileVO? {
         val questionnaireResult : List<QuestionnaireResultVO> = createMbtiQuestionnaireResult(map)
         val questionnaireSnapshot : List<String>? = null
         val userProfileRequest = UserProfileRequest(id, "mbti_quest", 300, questionnaireResult, questionnaireSnapshot)
