@@ -114,5 +114,17 @@
         <item>博士</item>
     </string-array>
     <string name="spinner_prompt">请选择</string>
+    <string name="ta_">
+        发现每个契合的灵\n由ta的答案开启
+    </string>
+    <string name="some_id">
+    我们都是在追求完整性的半人--阿里斯托芬
+    </string>
+    <string name="agree">
+        已阅读并同意用户协议、隐私政策及运营商服务协议，\n运营商将对你的手机号进行验证。
+    </string>
+    <string name="input_phone">
+        请输入手机号
+    </string>
 </resources>
 

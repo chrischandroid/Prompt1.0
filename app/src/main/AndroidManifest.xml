@@ -9,14 +9,30 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/app_logo"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network"
-        android:roundIcon="@mipmap/app_logo"
+        android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Prompt"
         tools:replace="android:allowBackup"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.login.PhoneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PrivacyLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".fragment.mine.PromptActivity"
             android:exported="false" />
@@ -33,14 +49,7 @@
             android:name=".activity.home.TabActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Prompt">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:theme="@style/Theme.Prompt" />
         <activity android:name=".activity.login.LoginActivity" />
     </application>
 
