@@ -8,11 +8,13 @@
     tools:context=".activity.login.PhoneActivity">
     <RelativeLayout
         android:id="@+id/main_conten"
-        android:layout_width="327dp"
-        android:layout_height="117dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="126dp">
 
@@ -27,8 +29,8 @@
 
         <RelativeLayout
             android:id="@+id/field_defau"
-            android:layout_width="327dp"
-            android:layout_height="56dp"
+            android:layout_width="600dp"
+            android:layout_height="60dp"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="0dp"
             android:layout_marginLeft="6dp"
@@ -37,9 +39,90 @@
             android:background="@drawable/field_defau"
             app:layout_constraintStart_toStartOf="@id/input_phone"
             app:layout_constraintTop_toBottomOf="@id/input_phone">
+
+            <TextView
+                android:id="@+id/placeholder"
+                android:layout_width="28dp"
+                android:text="@string/placeholder"
+                android:layout_height="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="15dp"
+                android:textAppearance="@style/placeholder"
+                android:lineSpacingExtra="6sp"
+                android:translationY="-2.77sp"
+                android:gravity="top"
+                />
+
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/dropdown"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="20dp"
+                android:clipToOutline="true">
+
+                <ImageView
+                    android:id="@+id/array"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/array" />
+            </RelativeLayout>
+            />
+
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="2dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="68dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/line" />
+
+            <EditText
+                android:id="@+id/place"
+                android:layout_width="156dp"
+                android:layout_height="68dp"
+                android:layout_marginLeft="80dp"
+                android:inputType="number"
+                android:layout_marginTop="20dp"
+                android:textAppearance="@style/place"
+                android:hint="请输入手机号"
+                android:background="@android:color/transparent"
+                android:lineSpacingExtra="6sp"
+                android:translationY="-2.77sp"
+                android:gravity="top"
+                android:maxLength="11"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/button"
+            android:layout_width="120dp"
+            android:layout_height="52dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="380dp"
+            android:background="@drawable/next_button">
+            <TextView
+                android:id="@+id/some_id"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:text="下一步"
+                android:textAppearance="@style/nextstep"
+                android:lineSpacingExtra="6sp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
         </RelativeLayout>
 
     </RelativeLayout>
+
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

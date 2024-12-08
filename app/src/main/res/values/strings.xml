@@ -126,5 +126,12 @@
     <string name="input_phone">
         请输入手机号
     </string>
+
+    <string name="placeholder">
+                    +86
+                </string>
+    <string name="place">
+                请输入手机号
+            </string>
 </resources>
 
