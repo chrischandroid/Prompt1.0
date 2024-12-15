@@ -6,5 +6,185 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.login.VerifyActivity">
+    <RelativeLayout
+        android:id="@+id/main_conten"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="126dp">
+
+        <TextView
+            android:id="@+id/input_verify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="输入验证码"
+            android:textAppearance="@style/input_phone"
+            android:gravity="top"
+            />
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/has_sent"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:text="已发送至 18000000000"
+                android:textAppearance="@style/has_sent"
+                android:translationY="-2.38sp"
+                android:gravity="top"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/modify"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:text="修改"
+                android:textColor="#314A32"
+                android:lineSpacingExtra="5sp"
+                android:translationY="-2.38sp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="60dp"
+                app:layout_constraintStart_toEndOf="@id/has_sent"
+                android:layout_marginStart="10dp"
+ />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/form"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="100dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <EditText
+                android:id="@+id/input_1"
+                android:layout_width="46dp"
+                android:layout_height="62dp"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:background="@drawable/input_deful"
+                android:padding="8dp"
+                android:nextFocusDown="@id/input_2"
+                android:imeOptions="actionNext" />
+
+            <EditText
+                android:id="@+id/input_2"
+                android:layout_width="46dp"
+                android:layout_height="62dp"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:background="@drawable/input_deful"
+                android:padding="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:nextFocusDown="@id/input_3"
+                android:imeOptions="actionNext" />
+
+            <EditText
+                android:id="@+id/input_3"
+                android:layout_width="46dp"
+                android:layout_height="62dp"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:background="@drawable/input_deful"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:nextFocusDown="@id/input_4"
+                android:imeOptions="actionNext" />
+
+            <EditText
+                android:id="@+id/input_4"
+                android:layout_width="46dp"
+                android:layout_height="62dp"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:background="@drawable/input_deful"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:nextFocusDown="@id/input_5"
+                android:imeOptions="actionNext" />
+
+            <EditText
+                android:id="@+id/input_5"
+                android:layout_width="46dp"
+                android:layout_height="62dp"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:background="@drawable/input_deful"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:nextFocusDown="@id/input_6"
+                android:imeOptions="actionNext" />
+
+            <EditText
+                android:id="@+id/input_6"
+                android:layout_width="46dp"
+                android:layout_height="62dp"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:background="@drawable/input_deful"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:imeOptions="actionDone" />
+        </LinearLayout>
+
+
+        />
+
+
+
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

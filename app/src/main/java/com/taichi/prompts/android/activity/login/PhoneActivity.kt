@@ -26,7 +26,7 @@ class PhoneActivity : AppCompatActivity() {
             val editText: EditText = findViewById(R.id.place)
             val inputText: String? = editText.text.toString()
             if (inputText != null && inputText.equals("18000000000")) {
-                val intent = Intent(this, TabActivity::class.java)
+                val intent = Intent(this, VerifyActivity::class.java)
                 startActivity(intent)
             }
         }
