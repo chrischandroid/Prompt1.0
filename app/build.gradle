@@ -68,6 +68,7 @@ dependencies {
     implementation libs.androidx.activity
     implementation libs.androidx.recyclerview
     implementation libs.circleimageview
+    implementation libs.androidx.core
 
 
     //junit单元测试

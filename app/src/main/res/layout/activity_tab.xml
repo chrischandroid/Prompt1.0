@@ -29,7 +29,7 @@
         <com.taichi.prompts.base.tab.NavigationBottomBar
             android:id="@+id/tabBottomBar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60" />
+            android:layout_height="@dimen/dp_80" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

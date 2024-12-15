@@ -25,7 +25,7 @@ class TabIconView(context: Context) : LinearLayoutCompat(context) {
     private var tabWidth = 0
 
     //默认icon大小75
-    private var iconSize: Int = 75
+    private var iconSize: Int = 100
 
     private var iconImg: ImageView? = null
 

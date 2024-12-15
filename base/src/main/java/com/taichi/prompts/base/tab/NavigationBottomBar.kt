@@ -13,11 +13,7 @@ import com.taichi.prompts.base.R
 import java.lang.IndexOutOfBoundsException
 import java.lang.RuntimeException
 
-/**
- * 作者：Gongsensen
- * 日期：2022/10/12
- * 说明：
- */
+
 class NavigationBottomBar(context: Context, attr: AttributeSet) : ConstraintLayout(context, attr) {
     companion object {
         private const val TAG: String = "NavigationBottomBar"
@@ -51,7 +47,7 @@ class NavigationBottomBar(context: Context, attr: AttributeSet) : ConstraintLayo
     private var orientation: Int = LinearLayoutCompat.HORIZONTAL
 
     //默认icon大小75
-    private var iconSize: Int = 75
+    private var iconSize: Int = 150
 
     private var tabClickListener: OnBottomTabClickListener? = null
 
@@ -196,7 +192,7 @@ class NavigationBottomBar(context: Context, attr: AttributeSet) : ConstraintLayo
                 bottomTabLinear?.layoutParams?.height ?: 150
             val tabIconView = TabIconView(context).apply {
                 this.setHeight(height)
-                    .init(type, textList[i])
+                    .init(type, null)
             }
             if (i == 0) {
                 tabIconView.setTabIcon(selectedIcons[i])

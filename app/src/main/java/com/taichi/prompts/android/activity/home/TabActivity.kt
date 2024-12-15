@@ -1,6 +1,11 @@
 package com.taichi.prompts.android.activity.home
 
+import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.VectorDrawable
+import android.graphics.Canvas
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.LogUtils
@@ -13,8 +18,6 @@ import com.taichi.prompts.android.fragment.mine.FragMine
 import com.taichi.prompts.base.BaseActivity
 import com.taichi.prompts.base.adapter.Pager2Adapter
 import com.taichi.prompts.base.tab.NavigationBottomBar
-import com.tencent.qcloud.tuikit.tuicontact.classicui.pages.TUIContactFragment
-import com.tencent.qcloud.tuikit.tuiconversation.classicui.page.TUIConversationFragment
 import com.tencent.qcloud.tuikit.tuiconversation.classicui.page.TUIConversationFragmentContainer
 
 class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
@@ -26,25 +29,36 @@ class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
         return BR.homeVm
     }
 
+    fun vectorDrawableToBitmap(context: Context, drawableResId: Int, width: Int, height: Int): Bitmap? {
+        val drawable = ContextCompat.getDrawable(context, drawableResId) as? VectorDrawable ?: return null
+        drawable.setBounds(0, 0, width, height)
+
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        drawable.draw(canvas)
+
+        return bitmap
+    }
+
     override fun initViewData() {
         initPageModule()
         val icons = arrayOf(
-            BitmapFactory.decodeResource(resources, R.drawable.icon_home_selected),
-            BitmapFactory.decodeResource(resources, R.drawable.icon_love_red),
-            BitmapFactory.decodeResource(resources, R.drawable.icon_community_selected),
-            BitmapFactory.decodeResource(resources, R.drawable.icon_personal_selected)
+            vectorDrawableToBitmap(this, R.drawable.fill1, 200, 200),
+            vectorDrawableToBitmap(this, R.drawable.love1, 200, 200),
+            vectorDrawableToBitmap(this, R.drawable.msg1, 200, 200),
+            vectorDrawableToBitmap(this, R.drawable.mine1, 200, 200)
         )
+
         val icons2 = arrayOf(
-            BitmapFactory.decodeResource(resources, R.drawable.icon_home_grey),
-            BitmapFactory.decodeResource(resources, R.drawable.icon_love_grey),
-            BitmapFactory.decodeResource(resources, R.drawable.icon_community_grey),
-            BitmapFactory.decodeResource(resources, R.drawable.icon_personal_grey)
+            vectorDrawableToBitmap(this, R.drawable.fill2, 100, 100),
+            vectorDrawableToBitmap(this, R.drawable.love2, 100, 100),
+            vectorDrawableToBitmap(this, R.drawable.msg2, 100, 100),
+            vectorDrawableToBitmap(this, R.drawable.mine2, 100, 100)
         )
-        val tabTexts = arrayOf("首页", "喜欢", "聊天", "个人")
+        //val tabTexts = arrayOf("首页", "喜欢", "聊天", "个人")
         binding?.tabBottomBar?.let {
-            it.setSelectedIcons(icons.toList())
-                .setUnselectIcons(icons2.toList())
-                .setTabText(tabTexts.toList())
+            it.setSelectedIcons(icons.toList() as List<Bitmap>?)
+                .setUnselectIcons(icons2.toList() as List<Bitmap>?)
                 .setupViewpager(binding?.tabViewPager2)
                 .start()
         }
