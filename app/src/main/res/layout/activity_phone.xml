@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="phoneVm"
+            type="com.taichi.prompts.android.activity.login.PhoneViewModel" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.login.PhoneActivity">
+
+
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/arrow_left"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="70dp">
+        <ImageView
+            android:id="@+id/arrayleft"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/arrow_left" />
+    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/main_conten"
         android:layout_width="0dp"
@@ -18,11 +47,13 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="126dp">
 
+
         <TextView
             android:id="@+id/input_phone"
             android:layout_width="wrap_content"
             android:layout_height="37dp"
             android:text="@string/input_phone"
+            android:textStyle="bold"
             android:textAppearance="@style/input_phone"
             android:gravity="top"
             />
@@ -33,10 +64,10 @@
             android:layout_height="60dp"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="0dp"
-            android:layout_marginLeft="6dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="60dp"
             android:layout_marginEnd="0dp"
-            android:background="@drawable/field_defau"
+            android:background="@drawable/fieldstate"
             app:layout_constraintStart_toStartOf="@id/input_phone"
             app:layout_constraintTop_toBottomOf="@id/input_phone">
 
@@ -45,8 +76,8 @@
                 android:layout_width="28dp"
                 android:text="@string/placeholder"
                 android:layout_height="24dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginLeft="20dp"
                 android:textAppearance="@style/placeholder"
                 android:lineSpacingExtra="6sp"
                 android:translationY="-2.77sp"
@@ -58,8 +89,8 @@
                 android:id="@+id/dropdown"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:layout_marginLeft="45dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="52dp"
+                android:layout_marginTop="22dp"
                 android:clipToOutline="true">
 
                 <ImageView
@@ -75,7 +106,7 @@
                 android:id="@+id/line"
                 android:layout_width="2dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="68dp"
+                android:layout_marginLeft="82dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/line" />
 
@@ -83,16 +114,16 @@
                 android:id="@+id/place"
                 android:layout_width="156dp"
                 android:layout_height="68dp"
-                android:layout_marginLeft="80dp"
+                android:layout_marginLeft="92dp"
                 android:inputType="number"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="22dp"
                 android:textAppearance="@style/place"
                 android:hint="请输入手机号"
                 android:background="@android:color/transparent"
                 android:lineSpacingExtra="6sp"
                 android:translationY="-2.77sp"
                 android:gravity="top"
-                android:maxLength="11"
+                android:maxLength="13"
                 />
         </RelativeLayout>
 
@@ -126,3 +157,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

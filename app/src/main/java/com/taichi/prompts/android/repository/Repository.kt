@@ -1,7 +1,9 @@
 package com.taichi.prompts.android.repository
 
 import android.util.Log
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.taichi.prompts.android.common.Constants
 import com.taichi.prompts.android.repository.data.MbtiResultVO
 import com.taichi.prompts.android.repository.data.QuestionAvailableResultVO
 import com.taichi.prompts.android.repository.data.QuestionInfoVO
@@ -9,6 +11,9 @@ import com.taichi.prompts.android.repository.data.QuestionnaireResultVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
 import com.taichi.prompts.android.repository.data.UserBaseDTO
+import com.taichi.prompts.android.repository.data.UserLoginRequest
+import com.taichi.prompts.android.repository.data.UserLoginResponse
+import com.taichi.prompts.android.repository.data.UserLoginSmsRequest
 import com.taichi.prompts.android.repository.data.UserProfileMatchRequest
 import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
 import com.taichi.prompts.android.repository.data.UserProfileRequest
@@ -22,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import retrofit2.Response
 
 object Repository {
     private const val Success_Code = 0
@@ -47,6 +53,30 @@ object Repository {
         )
         val data: BaseResponse<String> = getDefaultApi().login(registerRequest)
         return responseCall(data).toString()
+    }
+
+    /**
+     * 发短信
+     */
+    suspend fun sendMessage(region: String, number : String): String {
+        val dataList = UserLoginSmsRequest(region, number)
+        val data: BaseResponse<String> = getDefaultApi().sendMessage(dataList)
+        return responseCall(data).toString()
+    }
+
+    /**
+     * 短信登录
+     */
+    suspend fun loginMessage(number: String, code : String): UserLoginResponse? {
+        val dataList = UserLoginRequest(number, code, 2)
+        val data: Response<BaseResponse<UserLoginResponse?>> = getDefaultApi().loginMessage(dataList)
+        return responseWithHeaderCall(data)
+    }
+
+    suspend fun loginWithToken(number: String, token : String): UserLoginResponse? {
+        val dataList = UserLoginRequest(number, "", 2)
+        val data: Response<BaseResponse<UserLoginResponse?>> = getDefaultApi().loginWithToken(dataList, token)
+        return responseWithHeaderCall(data)
     }
 
     suspend fun getUserMBTI(id: String) : MbtiResultVO? {
@@ -122,6 +152,27 @@ object Repository {
         return true
     }
 
+
+    private fun <T> responseWithHeaderCall(
+        response: Response<BaseResponse<T?>>,
+        needLogin: (() -> Unit?)? = null
+    ): T? {
+        if (response == null || response.body() == null) {
+            GlobalScope.launch(Dispatchers.Main) {
+                ToastUtils.showShort("请求异常")
+            }
+            return null
+        }
+        val authorizationToken = response.headers().get("authorization_token")
+        if (authorizationToken != null) {
+            SPUtils.getInstance().put(Constants.SP_USER_TOKEN, authorizationToken)
+        } else {
+            Log.w("AuthorizationToken", "Authorization token was not found in the response headers")
+        }
+        val responseBody = response.body()
+        return responseCall(responseBody)
+    }
+
     /**
      * 返回值处理
      */
@@ -140,7 +191,7 @@ object Repository {
         } else  {
             Log.e("Network", "post fail" + response.getErrMsg())
             GlobalScope.launch(Dispatchers.Main) {
-                ToastUtils.showShort(response.getErrMsg() ?: "")
+                ToastUtils.showShort("请求异常" + response.getErrCode() + response.getErrMsg() ?: "")
             }
             return null
         }

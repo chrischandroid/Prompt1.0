@@ -34,6 +34,17 @@ data class UserRegisterDTO(
     val registerSecret: String
 )
 
+data class UserLoginSmsRequest(
+    val regionNo: String,
+    val phoneNo: String
+)
+
+data class UserLoginRequest(
+    val registerAccount: String,
+    val registerSecret: String,
+    val registerType: Int
+)
+
 data class RegisterRequest(
     val userRegisterDTO: UserRegisterDTO
 )
@@ -95,6 +106,10 @@ data class UserBaseDTO(
     val hometown : String,
     val phoneNo: String,
     val mailAddress: String
+)
+
+data class UserLoginResponse(
+    val userBaseVO : UserBaseDTO
 )
 
 data class UserBaseVO(

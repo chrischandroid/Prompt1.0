@@ -1,9 +1,13 @@
 package com.taichi.prompts.android.repository
+import com.google.gson.stream.JsonToken
 import com.taichi.prompts.android.repository.data.MbtiResultVO
 import com.taichi.prompts.android.repository.data.QuestionInfoVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
 import com.taichi.prompts.android.repository.data.UserData
+import com.taichi.prompts.android.repository.data.UserLoginRequest
+import com.taichi.prompts.android.repository.data.UserLoginResponse
+import com.taichi.prompts.android.repository.data.UserLoginSmsRequest
 import com.taichi.prompts.android.repository.data.UserProfileMatchRequest
 import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
 import com.taichi.prompts.android.repository.data.UserProfileRequest
@@ -16,6 +20,7 @@ import com.taichi.prompts.http.BaseResponse
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -55,6 +60,37 @@ interface ApiService {
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json"
     ): BaseResponse<String>
+
+    /**
+     * 短信
+     */
+    @POST(ApiAddress.SendMsg)
+    suspend fun sendMessage(
+        @Body userLoginSmsRequest: UserLoginSmsRequest,
+        @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
+        @Header("Content-Type") contentType: String = "application/json",
+    ): BaseResponse<String>
+
+    /**
+     * 短信登录
+     */
+    @POST(ApiAddress.LoginMsg)
+    suspend fun loginMessage(
+        @Body userLoginRequest: UserLoginRequest,
+        @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
+        @Header("Content-Type") contentType: String = "application/json",
+    ): Response<BaseResponse<UserLoginResponse?>>
+
+    /**
+     * 免密登录
+     */
+    @POST(ApiAddress.LoginMsg)
+    suspend fun loginWithToken(
+        @Body userLoginRequest: UserLoginRequest,
+        @Header("authorization_token") token: String,
+        @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
+        @Header("Content-Type") contentType: String = "application/json",
+    ): Response<BaseResponse<UserLoginResponse?>>
 
     /**
      * 获取mbti
