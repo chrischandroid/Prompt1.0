@@ -133,5 +133,6 @@
     <string name="place">
                 请输入手机号
             </string>
+    <string name="title_activity_welcome_scrolling">WelcomeScrollingActivity</string>
 </resources>
 

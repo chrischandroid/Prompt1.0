@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161916"
+    tools:context=".activity.login.WelcomeGuideActivity">
+
+    <View
+        android:id="@+id/rectangle_9"
+        android:layout_width="370dp"
+        android:layout_height="4dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="30dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rectangle_9"
+        />
+
+    <View
+        android:id="@+id/rectangle_0"
+        android:layout_width="109dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="70dp"
+        android:layout_alignLeft="@+id/rectangle_9"
+        android:background="@drawable/status0" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="78dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/main_conten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp">
+
+                <ImageView
+                    android:id="@+id/icon99"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:src="@drawable/icon99" />
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/bubble"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="44dp"
+                    android:layout_marginTop="0dp"
+                    android:padding="10dp"
+                    android:background="@drawable/bubble1">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="你好新朋友！欢迎来到灵启！👋 ️"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"></TextView>
+
+                </RelativeLayout>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/bubble1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="44dp"
+                    android:layout_marginTop="50dp"
+                    android:padding="10dp"
+                    android:background="@drawable/bubble1">
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+
+                        android:text="我叫阿拉松，我正在为你开启一场有趣的长期\n社交关系实验 😊️"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"></TextView>
+
+                </RelativeLayout>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/bubble2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="44dp"
+                    android:layout_marginTop="118dp"
+                    android:padding="10dp"
+                    android:background="@drawable/bubble1">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+
+                        android:text="在开启前，请让我先知道你的性别吧。\n性别一旦设置后将不可更改哦！"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"></TextView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/frame_16244"
+                    android:layout_width="193dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="44dp"
+                    android:layout_marginTop="187dp"
+                    android:background="@drawable/frame_16">
+
+                    <View
+                        android:id="@+id/vector"
+                        android:layout_width="12dp"
+                        android:layout_height="14dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="11dp"
+
+                        android:background="@drawable/play" />
+
+                    <View
+                        android:id="@+id/circ"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="34dp"
+                        android:layout_marginTop="11dp"
+                        android:background="@drawable/cirl" />
+
+                    <View
+                        android:id="@+id/newline"
+                        android:layout_width="120dp"
+                        android:layout_height="5dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="34dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/newline" />
+
+                    <TextView
+                        android:id="@+id/some_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="158dp"
+                        android:alpha="0.5"
+                        android:lineSpacingExtra="4sp"
+                        android:text="0:24"
+                        android:textAppearance="@style/some_id"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:translationY="-2.09sp" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+

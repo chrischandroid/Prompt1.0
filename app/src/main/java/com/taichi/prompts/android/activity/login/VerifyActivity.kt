@@ -93,11 +93,11 @@ class VerifyActivity : BaseActivity<ActivityVerifyBinding, VerifyViewModel>() {
         viewModel?.openNewActivityEvent?.observe(this, Observer { event ->
             if (event.userBaseVO != null &&  event.userBaseVO.userId != null) {
                 Log.i("Prompt", "userid:" + event.userBaseVO.userId)
-                val intent = Intent(this@VerifyActivity, TabActivity::class.java)
+                val intent = Intent(this@VerifyActivity, WelcomeGuideActivity::class.java)
                 startActivity(intent)
             } else {
                 Log.i("Prompt", "moveToNewStarterScreen:")
-                val intent = Intent(this@VerifyActivity, TabActivity::class.java)
+                val intent = Intent(this@VerifyActivity, WelcomeGuideActivity::class.java)
                 startActivity(intent)
             }
         })
