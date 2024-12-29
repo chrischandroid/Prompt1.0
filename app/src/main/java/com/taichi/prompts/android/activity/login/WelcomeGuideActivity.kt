@@ -1,34 +1,63 @@
 package com.taichi.prompts.android.activity.login
 
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.ScrollView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.core.os.postDelayed
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.taichi.prompts.android.R
+import com.taichi.prompts.android.activity.home.TabActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class WelcomeGuideActivity : AppCompatActivity() {
     private lateinit var bubble: RelativeLayout
     private lateinit var bubble1: RelativeLayout
     private lateinit var bubble2: RelativeLayout
     private lateinit var bubble3: RelativeLayout
+    private lateinit var answer1: RelativeLayout
+    private lateinit var answer2: RelativeLayout
+    private lateinit var prof: ImageView
+    private lateinit var ask1: RelativeLayout
+    private lateinit var ask2: RelativeLayout
+    private lateinit var answer3: RelativeLayout
+    private lateinit var answer4: RelativeLayout
+    private lateinit var prof1: ImageView
+    private lateinit var ask3: RelativeLayout
+    private lateinit var gender: String
+    private lateinit var answer5 : RelativeLayout
+    private lateinit var scrollView: ScrollView
+    private var preDrawListener: ViewTreeObserver.OnPreDrawListener? = null
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,12 +67,32 @@ class WelcomeGuideActivity : AppCompatActivity() {
         bubble1 = findViewById(R.id.bubble1)
         bubble2 = findViewById(R.id.bubble2)
         bubble3 = findViewById(R.id.frame_16244)
+        answer1 = findViewById(R.id.answer1)
+        answer2 = findViewById(R.id.frame_16241)
+        prof = findViewById(R.id.icon94)
+        ask1 = findViewById(R.id.bubblee)
+        ask2 = findViewById(R.id.frame_1625)
+        answer3 = findViewById(R.id.answer3)
+        answer4 = findViewById(R.id.frame_162412)
+        prof1 = findViewById(R.id.icon9o4)
+        ask3 = findViewById(R.id.bubblede)
+        answer5 = findViewById(R.id.frame_162f5)
 
         // 初始设置为不可见
-        bubble.visibility = View.GONE
-        bubble1.visibility = View.GONE
-        bubble2.visibility = View.GONE
-        bubble3.visibility = View.GONE
+        bubble.visibility = View.INVISIBLE
+        bubble1.visibility = View.INVISIBLE
+        bubble2.visibility = View.INVISIBLE
+        bubble3.visibility = View.INVISIBLE
+        answer1.visibility = View.INVISIBLE
+        answer2.visibility = View.INVISIBLE
+        prof.visibility = View.INVISIBLE
+        ask1.visibility = View.INVISIBLE
+        ask2.visibility = View.INVISIBLE
+        answer3.visibility = View.INVISIBLE
+        answer4.visibility = View.INVISIBLE
+        prof1.visibility = View.INVISIBLE
+        ask3.visibility = View.INVISIBLE
+        answer5.visibility = View.INVISIBLE
         lifecycleScope.launch {
             showViewsWithDelay()
         }
@@ -77,11 +126,170 @@ class WelcomeGuideActivity : AppCompatActivity() {
             val girl = dialog.findViewById<Button>(R.id.buttonf)
             boy.setOnClickListener {
                 dialog.dismiss()
+                val timeTextView : TextView = findViewById(R.id.textanswer)
+                timeTextView.text = "男生"
+                gender = "男孩"
+                answer1.visibility = View.VISIBLE
+                
+                val time : TextView = findViewById(R.id.timeTextView)
+                val sdf = SimpleDateFormat("h:mm a", Locale.US)
+                val currentTime = sdf.format(Date())
+                time.text = getTime()
+                answer2.visibility = View.VISIBLE
+                lifecycleScope.launch {
+                    goNextBirth()
+                }
             }
             girl.setOnClickListener {
                 dialog.dismiss()
+                val timeTextView : TextView = findViewById(R.id.textanswer)
+                timeTextView.text = "女生"
+                gender = "女孩"
+                answer1.visibility = View.VISIBLE
+
+                val time : TextView = findViewById(R.id.timeTextView)
+                val sdf = SimpleDateFormat("h:mm a", Locale.US)
+                val currentTime = sdf.format(Date())
+                time.text = getTime()
+                answer2.visibility = View.VISIBLE
+                lifecycleScope.launch {
+                    goNextBirth()
+                }
+
             }
             dialog.show()
         }
+    }
+
+    private fun getTime() : String {
+        val sdf = SimpleDateFormat("h:mm a", Locale.US)
+        val currentTime = sdf.format(Date())
+        return currentTime
+    }
+
+    private suspend fun ShowNext(gender: String, stars :String) {
+        scrollView = findViewById(R.id.scrollView)
+
+        // 使用匿名内部类创建OnPreDrawListener
+        scrollView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                // 确保只处理一次，避免重复执行
+                if (scrollView.viewTreeObserver.isAlive) {
+                    // 通过this来移除当前匿名内部类实例代表的监听器
+                    scrollView.viewTreeObserver.removeOnPreDrawListener(this)
+                }
+
+                // 直接调用fullScroll方法滚动到底部
+                scrollView.fullScroll(ScrollView.FOCUS_DOWN)
+                return true
+            }
+        })
+        delay(1500)
+        var callback : String = "又是一位可爱的" + stars + gender + "捏！😄 接下来\n还差最后一步，请告诉我要怎么称呼你吧"
+        val t : TextView = findViewById(R.id.textVidewe)
+        t.text = callback
+        prof1.visibility = View.VISIBLE
+        ask3.visibility = View.VISIBLE
+        answer5.visibility = View.VISIBLE
+        delay(1000)
+
+        val dialog = Dialog(this@WelcomeGuideActivity)
+        dialog.setContentView(R.layout.name)
+        val window = dialog.window
+        if (window!= null) {
+            window.setGravity(Gravity.BOTTOM)  // 设置对话框显示位置为底部
+            val layoutParams = window.attributes
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT  // 设置宽度占满屏幕
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT  // 高度自适应内容
+            window.attributes = layoutParams
+        }
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+
+        val confrim = dialog.findViewById<TextView>(R.id.button_labe)
+        val text = dialog.findViewById<EditText>(R.id.editText)
+        confrim.setOnClickListener {
+            val inputText = text.text.toString().trim()
+            if (inputText.isNotEmpty()) {
+                Log.d("promptname", "输入的内容是: $inputText")
+            }
+            dialog.dismiss()
+            val intent = Intent(this, TabActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
+        dialog.show()
+    }
+
+    private suspend fun goNextBirth() {
+        delay(1000)
+        prof.visibility = View.VISIBLE
+        ask1.visibility = View.VISIBLE
+        delay(300)
+        ask2.visibility = View.VISIBLE
+        delay(1000)
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val minDateCalendar = Calendar.getInstance()
+        minDateCalendar.set(1900, Calendar.JANUARY, 1)
+
+        val maxDateCalendar = Calendar.getInstance()
+        maxDateCalendar.set(2025, Calendar.DECEMBER, 31)
+
+        val datePickerDialog = DatePickerDialog(this,
+            DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                Log.d("SelectedDate", "Selected year: $year, month: ${month + 1}, day: $day")
+                val ans = "${year}年${month + 1}月${day}日"
+                val timeTextView : TextView = findViewById(R.id.textanswer3)
+                timeTextView.text = ans
+                answer3.visibility = View.VISIBLE
+
+                val time : TextView = findViewById(R.id.timeTextView3)
+                val sdf = SimpleDateFormat("h:mm a", Locale.US)
+                val currentTime = sdf.format(Date())
+                time.text = getTime()
+                answer4.visibility = View.VISIBLE
+                val selectedMonth = month + 1
+                val selectedDay = day
+                var zodiac = ""
+                when {
+                    (selectedMonth == 1 && selectedDay >= 20) || (selectedMonth == 2 && selectedDay <= 18) -> zodiac = "水瓶座"
+                    (selectedMonth == 2 && selectedDay >= 19) || (selectedMonth == 3 && selectedDay <= 20) -> zodiac = "双鱼座"
+                    (selectedMonth == 3 && selectedDay >= 21) || (selectedMonth == 4 && selectedDay <= 19) -> zodiac = "白羊座"
+                    (selectedMonth == 4 && selectedDay >= 20) || (selectedMonth == 5 && selectedDay <= 20) -> zodiac = "金牛座"
+                    (selectedMonth == 5 && selectedDay >= 21) || (selectedMonth == 6 && selectedDay <= 20) -> zodiac = "双子座"
+                    (selectedMonth == 6 && selectedDay >= 21) || (selectedMonth == 7 && selectedDay <= 22) -> zodiac = "巨蟹座"
+                    (selectedMonth == 7 && selectedDay >= 23) || (selectedMonth == 8 && selectedDay <= 22) -> zodiac = "狮子座"
+                    (selectedMonth == 8 && selectedDay >= 23) || (selectedMonth == 9 && selectedDay <= 22) -> zodiac = "处女座"
+                    (selectedMonth == 9 && selectedDay >= 23) || (selectedMonth == 10 && selectedDay <= 22) -> zodiac = "天秤座"
+                    (selectedMonth == 10 && selectedDay >= 23) || (selectedMonth == 11 && selectedDay <= 21) -> zodiac = "天蝎座"
+                    (selectedMonth == 11 && selectedDay >= 22) || (selectedMonth == 12 && selectedDay <= 21) -> zodiac = "射手座"
+                    (selectedMonth == 12 && selectedDay >= 22) || (selectedMonth == 1 && selectedDay <= 19) -> zodiac = "摩羯座"
+                }
+                lifecycleScope.launch {
+                    ShowNext(gender, zodiac)
+                }
+
+            }, year, month, day)
+
+        datePickerDialog.datePicker.minDate = minDateCalendar.timeInMillis
+        datePickerDialog.datePicker.maxDate = maxDateCalendar.timeInMillis
+
+        val window = datePickerDialog.window
+        if (window!= null) {
+            window.setGravity(Gravity.BOTTOM)  // 设置对话框显示位置为底部
+            val layoutParams = window.attributes
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT  // 设置宽度占满屏幕
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT  // 高度自适应内容
+            window.attributes = layoutParams
+        }
+        datePickerDialog.setCancelable(false)
+        datePickerDialog.setCanceledOnTouchOutside(false)
+
+        datePickerDialog.show()
     }
 }

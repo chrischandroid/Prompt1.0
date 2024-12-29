@@ -28,9 +28,11 @@
         android:background="@drawable/status0" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="78dp"
+        android:layout_marginBottom="370dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -184,6 +186,313 @@
                         android:textSize="12sp"
                         android:translationY="-2.09sp" />
                 </RelativeLayout>
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/answer1"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="238dp"
+                    android:layout_marginRight="20dp"
+                    android:padding="10dp"
+                    android:background="@drawable/bubbleanswer1">
+
+                    <TextView
+                        android:id="@+id/textanswer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+
+                        android:text="男生"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"></TextView>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_16241"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+
+                    android:layout_below="@+id/answer1"
+                    android:layout_marginTop="10dp">
+                    <View
+                        android:id="@+id/yes"
+                        android:layout_width="12dp"
+                        android:layout_height="10dp"
+                        android:layout_centerInParent="true"
+                        android:layout_toLeftOf="@+id/yes1"
+                        android:background="@drawable/yes"
+                        />
+                    <View
+                        android:id="@+id/yes1"
+                        android:layout_width="12dp"
+                        android:layout_height="10dp"
+                        android:layout_centerInParent="true"
+                        android:layout_toLeftOf="@+id/em"
+                        android:background="@drawable/yes"
+                        />
+                    <View
+                        android:id="@+id/em"
+                        android:layout_width="8dp"
+                        android:layout_height="10dp"
+                        android:layout_centerInParent="true"
+                        android:layout_toLeftOf="@+id/timeTextView"
+                        />
+                    <TextView
+                        android:id="@+id/timeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="8:45 AM"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/icon94"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_below="@+id/frame_16241"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/icon99" />
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/bubblee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/frame_16241"
+                    android:layout_marginLeft="44dp"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:background="@drawable/bubble1">
+
+                    <TextView
+                        android:id="@+id/textViewe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="👌您的生日是？这对我来说很重要！️"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"></TextView>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/frame_1625"
+                    android:layout_width="193dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="44dp"
+                    android:layout_below="@+id/bubblee"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/frame_16">
+
+                    <View
+                        android:id="@+id/vectora"
+                        android:layout_width="12dp"
+                        android:layout_height="14dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="11dp"
+
+                        android:background="@drawable/play" />
+
+                    <View
+                        android:id="@+id/circa"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="34dp"
+                        android:layout_marginTop="11dp"
+                        android:background="@drawable/cirl" />
+
+                    <View
+                        android:id="@+id/newlinea"
+                        android:layout_width="120dp"
+                        android:layout_height="5dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="34dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/newline" />
+
+                    <TextView
+                        android:id="@+id/some_ida"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="158dp"
+                        android:alpha="0.5"
+                        android:lineSpacingExtra="4sp"
+                        android:text="0:06"
+                        android:textAppearance="@style/some_id"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:translationY="-2.09sp" />
+                </RelativeLayout>
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/answer3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/frame_1625"
+                    android:layout_marginLeft="44dp"
+                    android:layout_marginTop="20dp"
+
+                    android:layout_marginRight="20dp"
+                    android:padding="10dp"
+                    android:background="@drawable/dateanswer">
+
+                    <TextView
+                        android:id="@+id/textanswer3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="1992年12月30日"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"></TextView>
+                </RelativeLayout>
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_162412"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+
+                    android:layout_below="@+id/answer3"
+                    android:layout_marginTop="10dp">
+                    <View
+                        android:id="@+id/yes4"
+                        android:layout_width="12dp"
+                        android:layout_height="10dp"
+                        android:layout_centerInParent="true"
+                        android:layout_toLeftOf="@+id/yes5"
+                        android:background="@drawable/yes"
+                        />
+                    <View
+                        android:id="@+id/yes5"
+                        android:layout_width="12dp"
+                        android:layout_height="10dp"
+                        android:layout_centerInParent="true"
+                        android:layout_toLeftOf="@+id/em5"
+                        android:background="@drawable/yes"
+                        />
+                    <View
+                        android:id="@+id/em5"
+                        android:layout_width="8dp"
+                        android:layout_height="10dp"
+                        android:layout_centerInParent="true"
+                        android:layout_toLeftOf="@+id/timeTextView3"
+                        />
+                    <TextView
+                        android:id="@+id/timeTextView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="8:45 AM"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/icon9o4"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_below="@+id/frame_162412"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/icon99" />
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/bubblede"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/frame_162412"
+                    android:layout_marginLeft="44dp"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:background="@drawable/bubble1">
+
+                    <TextView
+                        android:id="@+id/textVidewe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="又是一位可爱的摩羯座男孩捏！😄 接下来\n还差最后一步，请告诉我要怎么称呼你吧️"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"></TextView>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/frame_162f5"
+                    android:layout_width="193dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="44dp"
+                    android:layout_below="@+id/bubblede"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/frame_16">
+
+                    <View
+                        android:id="@+id/vectodra"
+                        android:layout_width="12dp"
+                        android:layout_height="14dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="11dp"
+
+                        android:background="@drawable/play" />
+
+                    <View
+                        android:id="@+id/circad"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="34dp"
+                        android:layout_marginTop="11dp"
+                        android:background="@drawable/cirl" />
+
+                    <View
+                        android:id="@+id/newlineda"
+                        android:layout_width="120dp"
+                        android:layout_height="5dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="34dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/newline" />
+
+                    <TextView
+                        android:id="@+id/some_idad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="158dp"
+                        android:alpha="0.5"
+                        android:lineSpacingExtra="4sp"
+                        android:text="0:10"
+                        android:textAppearance="@style/some_id"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:translationY="-2.09sp" />
+                </RelativeLayout>
+
+
 
 
             </RelativeLayout>
@@ -192,6 +501,9 @@
     </ScrollView>
 
 </RelativeLayout>
+
+
+
 
 
 

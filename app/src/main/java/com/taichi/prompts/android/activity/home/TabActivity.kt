@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.VectorDrawable
 import android.graphics.Canvas
+import androidx.activity.OnBackPressedDispatcher
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -28,6 +29,7 @@ class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
     override fun getViewModelId(): Int {
         return BR.homeVm
     }
+
 
     fun vectorDrawableToBitmap(context: Context, drawableResId: Int, width: Int, height: Int): Bitmap? {
         val drawable = ContextCompat.getDrawable(context, drawableResId) as? VectorDrawable ?: return null
