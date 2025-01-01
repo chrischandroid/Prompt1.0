@@ -16,6 +16,7 @@ import com.taichi.prompts.android.databinding.ActivityVerifyBinding
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import com.blankj.utilcode.util.SPUtils
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.BR
 import com.taichi.prompts.android.activity.home.TabActivity
@@ -91,9 +92,10 @@ class VerifyActivity : BaseActivity<ActivityVerifyBinding, VerifyViewModel>() {
         }
 
         viewModel?.openNewActivityEvent?.observe(this, Observer { event ->
-            if (event.userBaseVO != null &&  event.userBaseVO.userId != null) {
-                Log.i("Prompt", "userid:" + event.userBaseVO.userId)
-                val intent = Intent(this@VerifyActivity, WelcomeGuideActivity::class.java)
+            if (event.userBaseVO != null &&  event.userBaseVO.userNickName != null && event.userBaseVO.userNickName.length > 0) {
+                val intent = Intent(this@VerifyActivity, CompleteGuideActivity::class.java)
+                intent.putExtra("name", event.userBaseVO.userNickName)
+                intent.putExtra("type", 2)
                 startActivity(intent)
             } else {
                 Log.i("Prompt", "moveToNewStarterScreen:")

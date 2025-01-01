@@ -27,8 +27,13 @@ import androidx.core.os.postDelayed
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.transition.Visibility
+import com.blankj.utilcode.util.SPUtils
+import com.codbking.widget.DatePickDialog
+import com.codbking.widget.bean.DateType
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.activity.home.TabActivity
+import com.taichi.prompts.android.common.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -129,6 +134,7 @@ class WelcomeGuideActivity : AppCompatActivity() {
                 val timeTextView : TextView = findViewById(R.id.textanswer)
                 timeTextView.text = "男生"
                 gender = "男孩"
+                SPUtils.getInstance().put(Constants.SP_USER_GENDER, 1)
                 answer1.visibility = View.VISIBLE
                 
                 val time : TextView = findViewById(R.id.timeTextView)
@@ -146,6 +152,7 @@ class WelcomeGuideActivity : AppCompatActivity() {
                 timeTextView.text = "女生"
                 gender = "女孩"
                 answer1.visibility = View.VISIBLE
+                SPUtils.getInstance().put(Constants.SP_USER_GENDER, 2)
 
                 val time : TextView = findViewById(R.id.timeTextView)
                 val sdf = SimpleDateFormat("h:mm a", Locale.US)
@@ -168,6 +175,8 @@ class WelcomeGuideActivity : AppCompatActivity() {
     }
 
     private suspend fun ShowNext(gender: String, stars :String) {
+        val nextView : View = findViewById(R.id.rectangle_2)
+        nextView.visibility = View.VISIBLE
         scrollView = findViewById(R.id.scrollView)
 
         // 使用匿名内部类创建OnPreDrawListener
@@ -214,8 +223,10 @@ class WelcomeGuideActivity : AppCompatActivity() {
                 Log.d("promptname", "输入的内容是: $inputText")
             }
             dialog.dismiss()
-            val intent = Intent(this, TabActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            val intent = Intent(this, CompleteGuideActivity::class.java)
+            SPUtils.getInstance().put(Constants.SP_USER_NICKNAME, inputText)
+            intent.putExtra("name", inputText)
+            intent.putExtra("type", 1)
             startActivity(intent)
         }
 
@@ -223,12 +234,15 @@ class WelcomeGuideActivity : AppCompatActivity() {
     }
 
     private suspend fun goNextBirth() {
+        val nextView : View = findViewById(R.id.rectangle_1)
+        nextView.visibility = View.VISIBLE
         delay(1000)
         prof.visibility = View.VISIBLE
         ask1.visibility = View.VISIBLE
         delay(300)
         ask2.visibility = View.VISIBLE
         delay(1000)
+        /*
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
@@ -291,5 +305,70 @@ class WelcomeGuideActivity : AppCompatActivity() {
         datePickerDialog.setCanceledOnTouchOutside(false)
 
         datePickerDialog.show()
+        */
+        val dialog : DatePickDialog  = DatePickDialog(this)
+        dialog.setOnShowListener {
+            val cancelButton = dialog.findViewById<View>(R.id.cancel)
+            if (cancelButton!= null) {
+                cancelButton.setVisibility(View.GONE)
+            }
+        }
+        dialog.setYearLimt(50);
+        dialog.setTitle("选择时间");
+        dialog.setType(DateType.TYPE_YMD);
+        dialog.setMessageFormat("yyyy-MM-dd")
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setOnChangeLisener(null)
+        dialog.setOnSureLisener { selectedDate ->
+
+            val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
+            try {
+                val date = sdf.parse(selectedDate.toString())
+                val calendar = Calendar.getInstance()
+                calendar.time = date
+                val year = calendar.get(Calendar.YEAR)
+                val month = calendar.get(Calendar.MONTH)
+                val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+                val ans = "${year}年${month + 1}月${day}日"
+                val res = "${year}-${month + 1}-${day}"
+                SPUtils.getInstance().put(Constants.SP_USER_BIRTH, res)
+                val timeTextView : TextView = findViewById(R.id.textanswer3)
+                timeTextView.text = ans
+                answer3.visibility = View.VISIBLE
+
+                val time : TextView = findViewById(R.id.timeTextView3)
+                val sdf = SimpleDateFormat("h:mm a", Locale.US)
+                val currentTime = sdf.format(Date())
+                time.text = getTime()
+                answer4.visibility = View.VISIBLE
+
+                val selectedMonth = month + 1
+                val selectedDay = day
+                var zodiac = ""
+                when {
+                    (selectedMonth == 1 && selectedDay >= 20) || (selectedMonth == 2 && selectedDay <= 18) -> zodiac = "水瓶座"
+                    (selectedMonth == 2 && selectedDay >= 19) || (selectedMonth == 3 && selectedDay <= 20) -> zodiac = "双鱼座"
+                    (selectedMonth == 3 && selectedDay >= 21) || (selectedMonth == 4 && selectedDay <= 19) -> zodiac = "白羊座"
+                    (selectedMonth == 4 && selectedDay >= 20) || (selectedMonth == 5 && selectedDay <= 20) -> zodiac = "金牛座"
+                    (selectedMonth == 5 && selectedDay >= 21) || (selectedMonth == 6 && selectedDay <= 20) -> zodiac = "双子座"
+                    (selectedMonth == 6 && selectedDay >= 21) || (selectedMonth == 7 && selectedDay <= 22) -> zodiac = "巨蟹座"
+                    (selectedMonth == 7 && selectedDay >= 23) || (selectedMonth == 8 && selectedDay <= 22) -> zodiac = "狮子座"
+                    (selectedMonth == 8 && selectedDay >= 23) || (selectedMonth == 9 && selectedDay <= 22) -> zodiac = "处女座"
+                    (selectedMonth == 9 && selectedDay >= 23) || (selectedMonth == 10 && selectedDay <= 22) -> zodiac = "天秤座"
+                    (selectedMonth == 10 && selectedDay >= 23) || (selectedMonth == 11 && selectedDay <= 21) -> zodiac = "天蝎座"
+                    (selectedMonth == 11 && selectedDay >= 22) || (selectedMonth == 12 && selectedDay <= 21) -> zodiac = "射手座"
+                    (selectedMonth == 12 && selectedDay >= 22) || (selectedMonth == 1 && selectedDay <= 19) -> zodiac = "摩羯座"
+                }
+                lifecycleScope.launch {
+                    ShowNext(gender, zodiac)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+        }
+        dialog.show()
     }
 }

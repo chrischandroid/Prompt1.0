@@ -11,4 +11,7 @@ object Constants {
     const val SP_USER_MBTJ = "MBTJ"
     const val SP_USER_TOKEN= "TOKEN"
     const val SP_USER_PHONE= "PHONE"
+    const val SP_USER_NICKNAME= "NICKNAME"
+    const val SP_USER_BIRTH= "BIRTHDAY"
+    const val SP_USER_GENDER = "GENDER"
 }

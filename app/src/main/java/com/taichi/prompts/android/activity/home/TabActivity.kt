@@ -5,7 +5,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.VectorDrawable
 import android.graphics.Canvas
+import android.os.Build
 import androidx.activity.OnBackPressedDispatcher
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -20,6 +22,10 @@ import com.taichi.prompts.base.BaseActivity
 import com.taichi.prompts.base.adapter.Pager2Adapter
 import com.taichi.prompts.base.tab.NavigationBottomBar
 import com.tencent.qcloud.tuikit.tuiconversation.classicui.page.TUIConversationFragmentContainer
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
     override fun getLayoutId(): Int {
@@ -42,6 +48,7 @@ class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
         return bitmap
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun initViewData() {
         initPageModule()
         val icons = arrayOf(
@@ -70,6 +77,9 @@ class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
                 LogUtils.d("registerTabClickListener position=$position")
             }
         })
+        if (intent.getStringExtra("nickname") != null) {
+            viewModel?.updateProfile()
+        }
     }
 
     private fun initPageModule() {

@@ -134,5 +134,6 @@
                 请输入手机号
             </string>
     <string name="title_activity_welcome_scrolling">WelcomeScrollingActivity</string>
+    <string name="completes">完成!</string>
 </resources>
 
