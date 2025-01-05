@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/navbar"
     android:layout_width="match_parent"
@@ -10,56 +10,58 @@
     android:elevation="160dp">
     <RelativeLayout
         android:id="@+id/frame_16244"
-        android:layout_width="350dp"
-        android:layout_height="110dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true">
         <TextView
             android:id="@+id/some_id"
             android:layout_width="match_parent"
-            android:layout_height="26dp"
+            android:layout_height="wrap_content"
             android:text="我是..."
             android:textStyle="bold"
             android:textSize="20sp"
+            android:padding="10dp"
+
             android:textColor="#FFFFFF"
             android:textAppearance="@style/some_id"
-            android:gravity="top"
+            android:layout_above="@+id/group_979"
+            android:layout_marginBottom="50dp"
             />
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/group_979"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
             <Button
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/buttonm"
-                android:layout_width="162dp"
-                android:layout_height="52dp"
-                android:text="男生"
-                android:textSize="20sp"
-                android:textColor="#FFFFFF"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:background="@drawable/genderbutton"
-                />
-
+                android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="男生"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textColor="#FFFFFF"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/genderbutton"
+            />
             <Button
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/buttonf"
-                android:layout_width="161dp"
-                android:layout_height="52dp"
-                android:text="女生"
-                android:textSize="20sp"
-                android:textColor="#FFFFFF"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/button"
-                />
+                android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="女生"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/genderbutton"
+            />
+        </LinearLayout>
 
         </RelativeLayout>
-    </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>
 
 
 

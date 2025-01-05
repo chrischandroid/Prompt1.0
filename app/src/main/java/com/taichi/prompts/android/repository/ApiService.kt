@@ -37,7 +37,8 @@ interface ApiService {
      */
     @POST(ApiAddress.Match_List)
     suspend fun homeList(
-        @Body userProfileMatchRequest: UserProfileMatchRequest
+        @Body userProfileMatchRequest: UserProfileMatchRequest,
+        @Header("authorization_token") token: String,
     ): BaseMatchResponse<List<UserProfileMatchVOList>>?
 
     /**
@@ -118,6 +119,7 @@ interface ApiService {
     @POST(ApiAddress.UpdateInfo)
     suspend fun updateInfo(
         @Body request: UpdateInfoRequest,
+        @Header("authorization_token") token: String,
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json"
     ): BaseResponse<String>

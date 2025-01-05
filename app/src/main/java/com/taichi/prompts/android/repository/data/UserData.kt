@@ -50,7 +50,7 @@ data class RegisterRequest(
 )
 
 data class UserProfileMatchRequest(
-    val userId : String,
+    val token : String,
     val profileType : Int,
     val offset : Long,
     val pageSize : Long

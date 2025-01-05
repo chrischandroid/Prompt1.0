@@ -87,8 +87,9 @@ class ProfileViewModel(application: Application) : BaseViewModel(application) {
         val phoneStr : String = phone?.get().toString() ?: "null"
         val mailStr : String = mail?.get().toString() ?: "null"
         val info = UserBaseDTO(id, nickName, ageNum, formattedDate, marryNum, genderNum, cityName, degreeNum, hometownStr, phoneStr, mailStr)
+        val token = SPUtils.getInstance().getString(Constants.SP_USER_TOKEN)
         viewModelScope.launch {
-            val data: String = Repository.updateProfile(info)
+            val data: String = Repository.updateProfile(info, token)
         }
     }
 

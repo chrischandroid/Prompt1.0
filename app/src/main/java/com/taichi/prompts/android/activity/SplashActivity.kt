@@ -19,7 +19,7 @@ import com.taichi.prompts.android.common.Constants
 import com.taichi.prompts.base.BaseActivity
 
 class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>()  {
-    private val SPLASH_TIME_OUT = 3000L
+    private val SPLASH_TIME_OUT = 1500L
     private val handler = Handler()
     private val runnable = Runnable {
         val i = Intent(this@SplashActivity, PrivacyLoginActivity::class.java)

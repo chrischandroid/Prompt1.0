@@ -22,9 +22,7 @@ class HomeListAdapter :
         val item = getDataList()?.get(position)
 
         holder.binding.itemData = item
-        holder.binding.userNickName.text = item?.userBaseVO?.userNickName
-        holder.binding.age.text = item?.userBaseVO?.age.toString()
-        holder.binding.birthday.text = item?.userBaseVO?.birthDay
+        holder.binding.userNickName.text = item?.userBaseVO?.userNickName + "," + item?.userBaseVO?.age.toString()
         holder.binding.city.text = item?.userBaseVO?.city
         val firstNonNullEntry: Map.Entry<String?, String?>? = item?.userProfileVO?.questionnaireMap?.entries?.firstOrNull {
             it.key != null && it.value != null
@@ -39,7 +37,7 @@ class HomeListAdapter :
             .placeholder(R.drawable.default_profile)
             .error(R.drawable.default_profile)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .apply(RequestOptions().override(800, 600))
+            .apply(RequestOptions().fitCenter())
             .into(holder.binding.headImg)
     }
 

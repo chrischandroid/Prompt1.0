@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.SPUtils
+import com.taichi.prompts.android.common.Constants
 import com.taichi.prompts.android.common.Constants.SP_USER_BIRTH
 import com.taichi.prompts.android.common.Constants.SP_USER_GENDER
 import com.taichi.prompts.android.common.Constants.SP_USER_ID
@@ -51,8 +52,9 @@ class TabViewModel(application: Application) : BaseViewModel(application) {
             phoneStr,
             mailStr
         )
+        val token = SPUtils.getInstance().getString(Constants.SP_USER_TOKEN)
         viewModelScope.launch {
-            val data: String = Repository.updateProfile(info)
+            val data: String = Repository.updateProfile(info, token)
         }
     }
 }

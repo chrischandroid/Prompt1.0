@@ -121,8 +121,9 @@ class WelcomeGuideActivity : AppCompatActivity() {
             if (window!= null) {
                 window.setGravity(Gravity.BOTTOM)  // 设置对话框显示位置为底部
                 val layoutParams = window.attributes
-                layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT  // 设置宽度占满屏幕
-                layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT  // 高度自适应内容
+                layoutParams.width = baseContext.resources.displayMetrics.widthPixels
+                val screenHeight = baseContext.resources.displayMetrics.heightPixels
+                layoutParams.height = screenHeight / 4
                 window.attributes = layoutParams
             }
             dialog.setCancelable(false)
