@@ -135,5 +135,23 @@
             </string>
     <string name="title_activity_welcome_scrolling">WelcomeScrollingActivity</string>
     <string name="completes">完成!</string>
+    <string name="hello_">
+        你好
+    </string>
+    <string name="welcome_">
+        欢迎您来到灵启！
+    </string>
+    <string name="user_">
+        朋友
+    </string>
+    <string name="be_id">
+        在开启前，我们还有一些问题向您了解
+    </string>
+    <string name="q_id">
+        以下4个维度中，哪一项更符合您的价值观念？
+    </string>
+    <string name="q_dd">
+        面对复杂问题时，你是如何寻找解决方案的？
+    </string>
 </resources>
 

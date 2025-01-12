@@ -3,7 +3,7 @@ package com.taichi.prompts.http
 object ApiAddress {
 
     //首页
-    const val Match_List = "userProfile/profileMatch"
+    const val Match_List = "/userIndex/recommend"
 
     //问题列表
     const val Question_List = "userProfile/questionnaire/getQuestionList"
@@ -22,6 +22,9 @@ object ApiAddress {
 
     //更新信息
     const val UpdateInfo = "/userInfo/save"
+
+    //更新简易信息
+    const val SaveSimpleInfo = "/userInfo/saveSimpleInfo"
 
     //更新prompt
     const val UpdatePrompt = "/userProfile/questionnaire/saveProfile"

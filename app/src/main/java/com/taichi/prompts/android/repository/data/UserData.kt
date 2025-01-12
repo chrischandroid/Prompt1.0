@@ -49,15 +49,42 @@ data class RegisterRequest(
     val userRegisterDTO: UserRegisterDTO
 )
 
-data class UserProfileMatchRequest(
-    val token : String,
-    val profileType : Int,
-    val offset : Long,
-    val pageSize : Long
+data class UserRecVO(
+    val userId : String,
+    val userNickName: String,
+    val headImgUrl : String,
+    val age : Int,
+    val mbtiTag : String,
+    val birthDay : String,
+    val gender : Int,
+    val height: String,
+    val weight: String,
+    val liveCity : String,
+    val hometown : String,
+    val college : String,
+    val showImgUrlList : List<String>
+)
+
+data class UserRecommendRequest (
+    val recommendType : Int,
+    val filterParams : Map<String, String>,
+    val offset : Int,
+    val pageSize : Int
 )
 
 data class UpdateInfoRequest(
     val userBaseDTO: UserBaseDTO
+)
+
+data class  UserSimpleInfoRequest(
+    val userNickName: String,
+    val headImgUrl: String,
+    val age: Int,
+    val gender: Int,
+    val phoneNo: String,
+    val templateType: String,
+    val profileType: Int,
+    val userQuestionnaireVOList: List<UserQuestionnaireVO>
 )
 
 data class UserProfileRequest(
@@ -73,6 +100,17 @@ data class QuestionnaireResultVO (
     val questionResult : QuestionAvailableResultVO
 )
 
+data class UserQuestionnaireVO(
+    val userQuestionInfoVO: UserQuestionInfoVO,
+    val userQuestionAnswerVO : UserQuestionAnswerVO
+)
+
+
+data class UserQuestionInfoVO (
+    val id : Long,
+    val questionContent : String
+)
+
 data class QuestionInfoVO (
     val id : Long,
     val templateType : String,
@@ -80,6 +118,15 @@ data class QuestionInfoVO (
     val inputType : Int,
     val questionContent : String,
     val availableResultVOList : List<QuestionAvailableResultVO>
+)
+
+data class UserQuestionAnswerVO (
+    val answerKey : String,
+    val answerContent : String,
+    val MBTI_introvert_score : Int,
+    val MBTI_intuition_score : Int,
+    val MBTI_feeling_score : Int,
+    val MBTI_perceiving_score : Int
 )
 
 data class QuestionAvailableResultVO(

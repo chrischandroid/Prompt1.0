@@ -11,14 +11,17 @@ import com.taichi.prompts.android.repository.data.QuestionnaireResultVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
 import com.taichi.prompts.android.repository.data.UserBaseDTO
+import com.taichi.prompts.android.repository.data.UserBaseVO
 import com.taichi.prompts.android.repository.data.UserLoginRequest
 import com.taichi.prompts.android.repository.data.UserLoginResponse
 import com.taichi.prompts.android.repository.data.UserLoginSmsRequest
-import com.taichi.prompts.android.repository.data.UserProfileMatchRequest
 import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
 import com.taichi.prompts.android.repository.data.UserProfileRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
+import com.taichi.prompts.android.repository.data.UserRecVO
+import com.taichi.prompts.android.repository.data.UserRecommendRequest
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
+import com.taichi.prompts.android.repository.data.UserSimpleInfoRequest
 import com.taichi.prompts.http.BaseMatchResponse
 import com.taichi.prompts.http.BaseQuestionResponse
 import com.taichi.prompts.http.BaseResponse
@@ -34,11 +37,13 @@ object Repository {
     private const val Need_login_Code = -1001
     private const val registerType_name_password = 3
 
-    suspend fun getHomeList(token: String, type : Int): List<UserProfileMatchVOList>? {
-        val userProfileMatchRequest = UserProfileMatchRequest(
-            "id", type, 0, 20
+    suspend fun getHomeList(token: String, type : Int): List<UserRecVO>? {
+        val userProfileMatchRequest = UserRecommendRequest(
+            1, mutableMapOf(
+                "ageMin" to "18"
+            ), 0, 20
         )
-        val data: BaseMatchResponse<List<UserProfileMatchVOList>>? = getDefaultApi().homeList(userProfileMatchRequest, token)
+        val data: BaseMatchResponse<List<UserRecVO>>? = getDefaultApi().homeList(userProfileMatchRequest, token)
         return responseMatchCall(data)
     }
 
@@ -98,11 +103,18 @@ object Repository {
     }
 
     /**
+     * 更新简易信息
+     */
+    suspend fun updateSimpleProfile(info : UserSimpleInfoRequest, token: String): UserBaseVO? {
+        val data: BaseResponse<UserBaseVO> = getDefaultApi().updateSimpleInfo(info, token)
+        return responseCall(data)
+    }
+
+    /**
      * 更新信息
      */
-    suspend fun updateProfile(info : UserBaseDTO, token: String): String {
-        val registerRequest = UpdateInfoRequest(info)
-        val data: BaseResponse<String> = getDefaultApi().updateInfo(registerRequest, token)
+    suspend fun updateProfile(info : UpdateInfoRequest, token: String): String {
+        val data: BaseResponse<String> = getDefaultApi().updateInfo(info, token)
         return responseCall(data).toString()
     }
 
@@ -113,6 +125,7 @@ object Repository {
         val data: BaseResponse<String> = getDefaultApi().getUserSig(id)
         return responseCall(data).toString()
     }
+
     /**
      * 保存prompt
      */

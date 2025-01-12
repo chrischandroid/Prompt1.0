@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.taichi.prompts.android.common.Constants
 import com.taichi.prompts.android.repository.Repository
 import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
+import com.taichi.prompts.android.repository.data.UserRecVO
 import com.taichi.prompts.base.BaseViewModel
 import com.taichi.prompts.base.SingleLiveEvent
 import kotlinx.coroutines.launch
@@ -15,7 +16,7 @@ import kotlinx.coroutines.GlobalScope
 
 class HomeViewModel(application: Application) : BaseViewModel(application) {
 
-    var homeListData = SingleLiveEvent<List<UserProfileMatchVOList>?>()
+    var homeListData = SingleLiveEvent<List<UserRecVO>?>()
 
     init {
         getHomeList()

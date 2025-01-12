@@ -77,8 +77,10 @@ class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
                 LogUtils.d("registerTabClickListener position=$position")
             }
         })
-        if (intent.getStringExtra("nickname") != null) {
-            viewModel?.updateProfile()
+        if (intent.getStringExtra("nickname") != null && intent.getStringExtra("olduser") == null) {
+            val key = intent.getStringExtra("key")?: "面对复杂问题时，你是如何拆解并找到解决方案的？"
+            val value = intent.getStringExtra("value")?: "无"
+            viewModel?.updateProfile(key, value)
         }
     }
 

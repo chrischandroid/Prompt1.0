@@ -49,8 +49,8 @@ class CompleteGuideActivity : AppCompatActivity() {
             val context = this
             val clickableSpan = object : ClickableSpan() {
                 override fun onClick(widget: View) {
-                    val intent = Intent(context, TabActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    val intent = Intent(context, SimpleAskActivity::class.java)
+                    intent.putExtra("nickname", SPUtils.getInstance().getString(SP_USER_NICKNAME))
                     startActivity(intent)
                 }
 
@@ -73,6 +73,9 @@ class CompleteGuideActivity : AppCompatActivity() {
             val intent = Intent(this, TabActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.putExtra("nickname", SPUtils.getInstance().getString(SP_USER_NICKNAME))
+            if (type == 2) {
+                intent.putExtra("olduser", "yes")
+            }
             startActivity(intent)
         }
 

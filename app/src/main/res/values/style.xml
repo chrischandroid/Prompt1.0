@@ -47,5 +47,17 @@
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+    <style name="agathon_">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">#161916</item>
+    </style>
+    <style name="be_id">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#80867D</item>
+    </style>
+    <style name="q_id">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#161916</item>
+    </style>
 
 </resources>

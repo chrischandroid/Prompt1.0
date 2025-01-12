@@ -6,7 +6,7 @@
     <data>
         <variable
             name="itemData"
-            type="com.taichi.prompts.android.repository.data.UserProfileMatchVOList" />
+            type="com.taichi.prompts.android.repository.data.UserRecVO" />
     </data>
 
     <androidx.cardview.widget.CardView

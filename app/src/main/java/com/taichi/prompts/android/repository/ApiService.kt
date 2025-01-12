@@ -4,15 +4,18 @@ import com.taichi.prompts.android.repository.data.MbtiResultVO
 import com.taichi.prompts.android.repository.data.QuestionInfoVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
+import com.taichi.prompts.android.repository.data.UserBaseVO
 import com.taichi.prompts.android.repository.data.UserData
 import com.taichi.prompts.android.repository.data.UserLoginRequest
 import com.taichi.prompts.android.repository.data.UserLoginResponse
 import com.taichi.prompts.android.repository.data.UserLoginSmsRequest
-import com.taichi.prompts.android.repository.data.UserProfileMatchRequest
 import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
 import com.taichi.prompts.android.repository.data.UserProfileRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
+import com.taichi.prompts.android.repository.data.UserRecVO
+import com.taichi.prompts.android.repository.data.UserRecommendRequest
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
+import com.taichi.prompts.android.repository.data.UserSimpleInfoRequest
 import com.taichi.prompts.http.ApiAddress
 import com.taichi.prompts.http.BaseMatchResponse
 import com.taichi.prompts.http.BaseQuestionResponse
@@ -37,9 +40,9 @@ interface ApiService {
      */
     @POST(ApiAddress.Match_List)
     suspend fun homeList(
-        @Body userProfileMatchRequest: UserProfileMatchRequest,
+        @Body userProfileMatchRequest: UserRecommendRequest,
         @Header("authorization_token") token: String,
-    ): BaseMatchResponse<List<UserProfileMatchVOList>>?
+    ): BaseMatchResponse<List<UserRecVO>>?
 
     /**
      * 获取问题列表
@@ -123,6 +126,17 @@ interface ApiService {
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json"
     ): BaseResponse<String>
+
+    /**
+     * 更新简易信息
+     */
+    @POST(ApiAddress.SaveSimpleInfo)
+    suspend fun updateSimpleInfo(
+        @Body request: UserSimpleInfoRequest,
+        @Header("authorization_token") token: String,
+        @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
+        @Header("Content-Type") contentType: String = "application/json"
+    ): BaseResponse<UserBaseVO>
 
 
     /**
