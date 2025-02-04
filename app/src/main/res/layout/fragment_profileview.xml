@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 <data>
     <variable
@@ -7,332 +8,1226 @@
         type="com.taichi.prompts.android.fragment.mine.ProfileViewModel" />
 </data>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.ProfileFragment">
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frame_984"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="40dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="@dimen/dp_20"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back"
+            android:layout_alignParentLeft="true">
+        </ImageView>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/preview"
+            android:layout_alignParentRight="true">
+        </ImageView>
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/frame_984"
+        />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/empty_view"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- 表格布局开始，但使用LinearLayout作为每行的容器以实现灰色背景 -->
+            android:padding="25dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_corner_background"> <!-- 灰色背景 -->
-
+                android:layout_marginBottom="5dp">
                 <TextView
-                    android:layout_width="0dp"
+                    android:id="@+id/spanner1"
+                    android:layout_width="335dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="姓名:"
-                    android:padding="16dp"
+                    android:text="封面照 *"
+                    android:padding="@dimen/dp_10"
+                    android:textColor="#80867D"
                     android:gravity="center_vertical|start" />
-
-                <EditText
-                    android:id="@+id/et_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:padding="16dp"
-                    android:background="@android:color/transparent"
-                    android:inputType="textPersonName"
-                    android:text="@={profileVm.name}"/>
             </LinearLayout>
-
-            <!-- 年龄行，同样使用LinearLayout -->
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_corner_background"> <!-- 灰色背景 -->
+                android:layout_height="wrap_content">
 
-                <TextView
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/img"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="年龄:"
-                    android:padding="16dp"
-                    android:gravity="center_vertical|start" />
+                    android:layout_height="0dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintDimensionRatio="1:1">
 
-                <EditText
-                    android:id="@+id/et_age"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:padding="16dp"
-                    android:background="@android:color/transparent"
-                    android:inputType="number"
-                    android:text="@={profileVm.age}"/>
-            </LinearLayout>
-            <LinearLayout
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:id="@+id/headImg"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/img"/>
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/empty_view1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_corner_background">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="婚姻状况:"
-                    android:padding="16dp"
-                    android:gravity="center_vertical|start" />
-                <Spinner
-                    android:id="@+id/spinner_marriage"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|start"
-                    android:entries="@array/marrage_entries"
-                    android:prompt="@string/spinner_prompt"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="0dp"
+                android:layout_height="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/frame43"
                 />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_corner_background">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="性别:"
-                    android:padding="16dp"
-                    android:gravity="center_vertical|start" />
-                <Spinner
-                    android:id="@+id/spinner_gender"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|start"
-                    android:entries="@array/gender_entries"
-                    android:prompt="@string/spinner_prompt"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="0dp"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_corner_background">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="出生日期:"
-                    android:padding="16dp"
-                    android:gravity="center_vertical|start" />
 
-                <EditText
-                    android:id="@+id/et_birth_year"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.33"
-                    android:padding="16dp"
-                    android:background="@android:color/transparent"
-                    android:inputType="number"
-                    android:maxLength="4"
-                    android:gravity="center"
-                    android:hint="年"
-                    android:text="@={profileVm.birthYear}"
-                    android:textColor="@color/teal_200"
-                    android:imeOptions="actionNext" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
                 <TextView
+                    android:id="@+id/spanner2"
+                    android:layout_width="335dp"
+                    android:layout_height="wrap_content"
+                    android:text="我觉得 *"
+                    android:padding="@dimen/dp_10"
+                    android:textColor="#80867D"
+                    android:gravity="center_vertical|start" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/frame_985"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/question_background"
+                android:gravity="center">
+
+                <FrameLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/frame_16244"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_margin="25dp">
+
+                        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/frame_16245"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:id="@+id/textViewLeft"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="start"
+                                android:text="你最喜欢的哲学家是?"
+                                android:textColor="#80867D"
+                                android:textStyle="bold" />
+
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+
+                            <TextView
+                                android:id="@+id/textViewRight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:text="换一题"
+                                android:textColor="@color/green_class"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+                        <View
+                            android:id="@+id/empty_vieew"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            app:layout_constraintTop_toBottomOf="@+id/frame_984"
+                            />
+                        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/frame_168245"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+
+                            <RelativeLayout
+                                android:id="@+id/input_deful1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/answer_input">
+                                <!--android:background="@drawable/edit_text">-->
+                                <ImageView
+                                    android:id="@+id/editcon"
+                                    android:layout_width="@dimen/dp_30"
+                                    android:layout_height="@dimen/dp_30"
+                                    android:layout_centerInParent="true"
+                                    android:background="@drawable/edit_icon"></ImageView>
+
+
+                                <TextView
+                                    android:id="@+id/editans"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="@dimen/dp_10"
+                                    android:text="请回答"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:visibility="invisible"></TextView>
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/empty_view2"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/frame43"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:layout_width="335dp"
+                    android:layout_height="wrap_content"
+                    android:text="我的基本资料"
+                    android:padding="@dimen/dp_10"
+                    android:textColor="#80867D"
+                    android:gravity="center_vertical|start" />
+            </LinearLayout>
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/basic"
+                android:padding="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/question_background"
+                android:orientation="vertical">
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_9901"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_gravity="center">
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/user"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/user"
+                        android:clipToOutline="true"
+                        />
+                    <TextView
+                        android:id="@+id/some_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="昵称"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:gravity="top"
+                        android:layout_toRightOf="@+id/user"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        />
+                    <TextView
+                        android:id="@+id/text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="未选择"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:layout_toLeftOf="@+id/arrow"
+                        />
+                    <RelativeLayout
+                        android:id="@+id/arrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/arrowright"
+                        android:clipToOutline="true"
+                        />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/rectangle_91"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="#141F1F26"
+                    />
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_9902"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_gravity="center">
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/birth"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/birth"
+                    android:clipToOutline="true"
+                    />
+                <TextView
+                    android:id="@+id/birthtag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="生日"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4sp"
+                    android:translationY="-2.09sp"
+                    android:gravity="top"
+                    android:layout_toRightOf="@+id/birth"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    />
+                <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="未选择"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4sp"
+                    android:translationY="-2.09sp"
+                    android:layout_toLeftOf="@+id/arrow2"
+                    />
+                <RelativeLayout
+                    android:id="@+id/arrow2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/arrowright"
+                    android:clipToOutline="true"
+                    />
+                </RelativeLayout>
+                <View
+                    android:id="@+id/rectangle_92"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="#141F1F26"
+                    />
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_9903"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_gravity="center">
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/mbti"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/mbti"
+                    android:clipToOutline="true"
+                    />
+                <TextView
+                    android:id="@+id/mbtitag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="MBTI"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4sp"
+                    android:translationY="-2.09sp"
+                    android:gravity="top"
+                    android:layout_toRightOf="@+id/mbti"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    />
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="未选择"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4sp"
+                    android:translationY="-2.09sp"
+                    android:layout_toLeftOf="@+id/arrow3"
+                    />
+                <RelativeLayout
+                    android:id="@+id/arrow3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/arrowright"
+                    android:clipToOutline="true"
+                    />
+                    </RelativeLayout>
+                <View
+                    android:id="@+id/rectangle_93"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="#141F1F26"
+                    />
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_9904"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_gravity="center">
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/size"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/mbti"
+                    android:clipToOutline="true"
+                    />
+                <TextView
+                    android:id="@+id/sizetag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="身高与体重"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4sp"
+                    android:translationY="-2.09sp"
+                    android:gravity="top"
+                    android:layout_toRightOf="@+id/size"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    />
+                <TextView
+                    android:id="@+id/text4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="未选择"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4sp"
+                    android:translationY="-2.09sp"
+                    android:layout_toLeftOf="@+id/arrow4"
+                    />
+                <RelativeLayout
+                    android:id="@+id/arrow4"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/arrowright"
+                    android:clipToOutline="true"
+                    />
+                    </RelativeLayout>
+                <View
+                    android:id="@+id/rectangle_94"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="#141F1F26"
+                    />
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_9905"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_gravity="center">
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/location"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/location"
+                    android:clipToOutline="true"
+                    />
+                <TextView
+                    android:id="@+id/locationtag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="所在地"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4sp"
+                    android:translationY="-2.09sp"
+                    android:gravity="top"
+                    android:layout_toRightOf="@+id/location"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    />
+                <TextView
+                    android:id="@+id/text5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="未选择"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4sp"
+                    android:translationY="-2.09sp"
+                    android:layout_toLeftOf="@+id/arrow5"
+                    />
+                <RelativeLayout
+                    android:id="@+id/arrow5"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/arrowright"
+                    android:clipToOutline="true"
+                    />
+                </RelativeLayout>
+                <View
+                    android:id="@+id/rectangle_95"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="#141F1F26"
+                    />
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_9906"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/dp_10">
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/relation"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/relation"
+                    android:clipToOutline="true"
+                    />
+                <TextView
+                    android:id="@+id/relationtag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="可接受的关系"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4sp"
+                    android:translationY="-2.09sp"
+                    android:gravity="top"
+                    android:layout_toRightOf="@+id/relation"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    />
+                <TextView
+                    android:id="@+id/text6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="未选择"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4sp"
+                    android:translationY="-2.09sp"
+                    android:layout_toLeftOf="@+id/arrow6"
+                    />
+                <RelativeLayout
+                    android:id="@+id/arrow6"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/arrowright"
+                    android:clipToOutline="true"
+                    />
+                    </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/empty_view3"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/frame43"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:layout_width="335dp"
+                    android:layout_height="wrap_content"
+                    android:text="关于我"
+                    android:padding="@dimen/dp_10"
+                    android:textColor="#80867D"
+                    android:gravity="center_vertical|start" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/frame_98w5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/question_background"
+                android:orientation="vertical" >
+                <LinearLayout
+                    android:id="@+id/frame_1682s5"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="128dp"
+                    android:layout_marginTop="@dimen/dp_30">
+
+                    <RelativeLayout
+                        android:id="@+id/input_def"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/answer_input">
+
+                        <ImageView
+                            android:id="@+id/editc"
+                            android:layout_width="@dimen/dp_30"
+                            android:layout_height="@dimen/dp_30"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/edit_icon"></ImageView>
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:id="@+id/emptyd_view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toBottomOf="@+id/frame43"
+                    />
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/"
-                    android:gravity="center"
-                    android:background="@android:color/transparent" />
+                    android:padding="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_30"
+                    android:background="@drawable/tag"
+                    android:layout_marginLeft="20dp">
+                        <TextView
+                            android:id="@+id/tagadd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  标签 +  "
+                            android:textSize="12sp"
+                            android:textColor="#FFFFFF"
+                            android:lineSpacingExtra="4sp"
+                            android:gravity="center"
+                            />
 
-                <EditText
-                    android:id="@+id/et_birth_month"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="16dp"
-                    android:background="@android:color/transparent"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:gravity="center"
-                    android:hint="月"
-                    android:text="@={profileVm.birthMonth}"
-                    android:textColor="@color/teal_200"
-                    android:imeOptions="actionNext" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:id="@+id/empty_view4"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/frame43"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
                 <TextView
+                    android:layout_width="335dp"
+                    android:layout_height="wrap_content"
+                    android:text="更多信息（资产默认不显示）"
+                    android:padding="@dimen/dp_10"
+                    android:textColor="#80867D"
+                    android:gravity="center_vertical|start" />
+            </LinearLayout>
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/basic1"
+                android:padding="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/question_background"
+                android:orientation="vertical">
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_s9d901"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_gravity="center">
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/school"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/user"
+                        android:clipToOutline="true"
+                        />
+                    <TextView
+                        android:id="@+id/school_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="学校"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:gravity="top"
+                        android:layout_toRightOf="@+id/school"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        />
+                    <TextView
+                        android:id="@+id/texta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="未选择"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:layout_toLeftOf="@+id/arrowa"
+                        />
+                    <RelativeLayout
+                        android:id="@+id/arrowa"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/arrowright"
+                        android:clipToOutline="true"
+                        />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/rectangle_91ss"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="#141F1F26"
+                    />
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_9902w"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_gravity="center">
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/career"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/birth"
+                        android:clipToOutline="true"
+                        />
+                    <TextView
+                        android:id="@+id/career_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="行业与职业"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:gravity="top"
+                        android:layout_toRightOf="@+id/career"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        />
+                    <TextView
+                        android:id="@+id/textb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="未选择"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:layout_toLeftOf="@+id/arrowb"
+                        />
+                    <RelativeLayout
+                        android:id="@+id/arrowb"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/arrowright"
+                        android:clipToOutline="true"
+                        />
+                </RelativeLayout>
+                <View
+                    android:id="@+id/rectangle_92s"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="#141F1F26"
+                    />
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_99d03"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_gravity="center">
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/hometown"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/mbti"
+                        android:clipToOutline="true"
+                        />
+                    <TextView
+                        android:id="@+id/hometag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="家乡"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:gravity="top"
+                        android:layout_toRightOf="@+id/hometown"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        />
+                    <TextView
+                        android:id="@+id/textc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="未选择"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:layout_toLeftOf="@+id/arrowc"
+                        />
+                    <RelativeLayout
+                        android:id="@+id/arrowc"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/arrowright"
+                        android:clipToOutline="true"
+                        />
+                </RelativeLayout>
+                <View
+                    android:id="@+id/rectangle_93d"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="#141F1F26"
+                    />
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_990s4"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_gravity="center">
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/hold"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/mbti"
+                        android:clipToOutline="true"
+                        />
+                    <TextView
+                        android:id="@+id/holdtag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="资产"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:gravity="top"
+                        android:layout_toRightOf="@+id/hold"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        />
+                    <TextView
+                        android:id="@+id/textd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="未选择"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:layout_toLeftOf="@+id/arrowd"
+                        />
+                    <RelativeLayout
+                        android:id="@+id/arrowd"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/arrowright"
+                        android:clipToOutline="true"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/group_1000"
+                    android:layout_width="303dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:background="#141F1F26">
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/ss"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="收起 "
+                            android:textSize="12sp"
+                            android:textColor="@color/green_class"
+                            android:lineSpacingExtra="3sp"
+                            android:translationY="-1.4sp"
+                            android:layout_gravity="center"
+                            />
+                        <ImageView
+                            android:layout_width="@dimen/dp_10"
+                            android:layout_height="@dimen/dp_10"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/uparray">
+                        </ImageView>
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+            <View
+                android:id="@+id/empty_view5"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/frame43"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:layout_width="335dp"
+                    android:layout_height="wrap_content"
+                    android:text="生活照"
+                    android:padding="@dimen/dp_10"
+                    android:textColor="#80867D"
+                    android:gravity="center_vertical|start" />
+            </LinearLayout>
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/gallery1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/photo1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/photo_back" />
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:id="@+id/photo2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/photo_back" />
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:id="@+id/photo3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/photo_back" />
+            </LinearLayout>
+            <View
+                android:id="@+id/empty_view7"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/frame43"
+                />
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/gallery2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/photo4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/photo_back"
+                    android:gravity="start"
+                    android:layout_gravity="start" />
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:id="@+id/photo5"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/photo_back"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal" />
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:id="@+id/photo6"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/photo_back"
+                    android:gravity="end"
+                    android:layout_gravity="end" />
+            </LinearLayout>
+            <View
+                android:id="@+id/empty_view8"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/frame43"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="335dp"
+                    android:layout_height="wrap_content"
+                    android:text="我的观点"
+                    android:padding="@dimen/dp_10"
+                    android:textColor="#80867D"
+                    android:gravity="center_vertical|start" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:id="@+id/textViewLeft1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/"
-                    android:gravity="center"
-                    android:background="@android:color/transparent" />
-                <EditText
-                    android:id="@+id/et_birth_day"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="16dp"
-                    android:background="@android:color/transparent"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:gravity="center"
-                    android:hint="日"
-                    android:text="@={profileVm.birthDay}"
-                    android:textColor="@color/teal_200"/>
-            </LinearLayout>
+                    android:gravity="start"
+                    android:text="你最喜欢的哲学家是?"
+                    android:padding="@dimen/dp_10"
+                    android:textColor="#80867D"
+                    android:textStyle="bold" />
 
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+
+                <TextView
+                    android:id="@+id/textViewRight1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="换一题"
+                    android:textColor="@color/green_class"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/input_defula"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/answer_input">
+                <!--android:background="@drawable/edit_text">-->
+                <ImageView
+                    android:id="@+id/editcona"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/edit_icon"></ImageView>
+
+
+                <TextView
+                    android:id="@+id/editana"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/dp_10"
+                    android:text="请回答"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"></TextView>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_corner_background"> <!-- 灰色背景 -->
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:id="@+id/textViewLeft2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="你最喜欢的哲学家是?"
+                    android:padding="@dimen/dp_10"
+                    android:textColor="#80867D"
+                    android:textStyle="bold" />
+
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:id="@+id/textViewRight2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="城市:"
-                    android:padding="16dp"
-                    android:gravity="center_vertical|start" />
-
-                <EditText
-                    android:id="@+id/et_city"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:padding="16dp"
-                    android:background="@android:color/transparent"
-                    android:inputType="text"
-                    android:text="@={profileVm.city}"/>
+                    android:gravity="end"
+                    android:text="换一题"
+                    android:textColor="@color/green_class"
+                    android:textStyle="bold" />
             </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/input_defulb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/answer_input">
+                <!--android:background="@drawable/edit_text">-->
+                <ImageView
+                    android:id="@+id/editconb"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/edit_icon"></ImageView>
+
+
+                <TextView
+                    android:id="@+id/editanb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/dp_10"
+                    android:text="请回答"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"></TextView>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_corner_background"> <!-- 灰色背景 -->
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:id="@+id/textViewLeft3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="你最喜欢的哲学家是?"
+                    android:padding="@dimen/dp_10"
+                    android:textColor="#80867D"
+                    android:textStyle="bold" />
+
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:id="@+id/textViewRight3"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="家乡:"
-                    android:padding="16dp"
-                    android:gravity="center_vertical|start" />
+                    android:gravity="end"
+                    android:text="换一题"
+                    android:textColor="@color/green_class"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/input_defulc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/answer_input">
+                <!--android:background="@drawable/edit_text">-->
+                <ImageView
+                    android:id="@+id/editconc"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/edit_icon"></ImageView>
 
-                <EditText
-                    android:id="@+id/et_hometown"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:padding="16dp"
-                    android:background="@android:color/transparent"
-                    android:inputType="text"
-                    android:text="@={profileVm.hometown}"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_corner_background">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="最高学历:"
-                    android:padding="16dp"
-                    android:gravity="center_vertical|start" />
-                <Spinner
-                    android:id="@+id/spinner_degree"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|start"
-                    android:entries="@array/degree_entries"
-                    android:prompt="@string/spinner_prompt"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="0dp"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_corner_background"> <!-- 灰色背景 -->
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="手机:"
-                    android:padding="16dp"
-                    android:gravity="center_vertical|start" />
-
-                <EditText
-                    android:id="@+id/et_phone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:padding="16dp"
-                    android:background="@android:color/transparent"
-                    android:inputType="number"
-                    android:text="@={profileVm.phone}"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_corner_background"> <!-- 灰色背景 -->
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="邮箱:"
-                    android:padding="16dp"
-                    android:gravity="center_vertical|start" />
-
-                <EditText
-                    android:id="@+id/et_mail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:padding="16dp"
-                    android:background="@android:color/transparent"
-                    android:inputType="textEmailAddress"
-                    android:text="@={profileVm.mail}"/>
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="提交"
-                android:layout_marginTop="16dp" />
-
+                    android:id="@+id/editanc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/dp_10"
+                    android:text="请回答"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"></TextView>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

@@ -32,7 +32,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="114dp">
-            <View
+            <RelativeLayout
                 android:id="@+id/rectangle_9"
                 android:layout_width="370dp"
                 android:layout_height="420dp"
@@ -40,7 +40,55 @@
                 android:layout_alignParentTop="true"
                 android:background="@drawable/rectangles"
                 android:layout_below="@id/profile">
-            </View>
+                <RelativeLayout
+                    android:id="@+id/modify"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="72dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentBottom = "true"
+                        android:layout_alignParentLeft = "true"
+                        android:background="@drawable/column_2"
+                        android:layout_marginBottom="14dp"
+                        android:layout_marginLeft="100dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="资料编辑"
+                            android:textSize="10sp"
+                            android:textColor="#FFFFFF"
+                            android:lineSpacingExtra="6sp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true">
+
+                        </TextView>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/verify"
+                        android:layout_width="76dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentBottom = "true"
+                        android:layout_alignParentRight = "true"
+                        android:background="@drawable/column_2"
+                        android:layout_marginBottom="14dp"
+                        android:layout_marginRight="100dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="我的认证"
+                            android:textSize="10sp"
+                            android:textColor="#FFFFFF"
+                            android:lineSpacingExtra="6sp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true">
+
+                        </TextView>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </RelativeLayout>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/profile"
@@ -51,11 +99,29 @@
                 android:layout_alignParentTop="true"
                 android:elevation="5dp"
                 app:cardCornerRadius="16dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="271dp"
+                    android:text="用户"
+                    android:textSize="24sp"
+                    android:textColor="#FFFFFF"
+                    android:elevation="10dp"
+                    android:gravity="center_horizontal"
+                    />
+
                 <ImageView
                     android:id="@+id/headImg"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:background="@drawable/default_img"/>
+                    android:background="@drawable/img"/>
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
             <RelativeLayout

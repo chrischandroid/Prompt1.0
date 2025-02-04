@@ -48,5 +48,9 @@ class FragMine : BaseFragment<FragmentMineBinding, MineViewModel>() {
                 .apply(RequestOptions().fitCenter())
                 .into(binding!!.headImg)
         }
+        binding?.modify?.setOnClickListener{
+            val intent = Intent(requireContext(), ProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

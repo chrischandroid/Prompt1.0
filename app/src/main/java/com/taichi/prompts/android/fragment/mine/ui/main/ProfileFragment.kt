@@ -2,13 +2,21 @@ package com.taichi.prompts.android.fragment.mine.ui.main
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.AdapterView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.Spinner
+import android.widget.TextView
+import android.graphics.Color
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.BR
 import com.taichi.prompts.android.databinding.FragmentProfileviewBinding
@@ -34,42 +42,66 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
     }
 
     fun initClick() {
-        binding?.spinnerMarriage?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        val linearLayout = view?.findViewById<LinearLayout>(R.id.gallery1)
+        linearLayout?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                linearLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                // 获取选择的文本
-                val selectedText = parent?.getItemAtPosition(position).toString()
-                // 更新ViewModel
-                Log.e("TEST", "-------marriage" + selectedText)
-                viewModel?.marriage?.set(selectedText)
-            }
-        }
-        binding?.spinnerDegree?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+                val totalWidth = linearLayout.width
+                val availableWidth = totalWidth - 30
+                val relativeLayoutWidth = availableWidth / 3
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                // 获取选择的文本
-                val selectedText = parent?.getItemAtPosition(position).toString()
-                // 更新ViewModel
-                Log.e("TEST", "-------degree" + selectedText)
-                viewModel?.degree?.set(selectedText)
-            }
-        }
-        binding?.spinnerGender?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+                val relativeLayout1 = view?.findViewById<RelativeLayout>(R.id.photo1)
+                val relativeLayout2 = view?.findViewById<RelativeLayout>(R.id.photo2)
+                val relativeLayout3 = view?.findViewById<RelativeLayout>(R.id.photo3)
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                // 获取选择的文本
-                val selectedText = parent?.getItemAtPosition(position).toString()
-                // 更新ViewModel
-                Log.e("TEST", "-------gender" + selectedText)
-                viewModel?.gender?.set(selectedText)
+                val layoutParams = LinearLayout.LayoutParams(relativeLayoutWidth, relativeLayoutWidth)
+                relativeLayout1?.layoutParams = layoutParams
+                relativeLayout2?.layoutParams = layoutParams
+                relativeLayout3?.layoutParams = layoutParams
+
+                val relativeLayout4 = view?.findViewById<RelativeLayout>(R.id.photo4)
+                val relativeLayout5 = view?.findViewById<RelativeLayout>(R.id.photo5)
+                val relativeLayout6 = view?.findViewById<RelativeLayout>(R.id.photo6)
+                relativeLayout4?.layoutParams = layoutParams
+                relativeLayout5?.layoutParams = layoutParams
+                relativeLayout6?.layoutParams = layoutParams
+
+                relativeLayout1?.requestLayout()
+                relativeLayout2?.requestLayout()
+                relativeLayout3?.requestLayout()
             }
+        })
+
+        val text1 = view?.findViewById<TextView>(R.id.spanner1)
+        val originalText = "封面照 *"
+        val spannableString = SpannableString(originalText)
+        val asteriskIndex = originalText.indexOf("*")
+        if (asteriskIndex != -1) {
+            spannableString.setSpan(
+                ForegroundColorSpan(Color.RED),
+                asteriskIndex,
+                asteriskIndex + 1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }
-        binding?.button?.setOnClickListener{
-            viewModel?.updateProfile()
+        text1?.text = spannableString
+
+        val text2 = view?.findViewById<TextView>(R.id.spanner2)
+        val originalText1 = "我觉得 *"
+        val spannableString1 = SpannableString(originalText1)
+        val asteriskIndex1 = originalText1.indexOf("*")
+        if (asteriskIndex1 != -1) {
+            spannableString1.setSpan(
+                ForegroundColorSpan(Color.RED),
+                asteriskIndex1,
+                asteriskIndex1 + 1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }
+        text2?.text = spannableString1
+
+
 
     }
 

@@ -21,12 +21,14 @@ import com.taichi.prompts.android.common.Constants.SP_USER_NICKNAME
 class SimpleAskActivity : AppCompatActivity() {
     var lastCheck = 1
     var nowcheck = 1
-    var lastlay : RelativeLayout = findViewById(R.id.relativeLayout1)
-    var lastyes : RelativeLayout = findViewById(R.id.icon1)
+    lateinit var lastlay : RelativeLayout
+    lateinit var lastyes : RelativeLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simple_ask)
+        lastlay = findViewById(R.id.relativeLayout1)
+        lastyes = findViewById(R.id.icon1)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
