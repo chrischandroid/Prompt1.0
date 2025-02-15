@@ -4,6 +4,7 @@ import com.taichi.prompts.android.repository.data.MbtiResultVO
 import com.taichi.prompts.android.repository.data.QuestionInfoVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
+import com.taichi.prompts.android.repository.data.UserBaseInfoRequest
 import com.taichi.prompts.android.repository.data.UserBaseVO
 import com.taichi.prompts.android.repository.data.UserData
 import com.taichi.prompts.android.repository.data.UserLoginRequest
@@ -121,7 +122,7 @@ interface ApiService {
      */
     @POST(ApiAddress.UpdateInfo)
     suspend fun updateInfo(
-        @Body request: UpdateInfoRequest,
+        @Body request: UserBaseInfoRequest,
         @Header("authorization_token") token: String,
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json"

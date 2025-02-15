@@ -16,4 +16,8 @@ class ProfileActivity : AppCompatActivity() {
                 .commitNow()
         }
     }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }

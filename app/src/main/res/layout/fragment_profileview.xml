@@ -22,6 +22,7 @@
         android:layout_marginTop="@dimen/dp_20"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
+            android:id="@+id/frame_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/back"
@@ -93,6 +94,7 @@
                             android:id="@+id/headImg"
                             android:layout_height="match_parent"
                             android:layout_width="match_parent"
+                            android:scaleType="centerCrop"
                             android:background="@drawable/img"/>
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -242,7 +244,6 @@
                     android:gravity="center_vertical|start" />
             </LinearLayout>
             <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/basic"
                 android:padding="@dimen/dp_10"
                 android:layout_width="match_parent"
@@ -251,7 +252,7 @@
                 android:orientation="vertical">
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/frame_9901"
+                    android:id="@+id/frame_user"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
@@ -279,7 +280,7 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         />
                     <TextView
-                        android:id="@+id/text1"
+                        android:id="@+id/text_name"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:text="未选择"
@@ -309,7 +310,7 @@
                     />
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/frame_9902"
+                    android:id="@+id/frame_birth"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
@@ -337,7 +338,7 @@
                     android:layout_marginLeft="@dimen/dp_10"
                     />
                 <TextView
-                    android:id="@+id/text2"
+                    android:id="@+id/text_birth"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:text="未选择"
@@ -366,7 +367,7 @@
                     />
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/frame_9903"
+                    android:id="@+id/frame_mbti"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
@@ -423,7 +424,7 @@
                     />
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/frame_9904"
+                    android:id="@+id/frame_height"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
@@ -451,7 +452,7 @@
                     android:layout_marginLeft="@dimen/dp_10"
                     />
                 <TextView
-                    android:id="@+id/text4"
+                    android:id="@+id/text_height"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:text="未选择"
@@ -480,7 +481,7 @@
                     />
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/frame_9905"
+                    android:id="@+id/frame_city"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
@@ -508,7 +509,7 @@
                     android:layout_marginLeft="@dimen/dp_10"
                     />
                 <TextView
-                    android:id="@+id/text5"
+                    android:id="@+id/text_city"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:text="未选择"
@@ -535,55 +536,54 @@
                     android:layout_gravity="center"
                     android:background="#141F1F26"
                     />
+
                 <RelativeLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/frame_9906"
+                    android:id="@+id/frame_relation"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="32dp"
-                    android:layout_marginTop="@dimen/dp_20"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginRight="8dp"
                     android:layout_marginBottom="@dimen/dp_10">
-                <RelativeLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/relation"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/relation"
-                    android:clipToOutline="true"
-                    />
-                <TextView
-                    android:id="@+id/relationtag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:text="可接受的关系"
-                    android:textStyle="bold"
-                    android:lineSpacingExtra="4sp"
-                    android:translationY="-2.09sp"
-                    android:gravity="top"
-                    android:layout_toRightOf="@+id/relation"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    />
-                <TextView
-                    android:id="@+id/text6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:text="未选择"
-                    android:textStyle="bold"
-                    android:lineSpacingExtra="4sp"
-                    android:translationY="-2.09sp"
-                    android:layout_toLeftOf="@+id/arrow6"
-                    />
-                <RelativeLayout
-                    android:id="@+id/arrow6"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/arrowright"
-                    android:clipToOutline="true"
-                    />
-                    </RelativeLayout>
+
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/relation"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/relation"
+                        android:clipToOutline="true" />
+
+                    <TextView
+                        android:id="@+id/relationtag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_toRightOf="@+id/relation"
+                        android:gravity="top"
+                        android:lineSpacingExtra="4sp"
+                        android:text="可接受的关系"
+                        android:textStyle="bold"
+                        android:translationY="-2.09sp" />
+
+                    <TextView
+                        android:id="@+id/text_relation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_toLeftOf="@+id/arrow6"
+                        android:lineSpacingExtra="4sp"
+                        android:text="未选择"
+                        android:textStyle="bold"
+                        android:translationY="-2.09sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/arrow6"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/arrowright"
+                        android:clipToOutline="true" />
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -690,7 +690,7 @@
                 android:orientation="vertical">
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/frame_s9d901"
+                    android:id="@+id/frame_school"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
@@ -718,7 +718,7 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         />
                     <TextView
-                        android:id="@+id/texta"
+                        android:id="@+id/text_school"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:text="未选择"
@@ -748,7 +748,7 @@
                     />
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/frame_9902w"
+                    android:id="@+id/frame_career"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
@@ -776,7 +776,7 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         />
                     <TextView
-                        android:id="@+id/textb"
+                        android:id="@+id/text_career"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:text="未选择"
@@ -805,7 +805,7 @@
                     />
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/frame_99d03"
+                    android:id="@+id/frame_hometown"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
@@ -833,7 +833,7 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         />
                     <TextView
-                        android:id="@+id/textc"
+                        android:id="@+id/text_hometown"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:text="未选择"
@@ -852,7 +852,7 @@
                         />
                 </RelativeLayout>
                 <View
-                    android:id="@+id/rectangle_93d"
+                    android:id="@+id/rectangle_asset"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
@@ -862,7 +862,7 @@
                     />
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/frame_990s4"
+                    android:id="@+id/frame_asset"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
@@ -890,7 +890,7 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         />
                     <TextView
-                        android:id="@+id/textd"
+                        android:id="@+id/text_asset"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:text="未选择"
@@ -910,7 +910,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/group_1000"
+                    android:id="@+id/group_fold"
                     android:layout_width="303dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
@@ -922,7 +922,7 @@
                         android:orientation="horizontal"
                         android:gravity="center_horizontal">
                         <TextView
-                            android:id="@+id/ss"
+                            android:id="@+id/text_fold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="收起 "
@@ -933,6 +933,7 @@
                             android:layout_gravity="center"
                             />
                         <ImageView
+                            android:id="@+id/img_fold"
                             android:layout_width="@dimen/dp_10"
                             android:layout_height="@dimen/dp_10"
                             android:layout_gravity="center_vertical"

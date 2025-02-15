@@ -70,6 +70,8 @@ dependencies {
     implementation libs.androidx.recyclerview
     implementation libs.circleimageview
     implementation libs.androidx.core
+    implementation libs.androidx.room.runtime
+    implementation libs.material.v140
 
 
     //junit单元测试

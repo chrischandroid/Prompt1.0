@@ -155,6 +155,30 @@ data class UserBaseDTO(
     val mailAddress: String
 )
 
+data class UserBaseInfoRequest(
+    val userId : String,
+    val userNickName: String,
+    val headImgUrl: String,
+    val age : Int,
+    val birthDay : String,
+    val marriageStatus : Int,
+    val gender : Int,
+    val city : String,
+    val degree : Int,
+    val hometown : String,
+    val phoneNo: String,
+    val mailAddress: String,
+    val showImgUrlList : List<String>,
+    val school: String,
+    val height : Int,
+    val weight : Int,
+    val career : String,
+    val introduction : String,
+    val personalTags : String,
+    val mbti : String,
+    val asset : String
+)
+
 data class UserLoginResponse(
     val userBaseVO : UserBaseDTO
 )

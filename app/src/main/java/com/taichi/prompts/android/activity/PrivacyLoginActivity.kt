@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.taichi.prompts.android.R
+import com.taichi.prompts.android.activity.home.TabActivity
 import com.taichi.prompts.android.activity.login.PhoneActivity
 import com.taichi.prompts.android.activity.login.WelcomeGuideActivity
 

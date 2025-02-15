@@ -11,6 +11,7 @@ import com.taichi.prompts.android.repository.data.QuestionnaireResultVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
 import com.taichi.prompts.android.repository.data.UserBaseDTO
+import com.taichi.prompts.android.repository.data.UserBaseInfoRequest
 import com.taichi.prompts.android.repository.data.UserBaseVO
 import com.taichi.prompts.android.repository.data.UserLoginRequest
 import com.taichi.prompts.android.repository.data.UserLoginResponse
@@ -113,7 +114,7 @@ object Repository {
     /**
      * 更新信息
      */
-    suspend fun updateProfile(info : UpdateInfoRequest, token: String): String {
+    suspend fun updateProfile(info : UserBaseInfoRequest, token: String): String {
         val data: BaseResponse<String> = getDefaultApi().updateInfo(info, token)
         return responseCall(data).toString()
     }
