@@ -1,7 +1,7 @@
 package com.taichi.prompts.android.repository
 import com.google.gson.stream.JsonToken
 import com.taichi.prompts.android.repository.data.MbtiResultVO
-import com.taichi.prompts.android.repository.data.QuestionInfoVO
+import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
 import com.taichi.prompts.android.repository.data.UserBaseInfoRequest
@@ -15,6 +15,7 @@ import com.taichi.prompts.android.repository.data.UserProfileRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
 import com.taichi.prompts.android.repository.data.UserRecVO
 import com.taichi.prompts.android.repository.data.UserRecommendRequest
+import com.taichi.prompts.android.repository.data.UserRecommendVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
 import com.taichi.prompts.android.repository.data.UserSimpleInfoRequest
 import com.taichi.prompts.http.ApiAddress
@@ -43,17 +44,17 @@ interface ApiService {
     suspend fun homeList(
         @Body userProfileMatchRequest: UserRecommendRequest,
         @Header("authorization_token") token: String,
-    ): BaseMatchResponse<List<UserRecVO>>?
+    ): BaseResponse<UserRecommendVO>?
 
     /**
      * 获取问题列表
      */
     @GET(ApiAddress.Question_List)
     suspend fun getQuestionList(
-        @Query("userId") userId: String,
-        @Query("templateType") param2: String,
-        @Query("profileType") param3: Int
-    ): BaseQuestionResponse<List<QuestionInfoVO>>?
+        @Header("authorization_token") token: String,
+        @Query("templateType") param1: String,
+        @Query("profileType") param2: Int
+    ): BaseResponse<List<QuestionConfigVO>?>
 
 
     /**

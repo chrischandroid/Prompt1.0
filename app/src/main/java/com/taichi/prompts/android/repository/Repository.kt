@@ -6,7 +6,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.taichi.prompts.android.common.Constants
 import com.taichi.prompts.android.repository.data.MbtiResultVO
 import com.taichi.prompts.android.repository.data.QuestionAvailableResultVO
-import com.taichi.prompts.android.repository.data.QuestionInfoVO
+import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import com.taichi.prompts.android.repository.data.QuestionnaireResultVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
@@ -21,6 +21,7 @@ import com.taichi.prompts.android.repository.data.UserProfileRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
 import com.taichi.prompts.android.repository.data.UserRecVO
 import com.taichi.prompts.android.repository.data.UserRecommendRequest
+import com.taichi.prompts.android.repository.data.UserRecommendVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
 import com.taichi.prompts.android.repository.data.UserSimpleInfoRequest
 import com.taichi.prompts.http.BaseMatchResponse
@@ -38,14 +39,14 @@ object Repository {
     private const val Need_login_Code = -1001
     private const val registerType_name_password = 3
 
-    suspend fun getHomeList(token: String, type : Int): List<UserRecVO>? {
+    suspend fun getHomeList(token: String, type : Int): UserRecommendVO? {
         val userProfileMatchRequest = UserRecommendRequest(
             1, mutableMapOf(
                 "ageMin" to "18"
             ), 0, 20
         )
-        val data: BaseMatchResponse<List<UserRecVO>>? = getDefaultApi().homeList(userProfileMatchRequest, token)
-        return responseMatchCall(data)
+        val data: BaseResponse<UserRecommendVO>? = getDefaultApi().homeList(userProfileMatchRequest, token)
+        return responseCall(data)
     }
 
 
@@ -280,7 +281,7 @@ object Repository {
                 MBTI_perceiving_score = 0
             )
 
-            val questionInfoVO = QuestionInfoVO(
+            val questionInfoVO = QuestionConfigVO(
                 id = id,
                 templateType = "mbti_quest",
                 profileType = 200,
@@ -298,7 +299,7 @@ object Repository {
         return questionnaireResultList
     }
 
-    private fun createMbtiQuestionnaireResult(map : MutableMap<String, Pair<String, QuestionInfoVO>>): List<QuestionnaireResultVO>{
+    private fun createMbtiQuestionnaireResult(map : MutableMap<String, Pair<String, QuestionConfigVO>>): List<QuestionnaireResultVO>{
         val questionnaireResultList = mutableListOf<QuestionnaireResultVO>()
 
         for ((questionContent, pair) in map) {
@@ -315,7 +316,7 @@ object Repository {
                     MBTI_perceiving_score = result.MBTI_perceiving_score
                 )
 
-                val questionInfoVO = QuestionInfoVO(
+                val questionInfoVO = QuestionConfigVO(
                     id = answer.id,
                     templateType = "mbti_quest",
                     profileType = 300,
@@ -338,16 +339,24 @@ object Repository {
     /**
      * 获取SigId
      */
-    suspend fun getQuestionList(id : String, i: Int) : List<QuestionInfoVO>? {
-        val data: BaseQuestionResponse<List<QuestionInfoVO>>? =
-            getDefaultApi().getQuestionList(id, "mbti_quest", i)
+    suspend fun getQuestionList(id : String, i: Int) : List<QuestionConfigVO>? {
+        val data: BaseQuestionResponse<List<QuestionConfigVO>>? =
+            getDefaultApi().getQuestionList(id, "mbti_quest", i) as BaseQuestionResponse<List<QuestionConfigVO>>?
         return responseQuestionCall(data)
     }
+
+    suspend fun getQuestion(token : String, id : String, i: Int) : List<QuestionConfigVO>? {
+        val data: BaseResponse<List<QuestionConfigVO>?> =
+            getDefaultApi().getQuestionList(token, id, i)
+        return responseCall(data)
+    }
+
+
 
     /**
      * 保存prompt
      */
-    suspend fun saveMbtiQuestion(id: String, map: MutableMap<String, Pair<String, QuestionInfoVO>>): UserProfileVO? {
+    suspend fun saveMbtiQuestion(id: String, map: MutableMap<String, Pair<String, QuestionConfigVO>>): UserProfileVO? {
         val questionnaireResult : List<QuestionnaireResultVO> = createMbtiQuestionnaireResult(map)
         val questionnaireSnapshot : List<String>? = null
         val userProfileRequest = UserProfileRequest(id, "mbti_quest", 300, questionnaireResult, questionnaireSnapshot)

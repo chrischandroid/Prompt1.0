@@ -6,7 +6,7 @@ object ApiAddress {
     const val Match_List = "/userIndex/recommend"
 
     //问题列表
-    const val Question_List = "userProfile/questionnaire/getQuestionList"
+    const val Question_List = "/lingqi/config/getQuestionList"
 
     //登录
     const val Login = "/userInfo/login"
@@ -21,7 +21,7 @@ object ApiAddress {
     const val LoginMsg = "/userRegister/login"
 
     //更新信息
-    const val UpdateInfo = "/userInfo/save"
+    const val UpdateInfo = "/userInfo/userBaseInfoSave"
 
     //更新简易信息
     const val SaveSimpleInfo = "/userInfo/saveSimpleInfo"

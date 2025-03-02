@@ -7,7 +7,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.taichi.prompts.android.common.Constants
 import com.taichi.prompts.android.repository.Repository
-import com.taichi.prompts.android.repository.data.QuestionInfoVO
+import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import com.taichi.prompts.android.repository.data.UserProfileVO
 import com.taichi.prompts.base.BaseViewModel
 import com.taichi.prompts.base.SingleLiveEvent
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class MbtiTestViewModel(application: Application) : BaseViewModel(application) {
-    var qustionData = SingleLiveEvent<List<QuestionInfoVO>?>()
+    var qustionData = SingleLiveEvent<List<QuestionConfigVO>?>()
 
     init {
         getQuestionList()
@@ -34,7 +34,7 @@ class MbtiTestViewModel(application: Application) : BaseViewModel(application) {
         }
 
     }
-    fun saveMbtiQuestion(id : String, map : MutableMap<String, Pair<String, QuestionInfoVO>>) {
+    fun saveMbtiQuestion(id : String, map : MutableMap<String, Pair<String, QuestionConfigVO>>) {
         viewModelScope.launch {
             try {
                 val data: UserProfileVO? = Repository.saveMbtiQuestion(id, map)

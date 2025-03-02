@@ -1,5 +1,7 @@
 package com.taichi.prompts.android.repository.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 
@@ -49,6 +51,11 @@ data class RegisterRequest(
     val userRegisterDTO: UserRegisterDTO
 )
 
+data class UserRecommendVO(
+    val userRecVOList : List<UserRecVO>,
+    val refreshTime : Long
+)
+
 data class UserRecVO(
     val userId : String,
     val userNickName: String,
@@ -62,7 +69,9 @@ data class UserRecVO(
     val liveCity : String,
     val hometown : String,
     val college : String,
-    val showImgUrlList : List<String>
+    val showImgUrlList : List<String>,
+    val promptQuestion : String,
+    val promptAnswer : String
 )
 
 data class UserRecommendRequest (
@@ -96,7 +105,7 @@ data class UserProfileRequest(
 )
 
 data class QuestionnaireResultVO (
-    val questionInfo : QuestionInfoVO,
+    val questionInfo : QuestionConfigVO,
     val questionResult : QuestionAvailableResultVO
 )
 
@@ -111,25 +120,17 @@ data class UserQuestionInfoVO (
     val questionContent : String
 )
 
-data class QuestionInfoVO (
+@Parcelize
+data class QuestionConfigVO (
     val id : Long,
     val templateType : String,
     val profileType : Int,
     val inputType : Int,
     val questionContent : String,
     val availableResultVOList : List<QuestionAvailableResultVO>
-)
+) : Parcelable
 
 data class UserQuestionAnswerVO (
-    val answerKey : String,
-    val answerContent : String,
-    val MBTI_introvert_score : Int,
-    val MBTI_intuition_score : Int,
-    val MBTI_feeling_score : Int,
-    val MBTI_perceiving_score : Int
-)
-
-data class QuestionAvailableResultVO(
     val key : String,
     val label : String,
     val MBTI_introvert_score : Int,
@@ -137,6 +138,17 @@ data class QuestionAvailableResultVO(
     val MBTI_feeling_score : Int,
     val MBTI_perceiving_score : Int
 )
+
+@Parcelize
+data class QuestionAvailableResultVO(
+    val key : String,
+    val label : String,
+    val MBTI_introvert_score : Int,
+    val MBTI_intuition_score : Int,
+    val MBTI_feeling_score : Int,
+    val MBTI_perceiving_score : Int
+) : Parcelable
+
 data class  MbtiResultVO(
     val mbtiType : String
 )

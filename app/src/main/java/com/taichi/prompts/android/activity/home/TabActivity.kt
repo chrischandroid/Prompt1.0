@@ -2,11 +2,10 @@ package com.taichi.prompts.android.activity.home
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.VectorDrawable
 import android.graphics.Canvas
 import android.os.Build
-import androidx.activity.OnBackPressedDispatcher
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -18,14 +17,11 @@ import com.taichi.prompts.android.databinding.ActivityTabBinding
 import com.taichi.prompts.android.fragment.home.FragHome
 import com.taichi.prompts.android.fragment.common.FragCommon
 import com.taichi.prompts.android.fragment.mine.FragMine
+import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import com.taichi.prompts.base.BaseActivity
 import com.taichi.prompts.base.adapter.Pager2Adapter
 import com.taichi.prompts.base.tab.NavigationBottomBar
 import com.tencent.qcloud.tuikit.tuiconversation.classicui.page.TUIConversationFragmentContainer
-import java.time.LocalDate
-import java.time.Period
-import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
     override fun getLayoutId(): Int {
@@ -77,10 +73,14 @@ class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
                 LogUtils.d("registerTabClickListener position=$position")
             }
         })
-        if (intent.getStringExtra("nickname") != null && intent.getStringExtra("olduser") == null) {
-            val key = intent.getStringExtra("key")?: "面对复杂问题时，你是如何拆解并找到解决方案的？"
+        if (intent.getStringExtra("olduser") == null) {
+            val key :Int= intent.getIntExtra("key", 0)
             val value = intent.getStringExtra("value")?: "无"
-            viewModel?.updateProfile(key, value)
+            val questionList1 = intent.getParcelableArrayListExtra<QuestionConfigVO>("question1")
+            val questionList2 = intent.getParcelableArrayListExtra<QuestionConfigVO>("question2")
+            viewModel?.updateProfile(key, value, questionList1?.get(0),
+                questionList2?.get(key)
+            )
         }
     }
 

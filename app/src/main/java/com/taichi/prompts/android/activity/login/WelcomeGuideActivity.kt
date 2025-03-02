@@ -34,6 +34,7 @@ import com.codbking.widget.bean.DateType
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.activity.home.TabActivity
 import com.taichi.prompts.android.common.Constants
+import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -179,6 +180,8 @@ class WelcomeGuideActivity : AppCompatActivity() {
         val nextView : View = findViewById(R.id.rectangle_2)
         nextView.visibility = View.VISIBLE
         scrollView = findViewById(R.id.scrollView)
+        val questionList1 = intent.getParcelableArrayListExtra<QuestionConfigVO>("question1")
+        val questionList2 = intent.getParcelableArrayListExtra<QuestionConfigVO>("question2")
 
         // 使用匿名内部类创建OnPreDrawListener
         scrollView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
@@ -228,6 +231,13 @@ class WelcomeGuideActivity : AppCompatActivity() {
             SPUtils.getInstance().put(Constants.SP_USER_NICKNAME, inputText)
             intent.putExtra("name", inputText)
             intent.putExtra("type", 1)
+
+            if (questionList1 != null) {
+                intent.putParcelableArrayListExtra("question1", questionList1)
+            }
+            if (questionList2 != null) {
+                intent.putParcelableArrayListExtra("question2", questionList2)
+            }
             startActivity(intent)
         }
 

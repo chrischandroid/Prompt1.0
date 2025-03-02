@@ -25,8 +25,11 @@ class HomeListAdapter :
         holder.binding.itemData = item
         holder.binding.userNickName.text = item?.userNickName + "," + item?.age.toString()
         holder.binding.city.text = item?.liveCity
-        holder.binding.question.text = "好吗"
-        holder.binding.answer.text = "好的"
+        holder.binding.mbti.text = item?.mbtiTag
+        holder.binding.school.text = item?.college
+        holder.binding.slender.text = item?.weight + "/" + item?.height
+        holder.binding.question.text = item?.promptQuestion
+        holder.binding.answer.text = item?.promptAnswer
         val imageUrl : String = item?.headImgUrl.toString()
         Glide.with(holder.binding.root.context)
             .load(imageUrl)

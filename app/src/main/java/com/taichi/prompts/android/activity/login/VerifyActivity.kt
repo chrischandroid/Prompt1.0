@@ -2,6 +2,7 @@ package com.taichi.prompts.android.activity.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -20,7 +21,9 @@ import com.blankj.utilcode.util.SPUtils
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.BR
 import com.taichi.prompts.android.activity.home.TabActivity
+import com.taichi.prompts.android.common.Constants
 import com.taichi.prompts.base.BaseActivity
+import java.util.ArrayList
 
 class VerifyActivity : BaseActivity<ActivityVerifyBinding, VerifyViewModel>() {
     private lateinit var inputFields: Array<EditText>
@@ -98,9 +101,21 @@ class VerifyActivity : BaseActivity<ActivityVerifyBinding, VerifyViewModel>() {
                 intent.putExtra("type", 2)
                 startActivity(intent)
             } else {
+                val id = SPUtils.getInstance().getString(Constants.SP_USER_TOKEN)
+                viewModel?.requestQuestion(id, "mbti_quest", 301)
+                viewModel?.requestQuestion(id, "mbti_quest", 201)
                 Log.i("Prompt", "moveToNewStarterScreen:")
-                val intent = Intent(this@VerifyActivity, WelcomeGuideActivity::class.java)
-                startActivity(intent)
+
+                viewModel?.question_2?.observe(this, Observer { event ->
+                    val intent = Intent(this@VerifyActivity, WelcomeGuideActivity::class.java)
+                    intent.putParcelableArrayListExtra("question1",
+                        viewModel?.question_1?.value as ArrayList<out Parcelable?>?
+                    )
+                    intent.putParcelableArrayListExtra("question2",
+                        viewModel?.question_2?.value as ArrayList<out Parcelable?>?
+                    )
+                    startActivity(intent)
+                })
             }
         })
     }

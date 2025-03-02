@@ -106,7 +106,7 @@
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/frame_9d84"
-                    android:layout_width="205dp"
+                    android:layout_width="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="1dp"
                     android:layout_height="62dp">
@@ -132,7 +132,7 @@
                             android:layout_height="18dp"
                             android:clipToOutline="true"
                             android:layout_centerInParent="true"
-                            android:layout_toRightOf="@+id/nickname"
+                            android:layout_toRightOf="@+id/userNickName"
                             android:layout_marginLeft="@dimen/dp_5"
                             android:background="@drawable/veri"
                             />
@@ -143,7 +143,7 @@
 
                     <RelativeLayout
                         android:id="@+id/frame_220"
-                        android:layout_width="183dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true">
                         <RelativeLayout
@@ -160,6 +160,7 @@
                                 android:textAppearance="@style/some_id"
                                 android:textColor="#FFFFFF"
                                 android:textSize="10sp"
+                                android:padding="4dp"
                                 android:layout_centerInParent="true"
                                 />
 
@@ -167,7 +168,7 @@
 
                         <RelativeLayout
                             xmlns:android="http://schemas.android.com/apk/res/android"
-                            android:id="@+id/frame_21"
+                            android:id="@+id/frame_20"
                             android:layout_width="wrap_content"
                             android:layout_height="24dp"
                             android:layout_toRightOf="@id/frame_17"
@@ -181,6 +182,7 @@
                                 android:textAppearance="@style/some_id"
                                 android:textColor="#FFFFFF"
                                 android:textSize="10sp"
+                                android:padding="4dp"
                                 android:layout_centerInParent="true"
                                 />
 
@@ -188,7 +190,28 @@
 
                         <RelativeLayout
                             xmlns:android="http://schemas.android.com/apk/res/android"
-                            android:id="@+id/frame_20"
+                            android:id="@+id/frame_21"
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_toRightOf="@id/frame_20"
+                            android:layout_marginLeft="@dimen/dp_2"
+                            android:background="@drawable/frame_20">
+                            <TextView
+                                android:id="@+id/school"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="上海大学"
+                                android:textAppearance="@style/some_id"
+                                android:textColor="#FFFFFF"
+                                android:textSize="10sp"
+                                android:padding="4dp"
+                                android:layout_centerInParent="true"
+                                />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/frame_22"
                             android:layout_width="wrap_content"
                             android:layout_height="24dp"
                             android:layout_toRightOf="@id/frame_21"
@@ -203,6 +226,7 @@
                                 android:textColor="#FFFFFF"
                                 android:textSize="10sp"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 />
                         </RelativeLayout>
                     </RelativeLayout>

@@ -15,14 +15,14 @@ import com.taichi.prompts.android.adapter.Question
 import com.taichi.prompts.android.adapter.MbtiQuestionAdapter
 import com.taichi.prompts.android.adapter.QuestionItem
 import com.taichi.prompts.android.fragment.mine.MbtiTestViewModel
-import com.taichi.prompts.android.repository.data.QuestionInfoVO
+import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import com.taichi.prompts.base.BaseActivity
 
 class MbtiTestActivity : BaseActivity<ActivityMbtitestBinding, MbtiTestViewModel>(){
 
     private lateinit var questionAdapter: MbtiQuestionAdapter
     private var questionList: MutableList<QuestionItem> = mutableListOf()
-    val questionDetails : MutableMap<String, QuestionInfoVO> = mutableMapOf()
+    val questionDetails : MutableMap<String, QuestionConfigVO> = mutableMapOf()
 
     val id = SPUtils.getInstance().getString(Constants.SP_USER_ID)
 
@@ -47,7 +47,7 @@ class MbtiTestActivity : BaseActivity<ActivityMbtitestBinding, MbtiTestViewModel
     @RequiresApi(Build.VERSION_CODES.N)
     private fun initClick() {
         binding?.submitButton?.setOnClickListener {
-            var map : MutableMap<String, Pair<String, QuestionInfoVO>> = mutableMapOf()
+            var map : MutableMap<String, Pair<String, QuestionConfigVO>> = mutableMapOf()
             questionAdapter.getQuestionList().forEachIndexed { index, questionItem ->
                 val selected = when (questionItem.selectedOption) {
                     0 -> questionItem.option1

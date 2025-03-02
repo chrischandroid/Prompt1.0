@@ -314,6 +314,7 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
 
                     // 显示新的图片
                     imageView.setImageURI(Uri.fromFile(File(privateImagePath)))
+                    SPUtils.getInstance().put("headImgUrl", Uri.fromFile(File(privateImagePath)).toString())
                 }
             }
         }

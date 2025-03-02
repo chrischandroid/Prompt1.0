@@ -3,6 +3,7 @@ package com.taichi.prompts.android.activity.login
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -17,6 +18,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.activity.home.TabActivity
 import com.taichi.prompts.android.common.Constants.SP_USER_NICKNAME
+import com.taichi.prompts.android.repository.data.QuestionConfigVO
 
 class SimpleAskActivity : AppCompatActivity() {
     var lastCheck = 1
@@ -41,6 +43,15 @@ class SimpleAskActivity : AppCompatActivity() {
         }
         initClick()
         initResult()
+        val incomingIntent = intent
+        val questionList1 = incomingIntent.getParcelableArrayListExtra<QuestionConfigVO>("question1")
+        if (questionList1 != null) {
+            for (questionConfig in questionList1) {
+                // 处理每个 QuestionConfigVO 对象
+                Log.i("question1","Question 1 - ID: ${questionConfig.id}")
+                Log.i("question1","Question 1 - CONTENT: ${questionConfig.questionContent}")
+            }
+        }
     }
 
     private fun initResult() {
@@ -52,14 +63,16 @@ class SimpleAskActivity : AppCompatActivity() {
     }
 
     private fun initClick() {
+        val questionList1 = intent.getParcelableArrayListExtra<QuestionConfigVO>("question1")
+        val questionList2 = intent.getParcelableArrayListExtra<QuestionConfigVO>("question2")
         val finish : RelativeLayout = findViewById(R.id.array)
         finish.setOnClickListener{
             finish()
         }
         val skip : RelativeLayout = findViewById(R.id.button6)
         skip.setOnClickListener{
-            val intent = Intent(this, TabActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            val intent = Intent(this, SimpleAnswerActivity::class.java)
+            intent.putExtra("key", lastCheck)
             intent.putExtra("nickname", SPUtils.getInstance().getString(SP_USER_NICKNAME))
             startActivity(intent)
         }
@@ -68,6 +81,12 @@ class SimpleAskActivity : AppCompatActivity() {
             val intent = Intent(this, SimpleAnswerActivity::class.java)
             intent.putExtra("key", lastCheck)
             intent.putExtra("nickname", SPUtils.getInstance().getString(SP_USER_NICKNAME))
+            if (questionList1 != null) {
+                intent.putParcelableArrayListExtra("question1", questionList1)
+            }
+            if (questionList2 != null) {
+                intent.putParcelableArrayListExtra("question2", questionList2)
+            }
             startActivity(intent)
         }
         val layout1 : RelativeLayout = findViewById(R.id.relativeLayout1)

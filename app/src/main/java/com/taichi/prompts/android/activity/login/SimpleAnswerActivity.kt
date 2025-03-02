@@ -2,6 +2,7 @@ package com.taichi.prompts.android.activity.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -12,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.activity.home.TabActivity
+import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import org.w3c.dom.Text
 
 class SimpleAnswerActivity : AppCompatActivity() {
@@ -24,12 +26,14 @@ class SimpleAnswerActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val questionList1 = intent.getParcelableArrayListExtra<QuestionConfigVO>("question1")
+        val questionList2 = intent.getParcelableArrayListExtra<QuestionConfigVO>("question2")
         val name : String? = intent.getStringExtra("nickname")
         if (name != null) {
             val view : TextView = findViewById(R.id.user_)
             view.text = name
         }
-        val key : Int = intent.getIntExtra("key", 1)
+        val key : Int = intent.getIntExtra("key", 1) - 1
         val map : Map<Int, String> = mapOf(
             1 to "面对复杂问题时，你是如何拆解并找到解决方案的？",
             2 to "你觉得什么样的瞬间会让两个人有心灵的共鸣？",
@@ -37,7 +41,8 @@ class SimpleAnswerActivity : AppCompatActivity() {
             4 to "你最疯狂或勇敢的一次冒险经历是什么?"
         )
         val que : TextView = findViewById(R.id.q_id)
-        que.text = map[key]
+        val ans = questionList2?.get(key)?.questionContent
+        que.text = ans
         val finish : RelativeLayout = findViewById(R.id.array)
         finish.setOnClickListener{
             finish()
@@ -49,8 +54,17 @@ class SimpleAnswerActivity : AppCompatActivity() {
             if (inputText.isNotEmpty()) {
                 val intent = Intent(this, TabActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                intent.putExtra("key", map[key])
+                intent.putExtra("index", key)
+                intent.putExtra("key", ans)
                 intent.putExtra("value", inputText)
+                if (questionList1 != null) {
+                    intent.putParcelableArrayListExtra("question1", questionList1)
+                    Log.e("Simple",questionList1.toString())
+                }
+                if (questionList2 != null) {
+                    intent.putParcelableArrayListExtra("question2", questionList2)
+                    Log.e("Simple",questionList2.toString())
+                }
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "请输入内容", Toast.LENGTH_SHORT).show()
