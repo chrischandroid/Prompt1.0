@@ -25,6 +25,9 @@ class TabViewModel(application: Application) : BaseViewModel(application) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun updateProfile(key: Int, value: String, config1: QuestionConfigVO?, config2: QuestionConfigVO?) {
+        if (config1 == null || config2 == null) {
+            return
+        }
         val name = SPUtils.getInstance().getString(SP_USER_NICKNAME)
         val birth = SPUtils.getInstance().getString(SP_USER_BIRTH)
 

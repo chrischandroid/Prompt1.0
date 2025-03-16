@@ -1,25 +1,37 @@
 package com.taichi.prompts.android.fragment.home
 
 import android.graphics.Rect
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.BR
 import com.taichi.prompts.android.adapter.HomeListAdapter
 import com.taichi.prompts.android.databinding.FragmentHomeBinding
 import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
+import com.taichi.prompts.android.repository.data.UserRecVO
 import com.taichi.prompts.base.BaseFragment
+import link.fls.swipestack.SwipeStack
 
 /**
  * 首页
  */
-class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
-    private val adapter: HomeListAdapter = HomeListAdapter()
-    private var startX = 0f
-    private var startY = 0f
+class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),SwipeStack.SwipeStackListener {
+    private val mData = ArrayList<UserRecVO>()
+    private lateinit var mSwipeStack: SwipeStack
+    private lateinit var mAdapter: SwipeStackAdapter
+    private var isDataChanged = false
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
@@ -32,10 +44,10 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun initViewData() {
         initListView()
         viewModel?.homeListData?.observe(viewLifecycleOwner) { list ->
-            if (list != null && list.isNotEmpty()) {
-                binding?.homeTabListView?.post {
-                    adapter.setDataList(list)
-                }
+            if (list != null && list.isNotEmpty() && !isDataChanged) {
+                mData.addAll(list)
+                mAdapter.notifyDataSetChanged()
+                isDataChanged = true
             }
         }
     }
@@ -46,48 +58,77 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun initListView() {
-        val manager = LinearLayoutManager(context)
-        manager.orientation = LinearLayoutManager.HORIZONTAL
-        binding?.homeTabListView?.layoutManager = manager
-        binding?.homeTabListView?.adapter = adapter
-        val itemDecoration = CardViewItemDecoration(resources.getDimensionPixelSize(R.dimen.dp_10))
-        binding?.homeTabListView?.addItemDecoration(itemDecoration)
+        mAdapter = SwipeStackAdapter(mData)
+        mSwipeStack = binding!!.swipeStack
+        mSwipeStack.setAdapter(mAdapter)
+        mSwipeStack.setListener(this)
+    }
 
-        binding?.homeTabListView?.setOnTouchListener { v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    startX = event.x
-                    startY = event.y
-                    // 按下时请求父布局不拦截事件
-                    v.parent.requestDisallowInterceptTouchEvent(true)
-                }
-                MotionEvent.ACTION_MOVE -> {
-                    val dx = event.x - startX
-                    val dy = event.y - startY
-                    // 判断是否为横向滑动
-                    if (Math.abs(dx) > Math.abs(dy)) {
-                        // 横向滑动时请求父布局不拦截事件
-                        v.parent.requestDisallowInterceptTouchEvent(true)
-                    } else {
-                        // 纵向滑动时允许父布局拦截事件
-                        v.parent.requestDisallowInterceptTouchEvent(false)
-                    }
-                }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    // 抬起或取消时允许父布局拦截事件
-                    v.parent.requestDisallowInterceptTouchEvent(false)
-                }
+    override fun onViewSwipedToLeft(position: Int) {
+        val swipedElement = mAdapter.getItem(position)
+    }
+
+    override fun onViewSwipedToRight(position: Int) {
+        val swipedElement = mAdapter.getItem(position)
+    }
+
+    override fun onStackEmpty() {
+        Toast.makeText(requireContext(), "嘉宾已展示完毕", Toast.LENGTH_SHORT).show()
+    }
+
+    inner class SwipeStackAdapter(private val mData: List<UserRecVO>) : BaseAdapter() {
+
+        override fun getCount(): Int {
+            return mData.size
+        }
+
+        override fun getItem(position: Int): UserRecVO {
+            return mData[position]
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            var view = convertView
+            if (view == null) {
+                view = layoutInflater.inflate(R.layout.card, parent, false)
             }
-            // 将事件传递给 RecyclerView 处理
-            v.onTouchEvent(event)
-            return@setOnTouchListener true
+            val item = mData[position]
+
+            val name = view!!.findViewById<TextView>(R.id.userNickName)
+            name.text = item?.userNickName + "," + item?.age.toString()
+
+            val city = view!!.findViewById<TextView>(R.id.city)
+            city.text = item?.liveCity
+
+            val mbti = view!!.findViewById<TextView>(R.id.mbti)
+            mbti.text = item?.mbtiTag
+
+            val school = view!!.findViewById<TextView>(R.id.school)
+            school.text = item?.college
+
+            val slender = view!!.findViewById<TextView>(R.id.slender)
+            slender.text = item?.weight + "/" + item?.height
+
+            val qus = view!!.findViewById<TextView>(R.id.question)
+            qus.text = item?.promptQuestion
+            val ans = view!!.findViewById<TextView>(R.id.answer)
+            ans.text = item?.promptAnswer
+
+            val img = view!!.findViewById<ImageView>(R.id.headImg)
+            val imageUrl : String = item?.headImgUrl.toString()
+            Glide.with(requireContext())
+                .load(imageUrl)
+                .placeholder(R.drawable.default_profile)
+                .error(R.drawable.default_profile)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .apply(RequestOptions().fitCenter())
+                .into(img)
+
+            return view
         }
     }
 }
 
-class CardViewItemDecoration(private val spacing: Int) : RecyclerView.ItemDecoration() {
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        outRect.left = spacing
-        outRect.right = spacing
-    }
-}

@@ -55,6 +55,7 @@ dependencies {
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.viewpager2
     implementation 'com.github.codbking:PickTime:v1.0.1'
+    implementation 'com.github.flschweiger:SwipeStack:0.3.0'
 
     //glide
     implementation libs.glide
