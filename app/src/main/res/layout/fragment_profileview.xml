@@ -436,14 +436,14 @@
                     android:id="@+id/size"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@drawable/mbti"
+                    android:background="@drawable/rule"
                     android:clipToOutline="true"
                     />
                 <TextView
                     android:id="@+id/sizetag"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:text="身高与体重"
+                    android:text="身高"
                     android:textStyle="bold"
                     android:lineSpacingExtra="4sp"
                     android:translationY="-2.09sp"
@@ -471,7 +471,64 @@
                     />
                     </RelativeLayout>
                 <View
-                    android:id="@+id/rectangle_94"
+                    android:id="@+id/rectangle_9s4"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="#141F1F26"
+                    />
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/frame_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_gravity="center">
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/size1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/rule"
+                        android:clipToOutline="true"
+                        />
+                    <TextView
+                        android:id="@+id/siztag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="体重"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:gravity="top"
+                        android:layout_toRightOf="@+id/size1"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        />
+                    <TextView
+                        android:id="@+id/text_weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="未选择"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4sp"
+                        android:translationY="-2.09sp"
+                        android:layout_toLeftOf="@+id/arrow41"
+                        />
+                    <RelativeLayout
+                        android:id="@+id/arrow41"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/arrowright"
+                        android:clipToOutline="true"
+                        />
+                </RelativeLayout>
+                <View
+                    android:id="@+id/rectangle_931"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"

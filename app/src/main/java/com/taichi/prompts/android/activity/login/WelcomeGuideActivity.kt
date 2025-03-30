@@ -124,7 +124,7 @@ class WelcomeGuideActivity : AppCompatActivity() {
                 val layoutParams = window.attributes
                 layoutParams.width = baseContext.resources.displayMetrics.widthPixels
                 val screenHeight = baseContext.resources.displayMetrics.heightPixels
-                layoutParams.height = screenHeight / 4
+                layoutParams.height = screenHeight / 3
                 window.attributes = layoutParams
             }
             dialog.setCancelable(false)

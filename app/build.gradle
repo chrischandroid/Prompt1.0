@@ -48,6 +48,13 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src\\main\\assets'
+            }
+        }
+    }
 }
 
 dependencies {
@@ -56,6 +63,7 @@ dependencies {
     implementation libs.androidx.viewpager2
     implementation 'com.github.codbking:PickTime:v1.0.1'
     implementation 'com.github.flschweiger:SwipeStack:0.3.0'
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:AddressPicker:4.1.14'
 
     //glide
     implementation libs.glide
@@ -73,6 +81,7 @@ dependencies {
     implementation libs.circleimageview
     implementation libs.androidx.core
     implementation libs.androidx.room.runtime
+    implementation libs.material.v140
     implementation libs.material.v140
 
 

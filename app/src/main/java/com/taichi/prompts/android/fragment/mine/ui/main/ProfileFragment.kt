@@ -29,10 +29,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.room.Room
 import com.blankj.utilcode.util.SPUtils
+import com.codbking.widget.DatePickDialog
+import com.codbking.widget.bean.DateType
+import com.github.gzuliyujiang.wheelpicker.AddressPicker
+import com.github.gzuliyujiang.wheelpicker.annotation.AddressMode
+import com.github.gzuliyujiang.wheelpicker.contract.OnAddressPickedListener
+import com.github.gzuliyujiang.wheelpicker.entity.CityEntity
+import com.github.gzuliyujiang.wheelpicker.entity.CountyEntity
+import com.github.gzuliyujiang.wheelpicker.entity.ProvinceEntity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.BR
 import com.taichi.prompts.android.common.Constants
+import com.taichi.prompts.android.common.OccupationPickerDialog
 import com.taichi.prompts.android.databinding.FragmentProfileviewBinding
 import com.taichi.prompts.android.fragment.mine.ProfileViewModel
 import com.taichi.prompts.android.repository.Repository.updateProfile
@@ -41,8 +50,11 @@ import com.taichi.prompts.base.AvatarEntity
 import com.taichi.prompts.base.BaseFragment
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
-class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewModel>(){
+class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewModel>(), OnAddressPickedListener {
 
     private lateinit var cardView: CardView
     private lateinit var imageView: ImageView
@@ -53,6 +65,7 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
     private lateinit var textFold: TextView
     private lateinit var imgFold: ImageView
     private lateinit var groupFold: RelativeLayout
+    private var selectLocation = "Unknwon"
 
     private val PICK_IMAGE_REQUEST = 1
     override fun getLayoutId(): Int {
@@ -84,6 +97,11 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
             val text3 = view?.findViewById<TextView>(R.id.text_height)
             text3?.text = height
         }
+        val weight = SPUtils.getInstance().getString("weight")
+        if (weight != null && weight.isNotEmpty()) {
+            val text = view?.findViewById<TextView>(R.id.text_weight)
+            text?.text = weight
+        }
         val city = SPUtils.getInstance().getString("city")
         if (city != null && city.isNotEmpty()) {
             val text4 = view?.findViewById<TextView>(R.id.text_city)
@@ -97,7 +115,7 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
         val career = SPUtils.getInstance().getString("career")
         if (career != null && career.isNotEmpty()) {
             val text6= view?.findViewById<TextView>(R.id.text_career)
-            text6?.text = school
+            text6?.text = career
         }
         val hometown = SPUtils.getInstance().getString("hometown")
         if (hometown != null && hometown.isNotEmpty()) {
@@ -115,7 +133,13 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
         fun newInstance() = ProfileFragment()
     }
     private fun saveText(key: String, text: String) {
-        SPUtils.getInstance().put(key, text)
+        var value = text
+        if (key == "weight") {
+            value += "kg"
+        } else if (key == "height") {
+            value += "cm"
+        }
+        SPUtils.getInstance().put(key, value)
         initData()
     }
 
@@ -133,6 +157,14 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
         val editText = view.findViewById<EditText>(R.id.editText)
         editText.layoutParams.height = editTextHeight
         editText.requestLayout() // 刷新布局
+
+        if (key == "height") {
+            editText.hint = "请输入身高 单位cm"
+        } else if (key == "weight") {
+            editText.hint = "请输入体重 单位kg"
+        } else if (key == "asset") {
+            editText.hint = "请输入资产和收入 如资产6位数 收入3k"
+        }
 
         val saveButton = view.findViewById<Button>(R.id.saveButton)
 
@@ -160,15 +192,55 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
         }
         val layout2 = view?.findViewById<RelativeLayout>(R.id.frame_birth)
         layout2?.setOnClickListener{
-            showBottomSheetDialog("birthDay")
+            val dialog : DatePickDialog  = DatePickDialog(requireContext())
+            dialog.setOnShowListener {
+                val cancelButton = dialog.findViewById<View>(R.id.cancel)
+                if (cancelButton!= null) {
+                    cancelButton.setVisibility(View.GONE)
+                }
+            }
+            dialog.setYearLimt(50);
+            dialog.setTitle("选择时间");
+            dialog.setType(DateType.TYPE_YMD);
+            dialog.setMessageFormat("yyyy-MM-dd")
+            dialog.setCancelable(false)
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.setOnChangeLisener(null)
+            dialog.setOnSureLisener { selectedDate ->
+                val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
+                try {
+                    val date = sdf.parse(selectedDate.toString())
+                    val calendar = Calendar.getInstance()
+                    calendar.time = date
+                    val year = calendar.get(Calendar.YEAR)
+                    val month = calendar.get(Calendar.MONTH)
+                    val day = calendar.get(Calendar.DAY_OF_MONTH)
+                    val res = "${year}-${month + 1}-${day}"
+                    SPUtils.getInstance().put(Constants.SP_USER_BIRTH, res)
+                    val text = view?.findViewById<TextView>(R.id.text_birth)
+                    text?.text = res
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+            dialog.show()
         }
         val layout3 = view?.findViewById<RelativeLayout>(R.id.frame_height)
         layout3?.setOnClickListener{
             showBottomSheetDialog("height")
         }
+        val layout31 = view?.findViewById<RelativeLayout>(R.id.frame_weight)
+        layout31?.setOnClickListener{
+            showBottomSheetDialog("weight")
+        }
         val layout4 = view?.findViewById<RelativeLayout>(R.id.frame_city)
         layout4?.setOnClickListener{
-            showBottomSheetDialog("city")
+            var picker : AddressPicker = AddressPicker(requireActivity())
+            picker.setAddressMode(AddressMode.PROVINCE_CITY)
+            picker.setDefaultValue("浙江省", "杭州市", "")
+            picker.setOnAddressPickedListener(this)
+            selectLocation = "city"
+            picker.show()
         }
         val layout5 = view?.findViewById<RelativeLayout>(R.id.frame_school)
         layout5?.setOnClickListener{
@@ -176,11 +248,19 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
         }
         val layout6 = view?.findViewById<RelativeLayout>(R.id.frame_career)
         layout6?.setOnClickListener{
-            showBottomSheetDialog("career")
+            // 显示选择器
+            OccupationPickerDialog(requireActivity()) { industry, occupation ->
+                saveText("career", industry + " " + occupation)
+            }.show()
         }
         val layout7 = view?.findViewById<RelativeLayout>(R.id.frame_hometown)
         layout7?.setOnClickListener{
-            showBottomSheetDialog("hometown")
+            var picker : AddressPicker = AddressPicker(requireActivity())
+            picker.setAddressMode(AddressMode.PROVINCE_CITY)
+            picker.setDefaultValue("浙江省", "杭州市", "")
+            picker.setOnAddressPickedListener(this)
+            selectLocation = "hometown"
+            picker.show()
         }
         val layout8 = view?.findViewById<RelativeLayout>(R.id.frame_asset)
         layout8?.setOnClickListener{
@@ -378,6 +458,15 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
     }
 
     fun getExternalFilesDir(p0: Any) {}
+    override fun onAddressPicked(
+        province: ProvinceEntity?,
+        city: CityEntity?,
+        county: CountyEntity?
+    ) {
+        Log.e("Onselect", province?.name + " " + city?.name)
+        SPUtils.getInstance().put(selectLocation, province?.name+" " + city?.name)
+        initData()
+    }
 }
 
 

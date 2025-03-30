@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
 
-                        android:text="我叫阿拉松，我正在为你开启一场有趣的长期\n社交关系实验 😊️"
+                        android:text="我叫阿拉松，我正在为你开启一场\n有趣的长期社交关系实验 😊️"
                         android:textColor="#FFFFFF"
                         android:textSize="15sp"></TextView>
 
