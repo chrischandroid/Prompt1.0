@@ -95,6 +95,20 @@ class VerifyActivity : BaseActivity<ActivityVerifyBinding, VerifyViewModel>() {
         }
 
         viewModel?.openNewActivityEvent?.observe(this, Observer { event ->
+            if (event.userBaseVO != null) {
+                SPUtils.getInstance().put(Constants.SP_USER_ID, event.userBaseVO.userId)
+                SPUtils.getInstance().put("userNickName", event.userBaseVO.userNickName)
+                SPUtils.getInstance().put("headImgUrl", event.userBaseVO.headImgUrl)
+                SPUtils.getInstance().put("city", event.userBaseVO.city)
+                SPUtils.getInstance().put("hometown",event.userBaseVO.hometown)
+                SPUtils.getInstance().put("career", event.userBaseVO.career)
+                SPUtils.getInstance().put("school", event.userBaseVO.school)
+                SPUtils.getInstance().put("asset", event.userBaseVO.asset)
+                SPUtils.getInstance().put("gender", event.userBaseVO.gender)
+                SPUtils.getInstance().put("age", event.userBaseVO.age)
+                SPUtils.getInstance().put("weight", event.userBaseVO.weight)
+                SPUtils.getInstance().put("height", event.userBaseVO.height)
+            }
             if (event.userBaseVO != null &&  event.userBaseVO.userNickName != null && event.userBaseVO.userNickName.length > 0) {
                 val intent = Intent(this@VerifyActivity, CompleteGuideActivity::class.java)
                 intent.putExtra("name", event.userBaseVO.userNickName)

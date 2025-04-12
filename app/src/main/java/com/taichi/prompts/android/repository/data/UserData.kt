@@ -82,7 +82,7 @@ data class UserRecommendRequest (
 )
 
 data class UpdateInfoRequest(
-    val userBaseDTO: UserBaseDTO
+    val userBaseDTO: UserBaseVO
 )
 
 data class  UserSimpleInfoRequest(
@@ -153,9 +153,12 @@ data class  MbtiResultVO(
     val mbtiType : String
 )
 
-data class UserBaseDTO(
+data class UserBaseVO(
     val userId : String,
     val userNickName: String,
+    val headImgUrl: String,
+    val introduction: String,
+    val personalTags: String,
     val age : Int,
     val birthDay : String,
     val marriageStatus : Int,
@@ -164,7 +167,14 @@ data class UserBaseDTO(
     val degree : Int,
     val hometown : String,
     val phoneNo: String,
-    val mailAddress: String
+    val mailAddress: String,
+    val showImgUrlList : List<String>,
+    val school: String,
+    val height : Int,
+    val weight : Int,
+    val career : String,
+    val mbti : String,
+    val asset : String
 )
 
 data class UserBaseInfoRequest(
@@ -191,25 +201,8 @@ data class UserBaseInfoRequest(
     val asset : String
 )
 
-data class UserLoginResponse(
-    val userBaseVO : UserBaseDTO
-)
-
-data class UserBaseVO(
-    val userId : String,
-    val userNickName: String,
-    val headImgUrl : String,
-    val introduction : String,
-    val age : Int,
-    val birthDay : String,
-    val marriageStatus : Int,
-    val gender : Int,
-    val city : String,
-    val degree : Int,
-    val hometown : String,
-    val phoneNo: String,
-    val mailAddress: String,
-    val showImgUrlList : List<String>
+data class UserLoginVO(
+    val userBaseVO : UserBaseVO
 )
 
 data class UserProfileVO(

@@ -65,6 +65,7 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
     private lateinit var textFold: TextView
     private lateinit var imgFold: ImageView
     private lateinit var groupFold: RelativeLayout
+    private lateinit var photoLayouts: Array<RelativeLayout>
     private var selectLocation = "Unknwon"
 
     private val PICK_IMAGE_REQUEST = 1
@@ -92,15 +93,15 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
             val text2 = view?.findViewById<TextView>(R.id.text_birth)
             text2?.text = birth
         }
-        val height = SPUtils.getInstance().getString("height")
-        if (height != null && height.isNotEmpty()) {
+        val height = SPUtils.getInstance().getInt("height", 0)
+        if (height != 0) {
             val text3 = view?.findViewById<TextView>(R.id.text_height)
-            text3?.text = height
+            text3?.text = height.toString() + " cm"
         }
-        val weight = SPUtils.getInstance().getString("weight")
-        if (weight != null && weight.isNotEmpty()) {
+        val weight = SPUtils.getInstance().getInt("weight", 0)
+        if (weight != 0) {
             val text = view?.findViewById<TextView>(R.id.text_weight)
-            text?.text = weight
+            text?.text = weight.toString() + "kg"
         }
         val city = SPUtils.getInstance().getString("city")
         if (city != null && city.isNotEmpty()) {
@@ -127,19 +128,31 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
             val text8= view?.findViewById<TextView>(R.id.text_asset)
             text8?.text = asset
         }
+        photoLayouts = arrayOf(
+            view?.findViewById<RelativeLayout>(R.id.photo1),
+            view?.findViewById<RelativeLayout>(R.id.photo2),
+            view?.findViewById<RelativeLayout>(R.id.photo3),
+            view?.findViewById<RelativeLayout>(R.id.photo4),
+            view?.findViewById<RelativeLayout>(R.id.photo5),
+            view?.findViewById<RelativeLayout>(R.id.photo6)
+        ) as Array<RelativeLayout>
     }
 
     companion object {
         fun newInstance() = ProfileFragment()
     }
     private fun saveText(key: String, text: String) {
-        var value = text
-        if (key == "weight") {
-            value += "kg"
-        } else if (key == "height") {
-            value += "cm"
+        if (key == "weight" || key == "height") {
+            try {
+                val intValue = text.toInt()
+                SPUtils.getInstance().put(key, intValue)
+            } catch (e: NumberFormatException) {
+                e.printStackTrace()
+                SPUtils.getInstance().put(key, 0)
+            }
+        } else {
+            SPUtils.getInstance().put(key, text)
         }
-        SPUtils.getInstance().put(key, value)
         initData()
     }
 
@@ -186,6 +199,10 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
             parentFragmentManager.popBackStack()
             requireActivity().finish()
         }
+        val pre = view?.findViewById<ImageView>(R.id.frame_preview)
+        pre?.setOnClickListener{
+            viewModel?.updateProfile()
+        }
         val layout1 = view?.findViewById<RelativeLayout>(R.id.frame_user)
         layout1?.setOnClickListener{
             showBottomSheetDialog("userNickName")
@@ -213,12 +230,28 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
                     val calendar = Calendar.getInstance()
                     calendar.time = date
                     val year = calendar.get(Calendar.YEAR)
-                    val month = calendar.get(Calendar.MONTH)
-                    val day = calendar.get(Calendar.DAY_OF_MONTH)
-                    val res = "${year}-${month + 1}-${day}"
+                    val month = String.format("%02d", calendar.get(Calendar.MONTH) + 1)
+                    val day = String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH))
+                    val res = "${year}-${month}-${day}"
                     SPUtils.getInstance().put(Constants.SP_USER_BIRTH, res)
                     val text = view?.findViewById<TextView>(R.id.text_birth)
                     text?.text = res
+
+                    val currentCalendar = Calendar.getInstance()
+                    val currentYear = currentCalendar.get(Calendar.YEAR)
+                    val currentMonth = currentCalendar.get(Calendar.MONTH) + 1
+                    val currentDay = currentCalendar.get(Calendar.DAY_OF_MONTH)
+
+                    var age = currentYear - year
+                    if (currentMonth < month.toInt()) {
+                        age--
+                    } else if (currentMonth == month.toInt() && currentDay < day.toInt()) {
+                        age--
+                    }
+                    if (age < 0) {
+                        age = 0
+                    }
+                    SPUtils.getInstance().put("age", age)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

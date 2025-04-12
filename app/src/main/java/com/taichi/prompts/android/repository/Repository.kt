@@ -9,17 +9,13 @@ import com.taichi.prompts.android.repository.data.QuestionAvailableResultVO
 import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import com.taichi.prompts.android.repository.data.QuestionnaireResultVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
-import com.taichi.prompts.android.repository.data.UpdateInfoRequest
-import com.taichi.prompts.android.repository.data.UserBaseDTO
 import com.taichi.prompts.android.repository.data.UserBaseInfoRequest
 import com.taichi.prompts.android.repository.data.UserBaseVO
 import com.taichi.prompts.android.repository.data.UserLoginRequest
-import com.taichi.prompts.android.repository.data.UserLoginResponse
 import com.taichi.prompts.android.repository.data.UserLoginSmsRequest
-import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
+import com.taichi.prompts.android.repository.data.UserLoginVO
 import com.taichi.prompts.android.repository.data.UserProfileRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
-import com.taichi.prompts.android.repository.data.UserRecVO
 import com.taichi.prompts.android.repository.data.UserRecommendRequest
 import com.taichi.prompts.android.repository.data.UserRecommendVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
@@ -74,15 +70,15 @@ object Repository {
     /**
      * 短信登录
      */
-    suspend fun loginMessage(number: String, code : String): UserLoginResponse? {
+    suspend fun loginMessage(number: String, code : String): UserLoginVO? {
         val dataList = UserLoginRequest(number, code, 2)
-        val data: Response<BaseResponse<UserLoginResponse?>> = getDefaultApi().loginMessage(dataList)
+        val data: Response<BaseResponse<UserLoginVO?>> = getDefaultApi().loginMessage(dataList)
         return responseWithHeaderCall(data)
     }
 
-    suspend fun loginWithToken(number: String, token : String): UserLoginResponse? {
+    suspend fun loginWithToken(number: String, token : String): UserLoginVO? {
         val dataList = UserLoginRequest(number, "", 2)
-        val data: Response<BaseResponse<UserLoginResponse?>> = getDefaultApi().loginWithToken(dataList, token)
+        val data: Response<BaseResponse<UserLoginVO?>> = getDefaultApi().loginWithToken(dataList, token)
         return responseWithHeaderCall(data)
     }
 

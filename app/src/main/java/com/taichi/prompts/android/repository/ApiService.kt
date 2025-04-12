@@ -8,8 +8,8 @@ import com.taichi.prompts.android.repository.data.UserBaseInfoRequest
 import com.taichi.prompts.android.repository.data.UserBaseVO
 import com.taichi.prompts.android.repository.data.UserData
 import com.taichi.prompts.android.repository.data.UserLoginRequest
-import com.taichi.prompts.android.repository.data.UserLoginResponse
 import com.taichi.prompts.android.repository.data.UserLoginSmsRequest
+import com.taichi.prompts.android.repository.data.UserLoginVO
 import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
 import com.taichi.prompts.android.repository.data.UserProfileRequest
 import com.taichi.prompts.android.repository.data.UserProfileVO
@@ -85,7 +85,7 @@ interface ApiService {
         @Body userLoginRequest: UserLoginRequest,
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json",
-    ): Response<BaseResponse<UserLoginResponse?>>
+    ): Response<BaseResponse<UserLoginVO?>>
 
     /**
      * 免密登录
@@ -96,7 +96,7 @@ interface ApiService {
         @Header("authorization_token") token: String,
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json",
-    ): Response<BaseResponse<UserLoginResponse?>>
+    ): Response<BaseResponse<UserLoginVO?>>
 
     /**
      * 获取mbti

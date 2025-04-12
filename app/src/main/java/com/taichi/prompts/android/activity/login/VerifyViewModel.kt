@@ -11,15 +11,15 @@ import com.blankj.utilcode.util.ToastUtils
 import com.taichi.prompts.android.common.Constants
 import com.taichi.prompts.android.repository.Repository
 import com.taichi.prompts.android.repository.data.QuestionConfigVO
-import com.taichi.prompts.android.repository.data.UserLoginResponse
+import com.taichi.prompts.android.repository.data.UserLoginVO
 
 import com.taichi.prompts.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 
 class VerifyViewModel(application: Application) : BaseViewModel(application) {
-    private val _openNewActivityEvent = MutableLiveData<UserLoginResponse>()
-    val openNewActivityEvent: LiveData<UserLoginResponse> get() = _openNewActivityEvent
+    private val _openNewActivityEvent = MutableLiveData<UserLoginVO>()
+    val openNewActivityEvent: LiveData<UserLoginVO> get() = _openNewActivityEvent
 
     private val question1 = MutableLiveData<List<QuestionConfigVO>>()
     val question_1: LiveData<List<QuestionConfigVO>> get() = question1
@@ -29,7 +29,7 @@ class VerifyViewModel(application: Application) : BaseViewModel(application) {
 
     fun loginMessage(number: String, code : String) {
         viewModelScope.launch {
-            val data: UserLoginResponse? = Repository.loginMessage(number, code)
+            val data: UserLoginVO? = Repository.loginMessage(number, code)
             if (data != null) {
                 SPUtils.getInstance().put(Constants.SP_USER_PHONE, number)
                 _openNewActivityEvent.value = data

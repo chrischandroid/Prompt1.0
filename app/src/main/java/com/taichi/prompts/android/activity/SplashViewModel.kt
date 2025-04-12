@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.taichi.prompts.android.common.Constants
 import com.taichi.prompts.android.repository.Repository
-import com.taichi.prompts.android.repository.data.UserLoginResponse
+import com.taichi.prompts.android.repository.data.UserLoginVO
 
 import com.taichi.prompts.base.BaseViewModel
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ class SplashViewModel(application: Application) : BaseViewModel(application) {
 
     fun loginWithToken(number: String, token : String) {
         viewModelScope.launch {
-            val data: UserLoginResponse? = Repository.loginWithToken(number, token)
+            val data: UserLoginVO? = Repository.loginWithToken(number, token)
             if (data != null) {
                 _openNewActivityEvent.value = true
             }
