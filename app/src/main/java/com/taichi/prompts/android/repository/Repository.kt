@@ -45,6 +45,10 @@ object Repository {
         return responseCall(data)
     }
 
+    suspend fun getUserDetail(token: String, id: String): UserBaseVO? {
+        val data: BaseResponse<UserBaseVO>? = getDefaultApi().getUserDetail(id, token)
+        return responseCall(data)
+    }
 
     /**
      * 登录

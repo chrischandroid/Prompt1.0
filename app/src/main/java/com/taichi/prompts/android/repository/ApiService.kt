@@ -46,6 +46,17 @@ interface ApiService {
         @Header("authorization_token") token: String,
     ): BaseResponse<UserRecommendVO>?
 
+
+
+    /**
+     * 获取首页详情
+     */
+    @GET(ApiAddress.User_Detail)
+    suspend fun getUserDetail(
+        @Query("userId") id: String,
+        @Header("authorization_token") token: String,
+    ): BaseResponse<UserBaseVO>?
+
     /**
      * 获取问题列表
      */

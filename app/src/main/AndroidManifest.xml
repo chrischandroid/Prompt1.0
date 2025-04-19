@@ -67,6 +67,9 @@
             android:name=".fragment.mine.ProfileActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.home.InfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.home.TabActivity"
             android:exported="true"
             android:label="@string/app_name"

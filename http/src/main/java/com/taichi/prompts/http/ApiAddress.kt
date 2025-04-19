@@ -11,6 +11,8 @@ object ApiAddress {
     //登录
     const val Login = "/userInfo/login"
 
+    const val User_Detail = "/userIndex/getRecommendUserDetail"
+
     //注册
     const val Register = "/userInfo/register"
 

@@ -1,22 +1,27 @@
 package com.taichi.prompts.android.fragment.home
 
+import android.content.Intent
 import android.graphics.Rect
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Visibility
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.taichi.prompts.android.R
 import com.taichi.prompts.android.BR
+import com.taichi.prompts.android.activity.home.InfoActivity
 import com.taichi.prompts.android.adapter.HomeListAdapter
 import com.taichi.prompts.android.databinding.FragmentHomeBinding
 import com.taichi.prompts.android.repository.data.UserProfileMatchVOList
@@ -31,6 +36,7 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),SwipeStack.S
     private val mData = ArrayList<UserRecVO>()
     private lateinit var mSwipeStack: SwipeStack
     private lateinit var mAdapter: SwipeStackAdapter
+    private lateinit var mFab : Button
     private var isDataChanged = false
 
     override fun getLayoutId(): Int {
@@ -50,6 +56,27 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),SwipeStack.S
                 isDataChanged = true
             }
         }
+        viewModel?.recommandData?.observe(viewLifecycleOwner) { info ->
+            if (info != null) {
+                //Toast.makeText(requireContext(), "今日嘉宾"+ info.userNickName + info.height, Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), InfoActivity::class.java)
+                intent.putExtra("name", info.userNickName)
+                intent.putExtra("headImg", info.headImgUrl)
+                intent.putExtra("mbti", info.mbti)
+                intent.putExtra("age", info.age)
+                intent.putExtra("height", info.height)
+                intent.putExtra("weight", info.weight)
+                intent.putExtra("school", info.school)
+                intent.putExtra("career", info.career)
+                intent.putExtra("hometown", info.hometown)
+                intent.putExtra("asset", info.asset)
+                intent.putExtra("about", info.introduction)
+                intent.putExtra("tag", info.personalTags)
+                val imgUrlArrayList = ArrayList(info.showImgUrlList)
+                intent.putExtra("img", imgUrlArrayList)
+                startActivity(intent)
+            }
+        }
     }
 
     override fun onResume() {
@@ -62,6 +89,11 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),SwipeStack.S
         mSwipeStack = binding!!.swipeStack
         mSwipeStack.setAdapter(mAdapter)
         mSwipeStack.setListener(this)
+        mFab = binding!!.fabAdd
+        mFab.setOnClickListener(){
+            val swipedElement = mAdapter.getItem(mSwipeStack.getCurrentPosition())
+            viewModel?.getUserDetail(swipedElement.userId)
+        }
     }
 
     override fun onViewSwipedToLeft(position: Int) {
@@ -73,7 +105,8 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),SwipeStack.S
     }
 
     override fun onStackEmpty() {
-        Toast.makeText(requireContext(), "嘉宾已展示完毕", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "今日嘉宾已展示完毕", Toast.LENGTH_SHORT).show()
+        mFab.visibility = View.INVISIBLE
     }
 
     inner class SwipeStackAdapter(private val mData: List<UserRecVO>) : BaseAdapter() {
@@ -128,6 +161,10 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),SwipeStack.S
                 .into(img)
 
             return view
+        }
+
+        private fun showUserProfile(user: UserRecVO) {
+            Toast.makeText(requireContext(), "展示用户: ${user.userNickName} 的资料", Toast.LENGTH_SHORT).show()
         }
     }
 }
