@@ -1,9 +1,11 @@
 package com.taichi.prompts.android.repository
+import com.blankj.utilcode.util.ApiUtils
 import com.google.gson.stream.JsonToken
 import com.taichi.prompts.android.repository.data.MbtiResultVO
 import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
+import com.taichi.prompts.android.repository.data.UserAdmireRequest
 import com.taichi.prompts.android.repository.data.UserBaseInfoRequest
 import com.taichi.prompts.android.repository.data.UserBaseVO
 import com.taichi.prompts.android.repository.data.UserData
@@ -118,6 +120,16 @@ interface ApiService {
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json"
     ): BaseResponse<MbtiResultVO?>?
+
+    /**
+     * 点赞
+     */
+    @POST(ApiAddress.admire)
+    suspend fun admire(
+        @Body userAdmireRequest: UserAdmireRequest,
+        @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
+        @Header("Content-Type") contentType: String = "application/json"
+    ) : BaseResponse<Boolean>
 
     /**
      * 注册

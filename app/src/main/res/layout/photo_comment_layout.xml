@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp_20"
+    android:layout_marginRight="@dimen/dp_20"
+>
+    <ImageView
+        android:id="@+id/close_button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="14dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/cancel"
+        android:contentDescription="Close dialog" />
+
+    <ImageView
+        android:id="@+id/dialog_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/close_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_marginTop="26dp"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_below="@id/dialog_image"
+        android:background="@drawable/answer_block"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:hint="说点什么吧"
+        android:padding="5dp"
+        android:gravity="top"
+        android:textSize="10sp" />
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/dp_5"
+        android:layout_marginEnd="@dimen/dp_5"
+        android:layout_below="@id/editText"
+        android:text="点赞并发送种子"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:background="@drawable/beginmatch"
+        android:textColor="@android:color/white" />
+</RelativeLayout>

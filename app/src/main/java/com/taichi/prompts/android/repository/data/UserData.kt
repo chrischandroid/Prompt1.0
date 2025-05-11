@@ -211,3 +211,9 @@ data class UserProfileVO(
     val questionnaireMap : Map<String, String>,
     val profileTag : String
 )
+data class UserAdmireRequest(
+    val userId : String,
+    val admireUserId : String,
+    val admireType : Int,
+    val admireFlag : Boolean
+)

@@ -72,6 +72,7 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),SwipeStack.S
                 intent.putExtra("asset", info.asset)
                 intent.putExtra("about", info.introduction)
                 intent.putExtra("tag", info.personalTags)
+                intent.putExtra("userId", info.userId)
                 if (info.showImgUrlList != null) {
                     val imgUrlArrayList = ArrayList(info.showImgUrlList)
                     intent.putExtra("img", imgUrlArrayList)

@@ -9,6 +9,7 @@ import com.taichi.prompts.android.repository.data.QuestionAvailableResultVO
 import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import com.taichi.prompts.android.repository.data.QuestionnaireResultVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
+import com.taichi.prompts.android.repository.data.UserAdmireRequest
 import com.taichi.prompts.android.repository.data.UserBaseInfoRequest
 import com.taichi.prompts.android.repository.data.UserBaseVO
 import com.taichi.prompts.android.repository.data.UserLoginRequest
@@ -84,6 +85,19 @@ object Repository {
         val dataList = UserLoginRequest(number, "", 2)
         val data: Response<BaseResponse<UserLoginVO?>> = getDefaultApi().loginWithToken(dataList, token)
         return responseWithHeaderCall(data)
+    }
+
+    suspend fun admire(userAdmireRequest: UserAdmireRequest) : Boolean? {
+        return try {
+            val data: BaseResponse<Boolean> = getDefaultApi().admire(userAdmireRequest)
+            responseCall(data)
+        } catch (e: HttpException) {
+            Log.e("AdmireError", "HTTP error: ${e.message}")
+            GlobalScope.launch(Dispatchers.Main) {
+                ToastUtils.showShort("服务器内部错误，请稍后重试")
+            }
+            null
+        }
     }
 
     suspend fun getUserMBTI(id: String) : MbtiResultVO? {

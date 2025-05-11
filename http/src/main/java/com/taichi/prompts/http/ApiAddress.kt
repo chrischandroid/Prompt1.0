@@ -15,9 +15,11 @@ object ApiAddress {
 
     //注册
     const val Register = "/userInfo/register"
-
     //注册
     const val SendMsg = "/userRegister/sendMsg"
+
+    //点赞
+    const val admire = "/userInfo/social/admire/save"
 
     //短信登录
     const val LoginMsg = "/userRegister/login"
