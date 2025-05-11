@@ -16,6 +16,7 @@ import com.taichi.prompts.base.BaseActivity
 import com.taichi.prompts.android.databinding.ActivityInfoBinding
 import com.taichi.prompts.android.repository.data.UserAdmireRequest
 import com.blankj.utilcode.util.SPUtils
+import com.taichi.prompts.android.repository.data.UserSocialLikeRequest
 
 class InfoActivity : BaseActivity<ActivityInfoBinding, InfoViewModel>()  {
 
@@ -74,7 +75,7 @@ class InfoActivity : BaseActivity<ActivityInfoBinding, InfoViewModel>()  {
             }
 
             dialogButton.setOnClickListener {
-                viewModel?.admire(UserAdmireRequest(myId, hisId, 1, true))
+                viewModel?.admire(UserSocialLikeRequest(1, 1, hisId, ""))
                 //dialog.dismiss()
             }
             dialog.show()
@@ -101,7 +102,7 @@ class InfoActivity : BaseActivity<ActivityInfoBinding, InfoViewModel>()  {
             }
 
             dialogButton.setOnClickListener {
-                viewModel?.admire(UserAdmireRequest(myId, hisId, 1, true))
+                viewModel?.admire(UserSocialLikeRequest(2, 1, hisId, "good"))
                 //dialog.dismiss()
             }
             dialog.show()
@@ -120,7 +121,7 @@ class InfoActivity : BaseActivity<ActivityInfoBinding, InfoViewModel>()  {
             }
 
             dialogButton.setOnClickListener {
-                viewModel?.admire(UserAdmireRequest(myId, hisId, 1, true))
+                viewModel?.admire(UserSocialLikeRequest(1, 3, hisId, ""))
                 //dialog.dismiss()
             }
             dialog.show()
@@ -139,7 +140,7 @@ class InfoActivity : BaseActivity<ActivityInfoBinding, InfoViewModel>()  {
             }
 
             dialogButton.setOnClickListener {
-                viewModel?.admire(UserAdmireRequest(myId, hisId, 1, true))
+                viewModel?.admire(UserSocialLikeRequest(2, 3, hisId, "true"))
                 //dialog.dismiss()
             }
             dialog.show()

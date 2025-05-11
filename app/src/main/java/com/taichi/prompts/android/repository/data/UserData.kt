@@ -3,7 +3,7 @@ package com.taichi.prompts.android.repository.data
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
-
+import org.w3c.dom.Comment
 
 
 /**
@@ -216,4 +216,11 @@ data class UserAdmireRequest(
     val admireUserId : String,
     val admireType : Int,
     val admireFlag : Boolean
+)
+
+data class UserSocialLikeRequest(
+    val admireModule : Int,
+    val admireType : Int,
+    val oppositeUserId : String,
+    val comment: String
 )

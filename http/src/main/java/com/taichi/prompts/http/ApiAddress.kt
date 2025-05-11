@@ -12,7 +12,7 @@ object ApiAddress {
     const val Login = "/userInfo/login"
 
     const val User_Detail = "/userIndex/getRecommendUserDetail"
-
+    const val updateImg = "/userInfo/cos/uploadImg"
     //注册
     const val Register = "/userInfo/register"
     //注册

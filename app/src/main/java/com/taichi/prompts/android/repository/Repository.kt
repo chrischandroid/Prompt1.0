@@ -21,6 +21,7 @@ import com.taichi.prompts.android.repository.data.UserRecommendRequest
 import com.taichi.prompts.android.repository.data.UserRecommendVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
 import com.taichi.prompts.android.repository.data.UserSimpleInfoRequest
+import com.taichi.prompts.android.repository.data.UserSocialLikeRequest
 import com.taichi.prompts.http.BaseMatchResponse
 import com.taichi.prompts.http.BaseQuestionResponse
 import com.taichi.prompts.http.BaseResponse
@@ -81,13 +82,18 @@ object Repository {
         return responseWithHeaderCall(data)
     }
 
+    suspend fun updateImg(file : String, token : String) : String {
+        val data: BaseResponse<String> = getDefaultApi().updateImg(1, file, token)
+        return responseCall(data).toString()
+    }
+
     suspend fun loginWithToken(number: String, token : String): UserLoginVO? {
         val dataList = UserLoginRequest(number, "", 2)
         val data: Response<BaseResponse<UserLoginVO?>> = getDefaultApi().loginWithToken(dataList, token)
         return responseWithHeaderCall(data)
     }
 
-    suspend fun admire(userAdmireRequest: UserAdmireRequest) : Boolean? {
+    suspend fun admire(userAdmireRequest: UserSocialLikeRequest) : Boolean? {
         return try {
             val data: BaseResponse<Boolean> = getDefaultApi().admire(userAdmireRequest)
             responseCall(data)

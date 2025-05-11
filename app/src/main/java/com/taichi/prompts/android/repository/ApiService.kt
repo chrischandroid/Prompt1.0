@@ -20,6 +20,7 @@ import com.taichi.prompts.android.repository.data.UserRecommendRequest
 import com.taichi.prompts.android.repository.data.UserRecommendVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
 import com.taichi.prompts.android.repository.data.UserSimpleInfoRequest
+import com.taichi.prompts.android.repository.data.UserSocialLikeRequest
 import com.taichi.prompts.http.ApiAddress
 import com.taichi.prompts.http.BaseMatchResponse
 import com.taichi.prompts.http.BaseQuestionResponse
@@ -126,7 +127,7 @@ interface ApiService {
      */
     @POST(ApiAddress.admire)
     suspend fun admire(
-        @Body userAdmireRequest: UserAdmireRequest,
+        @Body userAdmireRequest: UserSocialLikeRequest,
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json"
     ) : BaseResponse<Boolean>
@@ -195,6 +196,18 @@ interface ApiService {
      */
     @POST("")
     suspend fun loginBody(@Body requestBody: RequestBody): BaseResponse<Any>
+
+    /**
+     * post img
+     */
+    @POST(ApiAddress.updateImg)
+    suspend fun updateImg(
+        @Query("fileType") type : Int,
+        @Body file: String,
+        @Header("authorization_token") token: String,
+        @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
+        @Header("Content-Type") contentType: String = "application/json"
+    ): BaseResponse<String>
 }
 
 

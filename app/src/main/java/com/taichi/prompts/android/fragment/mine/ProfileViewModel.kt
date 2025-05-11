@@ -13,9 +13,17 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(application: Application) : BaseViewModel(application) {
     fun updateProfile() {
+        val token = SPUtils.getInstance().getString(Constants.SP_USER_TOKEN)
         val id = SPUtils.getInstance().getString(Constants.SP_USER_ID)
         val name = SPUtils.getInstance().getString("userNickName")
-        val url = SPUtils.getInstance().getString("headImgUrl")
+        var url = SPUtils.getInstance().getString("headImgUrl")
+        if (url != null && url.contains("file:///")) {
+            viewModelScope.launch {
+                val newUrl: String = Repository.updateImg(url, token)
+                SPUtils.getInstance().put("headImgUrl", newUrl)
+                url = newUrl
+            }
+        }
         val cityName = SPUtils.getInstance().getString("city")
         val hometownStr = SPUtils.getInstance().getString("hometown")
         val career = SPUtils.getInstance().getString("career")
@@ -27,7 +35,6 @@ class ProfileViewModel(application: Application) : BaseViewModel(application) {
         val age = SPUtils.getInstance().getInt("age", 0)
         val gender = SPUtils.getInstance().getInt(Constants.SP_USER_GENDER, 1)
         val info = UserBaseInfoRequest(id, name, url, age, birth, 0, gender, cityName, 0, hometownStr, "0", "0", listOf("apple", "banana", "cherry"), school, height, weight, career, "", "", "", asset)
-        val token = SPUtils.getInstance().getString(Constants.SP_USER_TOKEN)
         viewModelScope.launch {
             val data: String = Repository.updateProfile(info, token)
         }
