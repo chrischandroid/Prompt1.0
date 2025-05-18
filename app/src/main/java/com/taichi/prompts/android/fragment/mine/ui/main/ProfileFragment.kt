@@ -2,6 +2,8 @@ package com.taichi.prompts.android.fragment.mine.ui.main
 
 import android.content.Intent
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.text.Spannable
@@ -27,8 +29,12 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.blankj.utilcode.util.SPUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.codbking.widget.DatePickDialog
 import com.codbking.widget.bean.DateType
 import com.github.gzuliyujiang.wheelpicker.AddressPicker
@@ -48,6 +54,10 @@ import com.taichi.prompts.android.repository.Repository.updateProfile
 import com.taichi.prompts.base.AppDatabase
 import com.taichi.prompts.base.AvatarEntity
 import com.taichi.prompts.base.BaseFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -419,15 +429,25 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == AppCompatActivity.RESULT_OK && data != null) {
             val selectedImageUri = data.data
-            selectedImageUri?.let {
-                val privateImagePath = copyImageToPrivateStorage(requireContext(), it)
-                if (privateImagePath != null) {
-                    // 保存新的图片路径到数据库
-                    saveAvatarPathToDatabase(privateImagePath)
+            selectedImageUri?.let { uri ->
+                viewModel?.viewModelScope?.launch(Dispatchers.IO) {
+                    val privateImagePath = copyImageToPrivateStorage(requireContext(), uri)
+                    privateImagePath?.let { originalPath ->
+                        // 压缩图片到1MB以内
+                        val compressedPath = compressImage(requireContext(), originalPath, 1024) ?: originalPath
 
-                    // 显示新的图片
-                    imageView.setImageURI(Uri.fromFile(File(privateImagePath)))
-                    SPUtils.getInstance().put("headImgUrl", Uri.fromFile(File(privateImagePath)).toString())
+                        // 保存压缩后的图片路径到数据库
+                        saveAvatarPathToDatabase(compressedPath)
+
+                        // 更新UI
+                        withContext(Dispatchers.Main) {
+                            loadAvatar()
+                            // 显示压缩后的图片
+                            loadImageWithGlide(compressedPath)
+                        }
+
+                        viewModel?.updateImg(compressedPath)
+                    }
                 }
             }
         }
@@ -481,10 +501,7 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
             avatar?.let {
                 val privateImagePath = it.imagePath
                 requireActivity().runOnUiThread {
-                    val file = File(privateImagePath)
-                    if (file.exists()) {
-                        imageView.setImageURI(Uri.fromFile(file))
-                    }
+                    loadImageWithGlide(privateImagePath)
                 }
             }
         }.start()
@@ -500,7 +517,98 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
         SPUtils.getInstance().put(selectLocation, province?.name+" " + city?.name)
         initData()
     }
+
+    private fun loadImageWithGlide(imagePath: String) {
+        if (binding?.head != null) {
+            val file = File(imagePath)
+            if (file.exists()) {
+                Glide.with(this)
+                    .load(file)
+                    .placeholder(R.drawable.default_img)
+                    .error(R.drawable.default_img)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(RequestOptions().fitCenter())
+                    .into(binding!!.head)
+            } else {
+                val url = SPUtils.getInstance().getString("headImgUrl")
+                Glide.with(this)
+                    .load(url)
+                    .placeholder(R.drawable.default_img)
+                    .error(R.drawable.default_img)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(RequestOptions().fitCenter())
+                    .into(binding!!.head)
+            }
+        }
+    }
+}
+/**
+ * 压缩图片到指定大小以内
+ * @param context 上下文
+ * @param imagePath 原始图片路径
+ * @param maxSize 目标大小（KB）
+ * @return 压缩后的图片路径
+ */
+suspend fun compressImage(context: Context, imagePath: String, maxSize: Int = 1024): String? {
+    return withContext(Dispatchers.IO) {
+        try {
+            // 1. 获取图片尺寸信息
+            val options = BitmapFactory.Options()
+            options.inJustDecodeBounds = true
+            BitmapFactory.decodeFile(imagePath, options)
+
+            // 2. 计算采样率（inSampleSize）
+            val targetWidth = 1080 // 目标宽度，可根据需求调整
+            val targetHeight = 1920 // 目标高度，可根据需求调整
+            options.inSampleSize = calculateInSampleSize(options, targetWidth, targetHeight)
+
+            // 3. 加载图片（按采样率缩放）
+            options.inJustDecodeBounds = false
+            val bitmap = BitmapFactory.decodeFile(imagePath, options) ?: return@withContext null
+
+            // 4. 质量压缩
+            var quality = 100
+            var compressedData: ByteArray? = null
+
+            do {
+                ByteArrayOutputStream().use { baos ->
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos)
+                    compressedData = baos.toByteArray()
+                }
+                quality -= 10 // 每次降低10%质量
+            } while (compressedData?.size?.div(1024) ?: 0 > maxSize && quality > 10)
+
+            // 5. 保存压缩后的图片
+            val compressedFile = File(context.cacheDir, "compressed_${System.currentTimeMillis()}.jpg")
+            compressedData?.let { data ->
+                compressedFile.outputStream().use { it.write(data) }
+                compressedFile.absolutePath
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }
 
+/**
+ * 计算图片采样率
+ */
+private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+    val (height: Int, width: Int) = options.run { outHeight to outWidth }
+    var inSampleSize = 1
+
+    if (height > reqHeight || width > reqWidth) {
+        val halfHeight: Int = height / 2
+        val halfWidth: Int = width / 2
+
+        // 计算最大的inSampleSize值，该值为2的幂次方，且使图片尺寸大于等于目标尺寸
+        while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
+            inSampleSize *= 2
+        }
+    }
+
+    return inSampleSize
+}
 
 

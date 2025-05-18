@@ -29,8 +29,12 @@ import com.taichi.prompts.http.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.HttpException
 import retrofit2.Response
+import java.io.File
 
 object Repository {
     private const val Success_Code = 0
@@ -82,8 +86,12 @@ object Repository {
         return responseWithHeaderCall(data)
     }
 
-    suspend fun updateImg(file : String, token : String) : String {
-        val data: BaseResponse<String> = getDefaultApi().updateImg(1, file, token)
+    suspend fun updateImg(filePath : String, token : String) : String {
+        val file = File(filePath)
+        val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+        val filePart = MultipartBody.Part.createFormData("file", file.name, requestFile)
+        val fileTypeBody = RequestBody.create(MediaType.parse("text/plain"), "1")
+        val data: BaseResponse<String> = getDefaultApi().updateImg(token, filePart, fileTypeBody)
         return responseCall(data).toString()
     }
 

@@ -25,6 +25,7 @@ import com.taichi.prompts.http.ApiAddress
 import com.taichi.prompts.http.BaseMatchResponse
 import com.taichi.prompts.http.BaseQuestionResponse
 import com.taichi.prompts.http.BaseResponse
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -34,7 +35,9 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -200,13 +203,13 @@ interface ApiService {
     /**
      * post img
      */
+    @Multipart
     @POST(ApiAddress.updateImg)
     suspend fun updateImg(
-        @Query("fileType") type : Int,
-        @Body file: String,
         @Header("authorization_token") token: String,
-        @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
-        @Header("Content-Type") contentType: String = "application/json"
+        @Part file: MultipartBody.Part,
+        @Part("fileType") fileType: RequestBody,
+        @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)"
     ): BaseResponse<String>
 }
 
