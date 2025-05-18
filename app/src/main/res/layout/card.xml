@@ -44,7 +44,7 @@
                     android:layout_height="295.12dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="51.66dp"
+                    android:layout_marginTop="61.66dp"
                     app:cardCornerRadius="16dp">
                     <ImageView
                         android:id="@+id/headImg"

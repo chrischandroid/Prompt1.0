@@ -498,6 +498,18 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
     private fun loadAvatar() {
         Thread {
             val avatar = database.avatarDao().getAvatar()
+            if (avatar == null) {
+                requireActivity().runOnUiThread {
+                    val url = SPUtils.getInstance().getString("headImgUrl")
+                    Glide.with(this)
+                        .load(url)
+                        .placeholder(R.drawable.default_img)
+                        .error(R.drawable.default_img)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .apply(RequestOptions().fitCenter())
+                        .into(binding!!.headImg)
+                }
+            }
             avatar?.let {
                 val privateImagePath = it.imagePath
                 requireActivity().runOnUiThread {

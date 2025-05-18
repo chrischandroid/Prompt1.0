@@ -65,6 +65,18 @@ class FragMine : BaseFragment<FragmentMineBinding, MineViewModel>() {
     private fun loadAvatar() {
         Thread {
             val avatar = database.avatarDao().getAvatar()
+            if (avatar == null) {
+                requireActivity().runOnUiThread {
+                    val url = SPUtils.getInstance().getString("headImgUrl")
+                    Glide.with(this)
+                        .load(url)
+                        .placeholder(R.drawable.default_img)
+                        .error(R.drawable.default_img)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .apply(RequestOptions().fitCenter())
+                        .into(binding!!.headImg)
+                }
+            }
             avatar?.let {
                 val privateImagePath = it.imagePath
                 requireActivity().runOnUiThread {
@@ -93,8 +105,9 @@ class FragMine : BaseFragment<FragmentMineBinding, MineViewModel>() {
                     .apply(RequestOptions().fitCenter())
                     .into(binding!!.headImg)
             } else {
+                val url = SPUtils.getInstance().getString("headImgUrl")
                 Glide.with(this)
-                    .load(R.drawable.default_img)
+                    .load(url)
                     .placeholder(R.drawable.default_img)
                     .error(R.drawable.default_img)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)

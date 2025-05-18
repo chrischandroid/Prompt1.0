@@ -44,7 +44,8 @@ object Repository {
     suspend fun getHomeList(token: String, type : Int): UserRecommendVO? {
         val userProfileMatchRequest = UserRecommendRequest(
             1, mutableMapOf(
-                "ageMin" to "18"
+                "ageMin" to "18",
+                "ageMax" to "80"
             ), 0, 20
         )
         val data: BaseResponse<UserRecommendVO>? = getDefaultApi().homeList(userProfileMatchRequest, token)
@@ -101,9 +102,9 @@ object Repository {
         return responseWithHeaderCall(data)
     }
 
-    suspend fun admire(userAdmireRequest: UserSocialLikeRequest) : Boolean? {
+    suspend fun admire(userAdmireRequest: UserSocialLikeRequest, token: String) : Boolean? {
         return try {
-            val data: BaseResponse<Boolean> = getDefaultApi().admire(userAdmireRequest)
+            val data: BaseResponse<Boolean> = getDefaultApi().admire(userAdmireRequest, token)
             responseCall(data)
         } catch (e: HttpException) {
             Log.e("AdmireError", "HTTP error: ${e.message}")

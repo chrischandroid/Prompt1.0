@@ -163,7 +163,7 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),SwipeStack.S
                 .placeholder(R.drawable.default_profile)
                 .error(R.drawable.default_profile)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .apply(RequestOptions().fitCenter())
+                .apply(RequestOptions.centerCropTransform())
                 .into(img)
 
             return view

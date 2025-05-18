@@ -131,6 +131,7 @@ interface ApiService {
     @POST(ApiAddress.admire)
     suspend fun admire(
         @Body userAdmireRequest: UserSocialLikeRequest,
+        @Header("authorization_token") token: String,
         @Header("User-Agent") userAgent: String = "Apifox/1.0.0 (https://apifox.com)",
         @Header("Content-Type") contentType: String = "application/json"
     ) : BaseResponse<Boolean>
