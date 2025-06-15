@@ -70,13 +70,6 @@
                     android:padding="@dimen/dp_10"
                     android:textColor="#80867D"
                     android:gravity="center_vertical|start" />
-
-                <ImageView
-                    android:id="@+id/headImg"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/img"
-                    android:scaleType="centerCrop" />
             </LinearLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -99,7 +92,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <ImageView
-                            android:id="@+id/head"
+                            android:id="@+id/headImg"
                             android:layout_height="match_parent"
                             android:layout_width="match_parent"
                             android:scaleType="centerCrop"

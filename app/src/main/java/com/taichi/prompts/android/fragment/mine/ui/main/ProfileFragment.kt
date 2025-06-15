@@ -531,7 +531,7 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
     }
 
     private fun loadImageWithGlide(imagePath: String) {
-        if (binding?.head != null) {
+        if (binding?.headImg != null) {
             val file = File(imagePath)
             if (file.exists()) {
                 Glide.with(this)
@@ -540,7 +540,7 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
                     .error(R.drawable.default_img)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .apply(RequestOptions().fitCenter())
-                    .into(binding!!.head)
+                    .into(binding!!.headImg)
             } else {
                 val url = SPUtils.getInstance().getString("headImgUrl")
                 Glide.with(this)
@@ -549,7 +549,7 @@ class ProfileFragment : BaseFragment<FragmentProfileviewBinding, ProfileViewMode
                     .error(R.drawable.default_img)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .apply(RequestOptions().fitCenter())
-                    .into(binding!!.head)
+                    .into(binding!!.headImg)
             }
         }
     }

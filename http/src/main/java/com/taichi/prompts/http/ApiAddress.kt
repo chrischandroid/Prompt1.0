@@ -4,7 +4,7 @@ object ApiAddress {
 
     //首页
     const val Match_List = "/userIndex/recommend"
-
+    const val Seed_List = "/user/social/getSeedList"
     //问题列表
     const val Question_List = "/lingqi/config/getQuestionList"
 

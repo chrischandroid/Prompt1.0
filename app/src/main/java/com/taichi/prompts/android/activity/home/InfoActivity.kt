@@ -14,7 +14,6 @@ import com.taichi.prompts.android.BR
 import com.taichi.prompts.android.common.Constants
 import com.taichi.prompts.base.BaseActivity
 import com.taichi.prompts.android.databinding.ActivityInfoBinding
-import com.taichi.prompts.android.repository.data.UserAdmireRequest
 import com.blankj.utilcode.util.SPUtils
 import com.taichi.prompts.android.repository.data.UserSocialLikeRequest
 

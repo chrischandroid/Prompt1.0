@@ -224,3 +224,14 @@ data class UserSocialLikeRequest(
     val oppositeUserId : String,
     val comment: String
 )
+
+data class UserSeedVO(
+    val seedId : Long,
+    val headImgUrl: String,
+    val nickName : String,
+    val oppositeUserId: String,
+    val age: Int,
+    val admireOptType : Int,
+    val seedEndTime : Long,
+    val seedStatus : Int
+)

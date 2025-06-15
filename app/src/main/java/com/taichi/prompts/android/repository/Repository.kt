@@ -20,6 +20,7 @@ import com.taichi.prompts.android.repository.data.UserProfileVO
 import com.taichi.prompts.android.repository.data.UserRecommendRequest
 import com.taichi.prompts.android.repository.data.UserRecommendVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
+import com.taichi.prompts.android.repository.data.UserSeedVO
 import com.taichi.prompts.android.repository.data.UserSimpleInfoRequest
 import com.taichi.prompts.android.repository.data.UserSocialLikeRequest
 import com.taichi.prompts.http.BaseMatchResponse
@@ -49,6 +50,11 @@ object Repository {
             ), 0, 20
         )
         val data: BaseResponse<UserRecommendVO>? = getDefaultApi().homeList(userProfileMatchRequest, token)
+        return responseCall(data)
+    }
+
+    suspend fun getSeedList(seedType : Int, token: String): List<UserSeedVO>? {
+        val data: BaseResponse<List<UserSeedVO>>? = getDefaultApi().getSeedList(seedType, token)
         return responseCall(data)
     }
 

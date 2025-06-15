@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="seedVm"
+            type="com.taichi.prompts.android.fragment.mine.SeedViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.ProfileFragment">
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/frame_984"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="@dimen/dp_20"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/frame_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back"
+                android:layout_alignParentLeft="true">
+            </ImageView>
+        </RelativeLayout>
+
+
+        <View
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/frame_984"
+            />
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/empty_view"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="25dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp">
+                    <TextView
+                        android:id="@+id/spanner1"
+                        android:layout_width="335dp"
+                        android:layout_height="wrap_content"
+                        android:text="聪明善良嘟嘟狗123"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:padding="@dimen/dp_10"
+                        android:textColor="#000000"
+                        android:gravity="center_vertical|start" />
+                </LinearLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/img"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="16dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintDimensionRatio="1:1">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:id="@+id/headImg"
+                                android:layout_height="match_parent"
+                                android:layout_width="match_parent"
+                                android:scaleType="centerCrop"
+                                android:background="@drawable/img"/>
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/empty_view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toBottomOf="@+id/frame43"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp"/>
+
+                <LinearLayout
+                    android:id="@+id/frame_985"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/question_background"
+                    android:gravity="center">
+
+                    <FrameLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:id="@+id/frame_16244"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_margin="25dp">
+
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/frame_16245"
+                                android:layout_width="match_parent"
+                                android:layout_height="24dp"
+                                android:orientation="horizontal">
+
+
+                                <TextView
+                                    android:id="@+id/textViewLeft"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start"
+                                    android:text="你最喜欢的哲学家是?"
+                                    android:textColor="#80867D"
+                                    android:textStyle="bold" />
+
+
+                                <Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1" />
+
+
+                            </LinearLayout>
+                            <View
+                                android:id="@+id/empty_vieew"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                app:layout_constraintTop_toBottomOf="@+id/frame_984"
+                                />
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/frame_168245"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+
+                                <RelativeLayout
+                                    android:id="@+id/input_deful1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentTop="true"
+                                    android:background="@drawable/edit_text">
+
+                                    <TextView
+                                        android:id="@+id/editans"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:padding="@dimen/dp_10"
+                                        android:text="请回答"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold"
+                                        android:visibility="visible"></TextView>
+                                </RelativeLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/button_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:background="#FFFFFF"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="26dp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/cancel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="20dp"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toEndOf="@+id/button1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/button1"
+                app:layout_constraintBottom_toBottomOf="@+id/button1"
+                app:layout_constraintHorizontal_bias="0.0"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

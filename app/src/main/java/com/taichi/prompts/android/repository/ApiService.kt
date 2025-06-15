@@ -19,6 +19,7 @@ import com.taichi.prompts.android.repository.data.UserRecVO
 import com.taichi.prompts.android.repository.data.UserRecommendRequest
 import com.taichi.prompts.android.repository.data.UserRecommendVO
 import com.taichi.prompts.android.repository.data.UserRegisterDTO
+import com.taichi.prompts.android.repository.data.UserSeedVO
 import com.taichi.prompts.android.repository.data.UserSimpleInfoRequest
 import com.taichi.prompts.android.repository.data.UserSocialLikeRequest
 import com.taichi.prompts.http.ApiAddress
@@ -52,7 +53,11 @@ interface ApiService {
         @Header("authorization_token") token: String,
     ): BaseResponse<UserRecommendVO>?
 
-
+    @GET(ApiAddress.Seed_List)
+    suspend fun getSeedList(
+        @Query("seedType") type: Int,
+        @Header("authorization_token") token: String,
+    ): BaseResponse<List<UserSeedVO>>?
 
     /**
      * 获取首页详情
