@@ -158,9 +158,13 @@ object Repository {
     /**
      * 获取SigId
      */
-    suspend fun getUserSig(id : String) : String {
-        val data: BaseResponse<String> = getDefaultApi().getUserSig(id)
-        return responseCall(data).toString()
+    suspend fun getUserSig(token : String) : String {
+        try {
+            val data: BaseResponse<String> = getDefaultApi().getUserSig(token)
+            return responseCall(data).toString()
+        } catch (e : HttpException) {
+            return ""
+        }
     }
 
     /**
@@ -239,10 +243,7 @@ object Repository {
         if (response.getErrCode() == "200") {
             return response.getData()
         } else  {
-            Log.e("Network", "post fail" + response.getErrMsg())
-            GlobalScope.launch(Dispatchers.Main) {
-                ToastUtils.showShort("请求异常" + response.getErrCode() + response.getErrMsg() ?: "")
-            }
+            Log.e("Network", "postfail--" + response.getErrMsg())
             return null
         }
     }

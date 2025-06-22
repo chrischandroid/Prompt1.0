@@ -108,6 +108,8 @@ class VerifyActivity : BaseActivity<ActivityVerifyBinding, VerifyViewModel>() {
                 SPUtils.getInstance().put("age", event.userBaseVO.age)
                 SPUtils.getInstance().put("weight", event.userBaseVO.weight)
                 SPUtils.getInstance().put("height", event.userBaseVO.height)
+                val token = SPUtils.getInstance().getString(Constants.SP_USER_TOKEN)
+                viewModel?.getUserSig(token)
             }
             if (event.userBaseVO != null &&  event.userBaseVO.userNickName != null && event.userBaseVO.userNickName.length > 0) {
                 val intent = Intent(this@VerifyActivity, CompleteGuideActivity::class.java)

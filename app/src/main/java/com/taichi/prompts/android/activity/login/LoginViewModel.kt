@@ -64,7 +64,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         viewModelScope.launch {
             val userSig: String = Repository.getUserSig(data)
             if (userSig.length > 0) {
-                Log.e("TAG", "SIG-------------------"+ userSig)
+                Log.e("TUI", "SIG"+ userSig)
                 SPUtils.getInstance().put(Constants.SP_USER_SID, userSig)
             }
         }

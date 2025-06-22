@@ -50,4 +50,14 @@ class VerifyViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+    fun getUserSig(token : String) {
+        viewModelScope.launch {
+            val userSig: String = Repository.getUserSig(token)
+            if (userSig.length > 0) {
+                Log.e("TUI", "SIG---"+ userSig)
+                SPUtils.getInstance().put(Constants.SP_USER_SID, userSig)
+            }
+        }
+    }
+
 }
