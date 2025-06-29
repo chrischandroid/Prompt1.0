@@ -235,3 +235,17 @@ data class UserSeedVO(
     val seedEndTime : Long,
     val seedStatus : Int
 )
+data class AdmireModuleVO(
+    val admireModuleType : Int,
+    val admireModuleContent : String,
+    val admireComment : String
+)
+
+data class SeedFromUserVO(
+    val seedId : Long,
+    val headImgUrl: String,
+    val nickName : String,
+    val admireModuleVO : AdmireModuleVO,
+    val promptQuestion : String,
+    val propmtAnswer : String
+)

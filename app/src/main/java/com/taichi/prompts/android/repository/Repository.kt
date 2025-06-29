@@ -9,6 +9,7 @@ import com.taichi.prompts.android.repository.data.QuestionAvailableResultVO
 import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import com.taichi.prompts.android.repository.data.QuestionnaireResultVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
+import com.taichi.prompts.android.repository.data.SeedFromUserVO
 import com.taichi.prompts.android.repository.data.UserAdmireRequest
 import com.taichi.prompts.android.repository.data.UserBaseInfoRequest
 import com.taichi.prompts.android.repository.data.UserBaseVO
@@ -404,4 +405,8 @@ object Repository {
         }
     }
 
+    suspend fun getSeedFromUser(id: String, i: Long) : SeedFromUserVO? {
+        val data : BaseResponse<SeedFromUserVO?> = getDefaultApi().getSeedFromUser(id, i)
+        return responseCall(data)
+    }
 }

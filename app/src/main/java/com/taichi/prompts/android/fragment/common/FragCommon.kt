@@ -66,6 +66,7 @@ class FragCommon : BaseFragment<FragmentCommonBinding, CommonListViewModel>() {
         adapter = PhotoAdapter()
         adapter.setOnItemClickListener { item ->
             val intent = Intent(requireContext(), SeedActivity::class.java)
+            intent.putExtra("seedId", item.seedId)
             intent.putExtra("oppositeUserId", item.oppositeUserId)
             // 传递数据到新Activity
             startActivity(intent)

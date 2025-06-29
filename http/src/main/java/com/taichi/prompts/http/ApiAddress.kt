@@ -42,5 +42,7 @@ object ApiAddress {
     //获取MBTI
     const val GetMBTI = "/userProfile/getUserMBTI"
 
+    const val Seed_Detail = "/user/social/getSeedFromUser"
+
 
 }

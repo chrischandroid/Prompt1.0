@@ -4,6 +4,7 @@ import com.google.gson.stream.JsonToken
 import com.taichi.prompts.android.repository.data.MbtiResultVO
 import com.taichi.prompts.android.repository.data.QuestionConfigVO
 import com.taichi.prompts.android.repository.data.RegisterRequest
+import com.taichi.prompts.android.repository.data.SeedFromUserVO
 import com.taichi.prompts.android.repository.data.UpdateInfoRequest
 import com.taichi.prompts.android.repository.data.UserAdmireRequest
 import com.taichi.prompts.android.repository.data.UserBaseInfoRequest
@@ -78,6 +79,11 @@ interface ApiService {
         @Query("profileType") param2: Int
     ): BaseResponse<List<QuestionConfigVO>?>
 
+    @GET(ApiAddress.Seed_Detail)
+    suspend fun getSeedFromUser(
+        @Header("authorization_token") token: String,
+        @Query("seedId") param1: Long,
+    ): BaseResponse<SeedFromUserVO?>
 
     /**
      * 登录
