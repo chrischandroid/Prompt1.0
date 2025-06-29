@@ -75,7 +75,7 @@ class InfoActivity : BaseActivity<ActivityInfoBinding, InfoViewModel>()  {
 
             dialogButton.setOnClickListener {
                 viewModel?.admire(UserSocialLikeRequest(1, 1, hisId, ""))
-                //dialog.dismiss()
+                dialog.dismiss()
             }
             dialog.show()
         }
@@ -102,7 +102,7 @@ class InfoActivity : BaseActivity<ActivityInfoBinding, InfoViewModel>()  {
 
             dialogButton.setOnClickListener {
                 viewModel?.admire(UserSocialLikeRequest(2, 1, hisId, "good"))
-                //dialog.dismiss()
+                dialog.dismiss()
             }
             dialog.show()
         }
@@ -121,7 +121,7 @@ class InfoActivity : BaseActivity<ActivityInfoBinding, InfoViewModel>()  {
 
             dialogButton.setOnClickListener {
                 viewModel?.admire(UserSocialLikeRequest(1, 3, hisId, ""))
-                //dialog.dismiss()
+                dialog.dismiss()
             }
             dialog.show()
         }
@@ -140,7 +140,7 @@ class InfoActivity : BaseActivity<ActivityInfoBinding, InfoViewModel>()  {
 
             dialogButton.setOnClickListener {
                 viewModel?.admire(UserSocialLikeRequest(2, 3, hisId, "true"))
-                //dialog.dismiss()
+                dialog.dismiss()
             }
             dialog.show()
         }
