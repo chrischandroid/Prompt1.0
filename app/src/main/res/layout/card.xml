@@ -19,7 +19,7 @@
         <RelativeLayout
             android:id="@+id/frame_984"
             android:layout_width="335dp"
-            android:layout_height="497dp"
+            android:layout_height="500dp"
             android:background="@drawable/framecard">
             <RelativeLayout
                 android:id="@+id/frame_16244"
@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="你最喜欢的哲学家是？"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:textColor="#161916"
                     android:textAppearance="@style/some_id"
                     android:gravity="top"
@@ -44,7 +44,7 @@
                     android:layout_height="295.12dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="61.66dp"
+                    android:layout_marginTop="71.66dp"
                     app:cardCornerRadius="16dp">
                     <ImageView
                         android:id="@+id/headImg"
@@ -109,6 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="1dp"
+                    android:layout_marginTop="4dp"
                     android:layout_height="62dp">
                     <RelativeLayout
                         android:id="@+id/frame_91184"

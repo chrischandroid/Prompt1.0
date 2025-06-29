@@ -46,5 +46,8 @@ class SeedActivity : BaseActivity<ActivitySeedBinding, SeedViewModel>()  {
         binding?.button1?.setOnClickListener {
             finish()
         }
+        binding?.frameBack?.setOnClickListener {
+            finish()
+        }
     }
 }

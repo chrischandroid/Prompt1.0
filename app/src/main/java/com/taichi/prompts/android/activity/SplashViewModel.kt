@@ -22,7 +22,7 @@ class SplashViewModel(application: Application) : BaseViewModel(application) {
 
     fun loginWithToken(number: String, token : String) {
         viewModelScope.launch {
-            val data: UserLoginVO? = Repository.loginWithToken(number, token)
+            val data: com.taichi.prompts.android.repository.data.UserRecommendVO? = Repository.getHomeList(token, 300)
             if (data != null) {
                 _openNewActivityEvent.value = true
             }
